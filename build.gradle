@@ -7,7 +7,9 @@
  */
 
 // Apply the java-library plugin to add support for Java Library
+apply plugin: 'eclipse'
 apply plugin: 'java-library'
+apply plugin: 'java'
 apply plugin: "war"
 
 // In this section you declare where to find the dependencies of your project
@@ -22,14 +24,15 @@ repositories
 dependencies
 {
 	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
-	compile group: 'org.springframework', name: 'spring-core', version: '5.0.2.RELEASE'
-	compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.2.RELEASE'
-	compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.2.RELEASE'
+	compile group: 'org.springframework', name: 'spring-core', version: '5.0.3.RELEASE'
+	compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.3.RELEASE'
+	compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.3.RELEASE'
+	compile group: 'org.springframework', name: 'spring-context', version: '5.0.3.RELEASE'
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.3'
 	compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'
-	compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.0.0.RELEASE'
+	compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.0.1.RELEASE'
 		
-	testCompile group: 'org.springframework', name: 'spring-test', version: '5.0.2.RELEASE'
+	testCompile group: 'org.springframework', name: 'spring-test', version: '5.0.3.RELEASE'
 	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.9.RELEASE'
 	testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
 	
