@@ -5,3 +5,5 @@
 /build
 /vpproject
 /gradle
+.classpath
+.tomcatplugin
