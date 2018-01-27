@@ -11,67 +11,6 @@
     <mavenClasspath>false</mavenClasspath>
     <webPath></webPath>
     <webClassPathEntries>
-        <webClassPathEntry>/course_load_scheduler/bin</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/charsets.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/access-bridge-64.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/cldrdata.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/dnsns.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/jaccess.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/jfxrt.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/localedata.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/nashorn.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/sunec.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/sunjce_provider.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/sunmscapi.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/sunpkcs11.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/ext/zipfs.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/jce.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/jfr.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/jsse.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/resources.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Program Files/Java/jre1.8.0_151/lib/rt.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.9.0/7c10d545325e3a6e72e06381afe469fd40eb701/jackson-annotations-2.9.0.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.9.3/ea9b6fc7bc3ccba9777b0827091f9aa1f8580371/jackson-core-2.9.3.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.9.3/193b96ef555b2f2573b576887ba9a93e4bf48e8c/jackson-databind-2.9.3.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/1.3.9/40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf/jsr305-1.3.9.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.0.18/5f65affce1684999e2f4024983835efc3504012e/error_prone_annotations-2.0.18.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/23.0/c947004bb13d18182be60077ade044099e4f26f1/guava-23.0.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/1.1/976d8d30bebc251db406f2bdb3eb01962b5685b3/j2objc-annotations-1.1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/com.jayway.jsonpath/json-path/2.2.0/22290d17944bd239fabf5ac69005a60a7ecbbbcb/json-path-2.2.0.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/javax.servlet/javax.servlet-api/4.0.0/60200affc2fe0165136ed3690faf00b66aed581a/javax.servlet-api-4.0.0.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/log4j/log4j/1.2.17/5af35056b4d257e4b64b9e8069c0746e8b08629f/log4j-1.2.17.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/net.minidev/accessors-smart/1.1/a527213f2fea112a04c9bdf0ec0264e34104cd08/accessors-smart-1.1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/net.minidev/json-smart/2.2.1/5b9e5df7a62d1279b70dc882b041d249c4f0b002/json-smart-2.2.1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math3/3.6.1/e4ba98f1d4b3c80ec46392f25e094a6a2e58fcbf/commons-math3-3.6.1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.assertj/assertj-core/2.6.0/b532c3fc4f66bcfee4989a3514f1cd56203a33ad/assertj-core-2.6.0.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.14/775b7e22fb10026eed3f86e8dc556dfafe35f2d5/animal-sniffer-annotations-1.14.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-library/1.3/4785a3c21320980282f9f33d0d1264a69040538f/hamcrest-library-1.3.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/1.10.19/e8546f5bef4e061d8dd73895b4e8f40e3fe6effe/mockito-core-1.10.19.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/2.1/87c0ea803b69252868d09308b4618f766f135a96/objenesis-2.1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/5.0.3/dcc2193db20e19e1feca8b1240dbbc4e190824fa/asm-5.0.3.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.postgresql/postgresql/42.1.4/1c7788d16b67d51f2f38ae99e474ece968bf715a/postgresql-42.1.4.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.skyscreamer/jsonassert/1.4.0/9cdbb373a06f6513e51e8c545ee6a5e981463edb/jsonassert-1.4.0.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/da76ca59f6a57ee3102f8f9bd9cee742973efa8a/slf4j-api-1.7.25.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-log4j12/1.7.25/110cefe2df103412849d72ef7a67e4e91e4266b4/slf4j-log4j12-1.7.25.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure/1.5.9.RELEASE/88dd18bdaf317ae40971573a051fd47265f2ed39/spring-boot-autoconfigure-1.5.9.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-test/1.5.9.RELEASE/b5adf6fbf53be00b7ae52f657d564122edbe5156/spring-boot-starter-test-1.5.9.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-test-autoconfigure/1.5.9.RELEASE/b428495e25b0531b2a977f51c5d29011c817b8ee/spring-boot-test-autoconfigure-1.5.9.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-test/1.5.9.RELEASE/7e604d56325f04a8b89a280e647746fc69e5a21f/spring-boot-test-1.5.9.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/1.5.9.RELEASE/f472cdf948288796fb31e0bb03f6e7b022b763a0/spring-boot-1.5.9.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/5.0.2.RELEASE/4d49aa2cff33be79da99413e28a905898600ccaa/spring-aop-5.0.2.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/5.0.2.RELEASE/301ee07b390bc8b5691f4206411b49beb06f7ff2/spring-beans-5.0.2.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/5.0.2.RELEASE/743a5f6d94a8af5759e6e70c360a7b4a47a704c/spring-context-5.0.2.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/5.0.2.RELEASE/45b2958ab3fb022dd29f8b1c553ebf1c75a144aa/spring-core-5.0.2.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/5.0.2.RELEASE/246bf50b5b46379041d333b4a46a01a7aea0b788/spring-expression-5.0.2.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jcl/5.0.2.RELEASE/212a0bdd54e026641cf527aeb8e578f86e402bf1/spring-jcl-5.0.2.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/5.0.2.RELEASE/5efc255d4073cfa639ecf8e92f162528519f9dd3/spring-jdbc-5.0.2.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/5.0.2.RELEASE/a6fdd26c9a21958134522a5232e9f23929985f9/spring-test-5.0.2.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/5.0.2.RELEASE/38ef30ad6e34b5004c8955685b6a7ea753717b7d/spring-tx-5.0.2.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/5.0.2.RELEASE/eea8edef792fb93c1c55cc61078ce14ffb3542df/spring-web-5.0.2.RELEASE.jar</webClassPathEntry>
-        <webClassPathEntry>C:/Users/dselent/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/5.0.2.RELEASE/8dbe4a28cae3ffa222aeff6776a3928a88d66e6f/spring-webmvc-5.0.2.RELEASE.jar</webClassPathEntry>
         <webClassPathEntry>org.eclipse.buildship.core.gradleclasspathcontainer</webClassPathEntry>
         <webClassPathEntry>org.eclipse.jst.j2ee.internal.web.container</webClassPathEntry>
     </webClassPathEntries>
