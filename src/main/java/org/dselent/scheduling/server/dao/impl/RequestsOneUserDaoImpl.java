@@ -22,7 +22,7 @@ public class RequestsOneUserDaoImpl implements RequestsOneUserDao{
 	@Override
 	public List<RequestTables> getOneUserRequestsInfo(int userId){
 		RequestTablesExtractor extractor = new RequestTablesExtractor();
-		String queryTemplate = new String(QueryPathConstants.USERS_WITH_ROLE_QUERY);
+		String queryTemplate = new String(QueryPathConstants.REQUESTS_ONE_USER_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("userId", userId);
 		List<RequestTables> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);

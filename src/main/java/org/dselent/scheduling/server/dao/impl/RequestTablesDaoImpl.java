@@ -22,7 +22,7 @@ public class RequestTablesDaoImpl implements RequestTablesDao{
 	@Override
 	public List<RequestTables> getAllRequestsInfo(){
 		RequestTablesExtractor extractor = new RequestTablesExtractor();
-		String queryTemplate = new String(QueryPathConstants.USERS_WITH_ROLE_QUERY);
+		String queryTemplate = new String(QueryPathConstants.REQUEST_TABLES_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		//No parameters for this, since it returns all requests, so do not actually fill parameters
 		List<RequestTables> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);

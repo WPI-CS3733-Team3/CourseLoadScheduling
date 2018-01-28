@@ -88,8 +88,6 @@ public class SectionsInfoExtractor extends Extractor<List<SectionsInfo>>{
 		
 		return resultList;
 	
-	}
-
-	
+	}	
 	
 }

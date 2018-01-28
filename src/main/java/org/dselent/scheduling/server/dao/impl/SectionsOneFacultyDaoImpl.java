@@ -22,9 +22,9 @@ public class SectionsOneFacultyDaoImpl implements SectionsOneFacultyDao {
 	@Override
 	public List<SectionsInfo> getOneFacultySectionsInfo(int facultyId){
 		SectionsInfoExtractor extractor = new SectionsInfoExtractor();
-		String queryTemplate = new String(QueryPathConstants.USERS_WITH_ROLE_QUERY);
+		String queryTemplate = new String(QueryPathConstants.SECTIONS_ONE_FACULTY_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
-		//No parameters for this, since it returns all requests, so do not actually fill parameters
+		parameters.addValue("facultyId", facultyId);
 		List<SectionsInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
 		return fullRequestTablesList;
 	}
