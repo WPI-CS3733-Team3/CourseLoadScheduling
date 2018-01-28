@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.model.AccountType;
-import org.dselent.scheduling.server.model.AccountType.Columns;
-
 
 public class AccountTypeExtractor extends Extractor<List<AccountType>>{
 	@Override
