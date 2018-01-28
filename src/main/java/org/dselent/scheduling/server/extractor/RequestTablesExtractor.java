@@ -19,7 +19,16 @@ public class RequestTablesExtractor extends Extractor<List<RequestTables>>{
 			RequestTables result = new RequestTables();
 				
 			result.setRequestsId(rs.getInt(RequestTables.getColumnName(RequestTables.Columns.REQUESTS_ID)));
+			if(rs.wasNull())
+			{
+				result.setRequestsId(null);
+			}
+			
 			result.setRequestsUserId(rs.getInt(RequestTables.getColumnName(RequestTables.Columns.REQUESTS_USER_ID)));
+			if(rs.wasNull())
+			{
+				result.setRequestsUserId(null);
+			}
 			
 			result.setTermsName(rs.getString(RequestTables.getColumnName(RequestTables.Columns.TERMS_NAME)));
 			if(rs.wasNull())
@@ -58,7 +67,12 @@ public class RequestTablesExtractor extends Extractor<List<RequestTables>>{
 			}
 			
 			result.setRequestStatus(rs.getString(RequestTables.getColumnName(RequestTables.Columns.REQUEST_STATUS)));
-						
+			if(rs.wasNull())
+			{
+				result.setRequestStatus(null);
+			}	
+			
+			
 			resultList.add(result);
 		}
 			

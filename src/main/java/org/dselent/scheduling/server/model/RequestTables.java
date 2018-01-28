@@ -159,7 +159,6 @@ public class RequestTables extends Model{
 		this.requestStatus = requestStatus;
 	}
 
-	//hashCode and equals
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -178,58 +177,79 @@ public class RequestTables extends Model{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof RequestTables)) {
 			return false;
+		}
 		RequestTables other = (RequestTables) obj;
 		if (coursesNumber == null) {
-			if (other.coursesNumber != null)
+			if (other.coursesNumber != null) {
 				return false;
-		} else if (!coursesNumber.equals(other.coursesNumber))
+			}
+		} else if (!coursesNumber.equals(other.coursesNumber)) {
 			return false;
+		}
 		if (coursesTitle == null) {
-			if (other.coursesTitle != null)
+			if (other.coursesTitle != null) {
 				return false;
-		} else if (!coursesTitle.equals(other.coursesTitle))
+			}
+		} else if (!coursesTitle.equals(other.coursesTitle)) {
 			return false;
+		}
 		if (endTime == null) {
-			if (other.endTime != null)
+			if (other.endTime != null) {
 				return false;
-		} else if (!endTime.equals(other.endTime))
+			}
+		} else if (!endTime.equals(other.endTime)) {
 			return false;
+		}
 		if (requestOtherMessage == null) {
-			if (other.requestOtherMessage != null)
+			if (other.requestOtherMessage != null) {
 				return false;
-		} else if (!requestOtherMessage.equals(other.requestOtherMessage))
+			}
+		} else if (!requestOtherMessage.equals(other.requestOtherMessage)) {
 			return false;
+		}
 		if (requestStatus == null) {
-			if (other.requestStatus != null)
+			if (other.requestStatus != null) {
 				return false;
-		} else if (!requestStatus.equals(other.requestStatus))
+			}
+		} else if (!requestStatus.equals(other.requestStatus)) {
 			return false;
+		}
 		if (requestsId == null) {
-			if (other.requestsId != null)
+			if (other.requestsId != null) {
 				return false;
-		} else if (!requestsId.equals(other.requestsId))
+			}
+		} else if (!requestsId.equals(other.requestsId)) {
 			return false;
+		}
 		if (requestsUserId == null) {
-			if (other.requestsUserId != null)
+			if (other.requestsUserId != null) {
 				return false;
-		} else if (!requestsUserId.equals(other.requestsUserId))
+			}
+		} else if (!requestsUserId.equals(other.requestsUserId)) {
 			return false;
+		}
 		if (startTime == null) {
-			if (other.startTime != null)
+			if (other.startTime != null) {
 				return false;
-		} else if (!startTime.equals(other.startTime))
+			}
+		} else if (!startTime.equals(other.startTime)) {
 			return false;
+		}
 		if (termsName == null) {
-			if (other.termsName != null)
+			if (other.termsName != null) {
 				return false;
-		} else if (!termsName.equals(other.termsName))
+			}
+		} else if (!termsName.equals(other.termsName)) {
 			return false;
+		}
 		return true;
 	}
 

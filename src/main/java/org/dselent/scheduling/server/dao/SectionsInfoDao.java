@@ -2,7 +2,7 @@ package org.dselent.scheduling.server.dao;
 
 import java.util.List;
 
-import org.dselent.scheduling.server.model.RequestTables;
+import org.dselent.scheduling.server.model.SectionsInfo;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public interface RequestsOneUserDao {
+public interface SectionsInfoDao {
 	// custom queries here
-	public List<RequestTables> getOneUserRequestsInfo(int userId);
+	public List<SectionsInfo> getSectionsInfo();
 }
