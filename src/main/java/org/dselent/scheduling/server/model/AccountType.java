@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.dselent.scheduling.server.model.AccountType.Columns;
-
-
 public class AccountType extends Model {
 	// table name
 	public static final String TABLE_NAME = "account_type";
