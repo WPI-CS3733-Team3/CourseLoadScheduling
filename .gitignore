@@ -7,3 +7,9 @@
 /gradle
 /.classpath
 .tomcatplugin
+<<<<<<< HEAD
+=======
+.classpath
+.classpath
+.classpath
+>>>>>>> cdbc11b58b1178d6f4b2dad1b2b506d7b9eb4c15
