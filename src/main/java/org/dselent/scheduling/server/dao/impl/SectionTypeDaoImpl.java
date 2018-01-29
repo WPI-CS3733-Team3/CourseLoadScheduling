@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.dselent.scheduling.server.dao.DaysDao;
-import org.dselent.scheduling.server.extractor.DaysExtractor;
+import org.dselent.scheduling.server.dao.SectionTypeDao;
+import org.dselent.scheduling.server.extractor.SectionTypeExtractor;
 import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.miscellaneous.QueryStringBuilder;
-import org.dselent.scheduling.server.model.Days;
+import org.dselent.scheduling.server.model.SectionType;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
@@ -19,23 +19,23 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class DaysDaoImpl extends BaseDaoImpl<Days> implements DaysDao {
+public class SectionTypeDaoImpl extends BaseDaoImpl<SectionType> implements SectionTypeDao {
 
 	@Override
-	public int insert(Days daysModel, List<String> insertColumnNameList, List<String> keyHolderColumnNameList)
+	public int insert(SectionType sectionTypeModel, List<String> insertColumnNameList, List<String> keyHolderColumnNameList)
 			throws SQLException {
 
 		validateColumnNames(insertColumnNameList);
 		validateColumnNames(keyHolderColumnNameList);
 
-		String queryTemplate = QueryStringBuilder.generateInsertString(Days.TABLE_NAME, insertColumnNameList);
+		String queryTemplate = QueryStringBuilder.generateInsertString(SectionType.TABLE_NAME, insertColumnNameList);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 
 		List<Map<String, Object>> keyList = new ArrayList<>();
 		KeyHolder keyHolder = new GeneratedKeyHolder(keyList);
 
 		for(String insertColumnName : insertColumnNameList) {
-			addParameterMapValue(parameters, insertColumnName, daysModel);
+			addParameterMapValue(parameters, insertColumnName, sectionTypeModel);
 		}
 		// new way, but unfortunately unnecessary class creation is slow and wasteful (i.e. wrong)
 		// insertColumnNames.forEach(insertColumnName -> addParameterMap(parameters, insertColumnName, userModel));
@@ -45,7 +45,7 @@ public class DaysDaoImpl extends BaseDaoImpl<Days> implements DaysDao {
 		Map<String, Object> keyMap = keyHolder.getKeys();
 
 		for(String keyHolderColumnName : keyHolderColumnNameList) {
-			addObjectValue(keyMap, keyHolderColumnName, daysModel);
+			addObjectValue(keyMap, keyHolderColumnName, sectionTypeModel);
 		}
 
 		return rowsAffected;
@@ -53,9 +53,9 @@ public class DaysDaoImpl extends BaseDaoImpl<Days> implements DaysDao {
 	}
 
 	@Override
-	public List<Days> select(List<String> selectColumnNameList, List<QueryTerm> queryTermList, List<Pair<String, ColumnOrder>> orderByList) throws SQLException {
-		DaysExtractor extractor = new DaysExtractor();
-		String queryTemplate = QueryStringBuilder.generateSelectString(Days.TABLE_NAME, selectColumnNameList, queryTermList, orderByList);
+	public List<SectionType> select(List<String> selectColumnNameList, List<QueryTerm> queryTermList, List<Pair<String, ColumnOrder>> orderByList) throws SQLException {
+		SectionTypeExtractor extractor = new SectionTypeExtractor();
+		String queryTemplate = QueryStringBuilder.generateSelectString(SectionType.TABLE_NAME, selectColumnNameList, queryTermList, orderByList);
 
 		List<Object> objectList = new ArrayList<Object>();
 
@@ -65,15 +65,15 @@ public class DaysDaoImpl extends BaseDaoImpl<Days> implements DaysDao {
 
 		Object[] parameters = objectList.toArray();
 
-		List<Days> DaysList = jdbcTemplate.query(queryTemplate, extractor, parameters);
+		List<SectionType> SectionTypeList = jdbcTemplate.query(queryTemplate, extractor, parameters);
 
-		return DaysList;
+		return SectionTypeList;
 	}
 
 	@Override
-	public Days findById(int id) throws SQLException {
-		String columnName = QueryStringBuilder.convertColumnName(Days.getColumnName(Days.Columns.ID), false);
-		List<String> selectColumnNames = Days.getColumnNameList();
+	public SectionType findById(int id) throws SQLException {
+		String columnName = QueryStringBuilder.convertColumnName(SectionType.getColumnName(SectionType.Columns.ID), false);
+		List<String> selectColumnNames = SectionType.getColumnNameList();
 
 		List<QueryTerm> queryTermList = new ArrayList<>();
 		QueryTerm idTerm = new QueryTerm(columnName, ComparisonOperator.EQUAL, id, null);
@@ -83,20 +83,20 @@ public class DaysDaoImpl extends BaseDaoImpl<Days> implements DaysDao {
 		Pair<String, ColumnOrder> order = new Pair<String, ColumnOrder>(columnName, ColumnOrder.ASC);
 		orderByList.add(order);
 
-		List<Days> DaysList = select(selectColumnNames, queryTermList, orderByList);
+		List<SectionType> SectionTypeList = select(selectColumnNames, queryTermList, orderByList);
 
-		Days Days = null;
+		SectionType SectionType = null;
 
-		if(!DaysList.isEmpty()) {
-			Days = DaysList.get(0);
+		if(!SectionTypeList.isEmpty()) {
+			SectionType = SectionTypeList.get(0);
 		}
 
-		return Days;
+		return SectionType;
 	}
 
 	@Override
 	public int update(String columnName, Object newValue, List<QueryTerm> queryTermList) {
-		String queryTemplate = QueryStringBuilder.generateUpdateString(Days.TABLE_NAME, columnName, queryTermList);
+		String queryTemplate = QueryStringBuilder.generateUpdateString(SectionType.TABLE_NAME, columnName, queryTermList);
 
 		List<Object> objectList = new ArrayList<Object>();
 		objectList.add(newValue);
@@ -114,7 +114,7 @@ public class DaysDaoImpl extends BaseDaoImpl<Days> implements DaysDao {
 
 	@Override
 	public int delete(List<QueryTerm> queryTermList) {
-		String queryTemplate = QueryStringBuilder.generateDeleteString(Days.TABLE_NAME, queryTermList);
+		String queryTemplate = QueryStringBuilder.generateDeleteString(SectionType.TABLE_NAME, queryTermList);
 
 		List<Object> objectList = new ArrayList<Object>();
 
@@ -129,17 +129,17 @@ public class DaysDaoImpl extends BaseDaoImpl<Days> implements DaysDao {
 		return rowsAffected;
 	}
 
-	private void addParameterMapValue(MapSqlParameterSource parameters, String insertColumnName, Days DaysModel) {
+	private void addParameterMapValue(MapSqlParameterSource parameters, String insertColumnName, SectionType SectionTypeModel) {
 		String parameterName = QueryStringBuilder.convertColumnName(insertColumnName, false);
 
 		// Wish this could generalize
 		// The getter must be distinguished unless the models are designed as simply a map of columns-values
 		// Would prefer not being that generic since it may end up leading to all code being collections of strings
 
-		if(insertColumnName.equals(Days.getColumnName(Days.Columns.ID))) {
-			parameters.addValue(parameterName, DaysModel.getId());
-		} else if(insertColumnName.equals(Days.getColumnName(Days.Columns.DAY))) {
-			parameters.addValue(parameterName, DaysModel.getDay());
+		if(insertColumnName.equals(SectionType.getColumnName(SectionType.Columns.ID))) {
+			parameters.addValue(parameterName, SectionTypeModel.getId());
+		} else if(insertColumnName.equals(SectionType.getColumnName(SectionType.Columns.TYPE))) {
+			parameters.addValue(parameterName, SectionTypeModel.getType());
 		} else {
 			// should never end up here
 			// lists should have already been validated
@@ -147,11 +147,11 @@ public class DaysDaoImpl extends BaseDaoImpl<Days> implements DaysDao {
 		}
 	}	
 
-	private void addObjectValue(Map<String, Object> keyMap, String keyHolderColumnName, Days DaysModel) {
-		if(keyHolderColumnName.equals(Days.getColumnName(Days.Columns.ID))) {
-			DaysModel.setId((Integer) keyMap.get(keyHolderColumnName));
-		} else if(keyHolderColumnName.equals(Days.getColumnName(Days.Columns.DAY))) {
-			DaysModel.setDay((String) keyMap.get(keyHolderColumnName));
+	private void addObjectValue(Map<String, Object> keyMap, String keyHolderColumnName, SectionType SectionTypeModel) {
+		if(keyHolderColumnName.equals(SectionType.getColumnName(SectionType.Columns.ID))) {
+			SectionTypeModel.setId((Integer) keyMap.get(keyHolderColumnName));
+		} else if(keyHolderColumnName.equals(SectionType.getColumnName(SectionType.Columns.TYPE))) {
+			SectionTypeModel.setType((String) keyMap.get(keyHolderColumnName));
 		} else {
 			// should never end up here
 			// lists should have already been validated
@@ -161,7 +161,7 @@ public class DaysDaoImpl extends BaseDaoImpl<Days> implements DaysDao {
 
 	@Override
 	public void validateColumnNames(List<String> columnNameList) {
-		List<String> actualColumnNames = Days.getColumnNameList();
+		List<String> actualColumnNames = SectionType.getColumnNameList();
 		boolean valid = actualColumnNames.containsAll(columnNameList);
 
 		if(!valid) {
