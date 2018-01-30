@@ -11,7 +11,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/servlet.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/jasper-runtime.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

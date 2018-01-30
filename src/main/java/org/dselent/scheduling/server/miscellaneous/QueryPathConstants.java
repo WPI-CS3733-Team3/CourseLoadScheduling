@@ -27,6 +27,10 @@ public class QueryPathConstants
 	private static String SECTIONS_ONE_FACULTY_PATH = BASE_QUERY_PATH + "sectionsOneFaculty" +SQL_EXTENSION;
 	private static String COURSE_INFO_PATH = BASE_QUERY_PATH + "courseInfo" +SQL_EXTENSION;
 	private static String COURSE_INFO_ONE_PATH = BASE_QUERY_PATH + "courseInfoOne" +SQL_EXTENSION;
+	private static String COURSE_SECTIONS_PATH = BASE_QUERY_PATH + "courseSections" + SQL_EXTENSION;
+	private static String ACCOUNT_INFO_PATH = BASE_QUERY_PATH + "accountInfo" + SQL_EXTENSION;
+	private static String COURSE_FACULTY_PATH = BASE_QUERY_PATH + "facultyOneCourse" + SQL_EXTENSION;
+	
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -38,6 +42,9 @@ public class QueryPathConstants
 	public static String SECTIONS_ONE_FACULTY_QUERY = readFile(SECTIONS_ONE_FACULTY_PATH);
 	public static String COURSE_INFO_QUERY = readFile(COURSE_INFO_PATH);
 	public static String COURSE_INFO_ONE_QUERY = readFile(COURSE_INFO_ONE_PATH);
+	public static String COURSE_SECTIONS_QUERY = readFile(COURSE_SECTIONS_PATH);
+	public static String ACCOUNT_INFO_QUERY = readFile(ACCOUNT_INFO_PATH);
+	public static String COURSE_FACULTY_QUERY = readFile(COURSE_FACULTY_PATH);
 	
 	private QueryPathConstants()
 	{
