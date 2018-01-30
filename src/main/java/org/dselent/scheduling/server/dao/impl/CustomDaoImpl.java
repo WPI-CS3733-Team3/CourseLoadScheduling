@@ -6,11 +6,17 @@ import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.extractor.CourseInfoExtractor;
 import org.dselent.scheduling.server.extractor.RequestTablesExtractor;
 import org.dselent.scheduling.server.extractor.SectionsInfoExtractor;
+import org.dselent.scheduling.server.extractor.CourseSectionsExtractor;
+import org.dselent.scheduling.server.extractor.AccountInfoExtractor;
+import org.dselent.scheduling.server.extractor.CourseFacultyExtractor;
 import org.dselent.scheduling.server.extractor.UsersExtractor;
 import org.dselent.scheduling.server.miscellaneous.QueryPathConstants;
 import org.dselent.scheduling.server.model.CourseInfo;
 import org.dselent.scheduling.server.model.RequestTables;
 import org.dselent.scheduling.server.model.SectionsInfo;
+import org.dselent.scheduling.server.model.CourseSections;
+import org.dselent.scheduling.server.model.AccountInfo;
+import org.dselent.scheduling.server.model.CourseFaculty;
 import org.dselent.scheduling.server.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -105,7 +111,34 @@ public class CustomDaoImpl implements CustomDao
 		return fullRequestTablesList;
 	}
 
+	//Gets all sections belonging to a course, specified by courseId
+	public List<CourseSections> getSectionsForCourse(int courseId){
+		CourseSectionsExtractor extractor = new CourseSectionsExtractor();
+		String queryTemplate = new String(QueryPathConstants.COURSE_SECTIONS_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("courseId", courseId);
+		List<CourseSections> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		return fullRequestTablesList;
+	}
+
+	//Gets all current faculty accounts, with their names, emails, faculty type and account type
+	public List<AccountInfo> getAccountInfo(){
+		AccountInfoExtractor extractor = new AccountInfoExtractor();
+		String queryTemplate = new String(QueryPathConstants.ACCOUNT_INFO_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		//no parameters need to be added
+		List<AccountInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		return fullRequestTablesList;
+	}
 	
-	
+	//Gets the names of all faculty who teach a course specified by courseId
+	public List<CourseFaculty> getCourseFaculty(int courseId){
+		CourseFacultyExtractor extractor = new CourseFacultyExtractor();
+		String queryTemplate = new String(QueryPathConstants.COURSE_FACULTY_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		//no parameters need to be added
+		List<CourseFaculty> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		return fullRequestTablesList;
+	}
 	
 }

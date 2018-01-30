@@ -5,6 +5,9 @@ import java.util.List;
 import org.dselent.scheduling.server.model.CourseInfo;
 import org.dselent.scheduling.server.model.RequestTables;
 import org.dselent.scheduling.server.model.SectionsInfo;
+import org.dselent.scheduling.server.model.CourseSections;
+import org.dselent.scheduling.server.model.AccountInfo;
+import org.dselent.scheduling.server.model.CourseFaculty;
 import org.dselent.scheduling.server.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -40,6 +43,14 @@ public interface CustomDao
 	//Gets info about all sections being taught be one faculty member, specified by facultyId
 	public List<SectionsInfo> getOneFacultySectionsInfo(int facultyId);
 	
+	//Gets all sections belonging to a course, specified by courseId
+	public List<CourseSections> getSectionsForCourse(int courseId);
+	
+	//Gets all current faculty accounts, with their names, emails, faculty type and account type
+	public List<AccountInfo> getAccountInfo();
+	
+	//Gets the names of all faculty who teach a course specified by courseId
+	public List<CourseFaculty> getCourseFaculty(int courseId);
 	
 	
 }
