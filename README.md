@@ -22,7 +22,7 @@ Assignment 2
 
 Assignment 3
 ------------
-Note: UsersDaoTest needs to be connected to in_class_example in the [application.properties](src\main\resources\application.properties)
+Note: UsersDaoTest needs to be connected to in_class_example in the [application.properties](src/main/resources/application.properties)
 Our custom tests need the course_load_scheduler database
 - [x] Program the data access layer
 - [ ] Generate Class diagram
