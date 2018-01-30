@@ -35,8 +35,8 @@ public class FacultyDaoTest {
     	
     	Faculty faculty1 = new Faculty();
     	faculty1.setFirstName("user");
-    	faculty1.setLastName("one");
-    	faculty1.setEmail("userone@wpi.edu");
+    	faculty1.setLastName("two");
+    	faculty1.setEmail("usertwo@wpi.edu");
     	faculty1.setFacultyTypeId(1);
     	
     	List<String> insertColumnNameList = new ArrayList<>();
@@ -59,7 +59,7 @@ public class FacultyDaoTest {
     	
     	String updateColumnName = Faculty.getColumnName(Faculty.Columns.FIRST_NAME);
     	String oldFirstName = "firstName";
-    	String newFirstName = "firstName2";
+    	String newFirstName = "firstName3";
     	List<QueryTerm> updateQueryTermList = new ArrayList<>();
     	
     	QueryTerm updateFirstNameTerm = new QueryTerm();

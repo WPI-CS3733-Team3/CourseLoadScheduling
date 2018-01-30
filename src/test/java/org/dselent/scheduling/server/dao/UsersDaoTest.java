@@ -36,12 +36,12 @@ public class UsersDaoTest
     	// INSERT
     	
     	User user1 = new User();
-    	user1.setUserName("user1");
+    	user1.setUserName("user2");
     	user1.setFirstName("user");
-    	user1.setLastName("one");
-    	user1.setEmail("userone@wpi.edu");
-    	user1.setEncryptedPassword("11111111"); // simplified for now
-    	user1.setSalt("11111111"); // also simplified for now
+    	user1.setLastName("two");
+    	user1.setEmail("usertwo@wpi.edu");
+    	user1.setEncryptedPassword("22222222"); // simplified for now
+    	user1.setSalt("22222222"); // also simplified for now
     	user1.setUserStateId(1); // assumes 1 = activated
     	
     	List<String> insertColumnNameList = new ArrayList<>();
@@ -65,8 +65,8 @@ public class UsersDaoTest
     	// UPDATE
     	
     	String updateColumnName = User.getColumnName(User.Columns.USER_NAME);
-    	String oldUserName = "user1";
-    	String newUserName = "newUserName";
+    	String oldUserName = "user2";
+    	String newUserName = "newUserName2";
     	List<QueryTerm> updateQueryTermList = new ArrayList<>();
     	
     	QueryTerm updateUseNameTerm = new QueryTerm();
