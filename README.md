@@ -4,6 +4,8 @@ Frank Campanelli, Bryce Corbitt, Hannah Jauris, Sarah O'Grady, Matt Schueler, Ka
 
 See recent class activity on [Canvas](https://canvas.wpi.edu/courses/6113)
 
+--------------------------------------------------------------------------
+
 Assignment 1
 ------------
 - [x] UI Mockups
