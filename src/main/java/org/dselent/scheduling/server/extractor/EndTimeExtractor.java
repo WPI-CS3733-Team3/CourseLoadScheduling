@@ -25,7 +25,7 @@ public class EndTimeExtractor extends Extractor<List<EndTime>> {
 				result.setId(null);
 			}
 			
-			result.setTime(rs.getTimestamp(EndTime.getColumnName(EndTime.Columns.TIME)));
+			result.setTime(rs.getTime(EndTime.getColumnName(EndTime.Columns.TIME)));
 			
 			resultList.add(result);
 		}

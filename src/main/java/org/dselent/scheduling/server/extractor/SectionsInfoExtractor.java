@@ -54,13 +54,13 @@ public class SectionsInfoExtractor extends Extractor<List<SectionsInfo>>{
 				result.setDays(null);
 			}
 			
-			result.setStartTime(rs.getTimestamp(SectionsInfo.getColumnName(SectionsInfo.Columns.START_TIME)));
+			result.setStartTime(rs.getTime(SectionsInfo.getColumnName(SectionsInfo.Columns.START_TIME)));
 			if(rs.wasNull())
 			{
 				result.setStartTime(null);
 			}
 
-			result.setEndTime(rs.getTimestamp(SectionsInfo.getColumnName(SectionsInfo.Columns.END_TIME)));
+			result.setEndTime(rs.getTime(SectionsInfo.getColumnName(SectionsInfo.Columns.END_TIME)));
 			if(rs.wasNull())
 			{
 				result.setEndTime(null);

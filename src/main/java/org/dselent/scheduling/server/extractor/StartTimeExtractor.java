@@ -25,7 +25,7 @@ public class StartTimeExtractor extends Extractor<List<StartTime>> {
 				result.setId(null);
 			}
 			
-			result.setTime(rs.getTimestamp(StartTime.getColumnName(StartTime.Columns.TIME)));
+			result.setTime(rs.getTime(StartTime.getColumnName(StartTime.Columns.TIME)));
 			
 			resultList.add(result);
 		}

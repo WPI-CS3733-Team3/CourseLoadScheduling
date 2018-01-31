@@ -1,7 +1,7 @@
 package org.dselent.scheduling.server.dao.impl;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -152,7 +152,7 @@ public class StartTimeDaoImpl extends BaseDaoImpl<StartTime> implements StartTim
 		if(keyHolderColumnName.equals(StartTime.getColumnName(StartTime.Columns.ID))) {
 			StartTimeModel.setId((Integer) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(StartTime.getColumnName(StartTime.Columns.TIME))) {
-			StartTimeModel.setTime((Timestamp) keyMap.get(keyHolderColumnName));
+			StartTimeModel.setTime((Time) keyMap.get(keyHolderColumnName));
 		} else {
 			// should never end up here
 			// lists should have already been validated

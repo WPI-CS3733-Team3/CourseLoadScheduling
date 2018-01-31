@@ -1,7 +1,7 @@
 package org.dselent.scheduling.server.model;
 
 import java.sql.JDBCType;
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,13 +32,13 @@ public class StartTime extends Model {
 		}
 
 		COLUMN_TYPE_MAP.put(Columns.ID, JDBCType.INTEGER);
-		COLUMN_TYPE_MAP.put(Columns.TIME, JDBCType.TIMESTAMP);
+		COLUMN_TYPE_MAP.put(Columns.TIME, JDBCType.TIME);
 	};
 
 	// attributes
 
 	private Integer id;
-	private Timestamp time;
+	private Time time;
 
 	// methods
 
@@ -72,11 +72,11 @@ public class StartTime extends Model {
 		this.id = id;
 	}
 
-	public Timestamp getTime() {
+	public Time getTime() {
 		return time;
 	}
 
-	public void setTime(Timestamp time) {
+	public void setTime(Time time) {
 		this.time = time;
 	}
 

@@ -35,13 +35,13 @@ public class RequestTablesExtractor extends Extractor<List<RequestTables>>{
 				result.setTermsName(null);
 			}
 
-			result.setStartTime(rs.getTimestamp(RequestTables.getColumnName(RequestTables.Columns.START_TIME)));
+			result.setStartTime(rs.getTime(RequestTables.getColumnName(RequestTables.Columns.START_TIME)));
 			if(rs.wasNull())
 			{
 				result.setStartTime(null);
 			}
 			
-			result.setEndTime(rs.getTimestamp(RequestTables.getColumnName(RequestTables.Columns.END_TIME)));
+			result.setEndTime(rs.getTime(RequestTables.getColumnName(RequestTables.Columns.END_TIME)));
 			if(rs.wasNull())
 			{
 				result.setEndTime(null);

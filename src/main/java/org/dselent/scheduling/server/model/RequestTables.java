@@ -1,7 +1,7 @@
 package org.dselent.scheduling.server.model;
 
 import java.sql.JDBCType;
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,8 +41,8 @@ public class RequestTables extends Model{
 		COLUMN_TYPE_MAP.put(Columns.REQUESTS_ID, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.REQUESTS_USER_ID, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.TERMS_NAME, JDBCType.VARCHAR);
-		COLUMN_TYPE_MAP.put(Columns.START_TIME, JDBCType.TIMESTAMP);
-		COLUMN_TYPE_MAP.put(Columns.END_TIME, JDBCType.TIMESTAMP);
+		COLUMN_TYPE_MAP.put(Columns.START_TIME, JDBCType.TIME);
+		COLUMN_TYPE_MAP.put(Columns.END_TIME, JDBCType.TIME);
 		COLUMN_TYPE_MAP.put(Columns.COURSES_TITLE, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.COURSES_NUMBER, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.REQUEST_OTHER_MESSAGE, JDBCType.VARCHAR);
@@ -54,8 +54,8 @@ public class RequestTables extends Model{
 	private Integer requestsId;
 	private Integer requestsUserId;
 	private String termsName;
-	private Timestamp startTime;
-	private Timestamp endTime;
+	private Time startTime;
+	private Time endTime;
 	private String coursesTitle;
 	private String coursesNumber;
 	private String requestOtherMessage;
@@ -111,19 +111,19 @@ public class RequestTables extends Model{
 		this.termsName = termsName;
 	}
 
-	public Timestamp getStartTime() {
+	public Time getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
 
-	public Timestamp getEndTime() {
+	public Time getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
 	}
 

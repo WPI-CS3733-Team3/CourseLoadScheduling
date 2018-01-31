@@ -12,5 +12,5 @@ FROM users_history
 LEFT JOIN faculty ON users_history.faculty_id = faculty.id
 LEFT JOIN faculty_type ON faculty.faculty_type_id = faculty_type.id
 LEFT JOIN account_type ON users_history.account_type_id = account_type.id
-WHERE faculty.deleted = true
+WHERE users_history.deleted = true
 ORDER BY faculty_last_name ASC;

@@ -54,13 +54,13 @@ public class CourseSectionsExtractor extends Extractor<List<CourseSections>>{
 				result.setCoursesTitle(null);
 			}
 			
-			result.setStartTime(rs.getTimestamp(CourseSections.getColumnName(CourseSections.Columns.START_TIME)));
+			result.setStartTime(rs.getTime(CourseSections.getColumnName(CourseSections.Columns.START_TIME)));
 			if(rs.wasNull())
 			{
 				result.setStartTime(null);
 			}
 			
-			result.setEndTime(rs.getTimestamp(CourseSections.getColumnName(CourseSections.Columns.END_TIME)));
+			result.setEndTime(rs.getTime(CourseSections.getColumnName(CourseSections.Columns.END_TIME)));
 			if(rs.wasNull())
 			{
 				result.setEndTime(null);

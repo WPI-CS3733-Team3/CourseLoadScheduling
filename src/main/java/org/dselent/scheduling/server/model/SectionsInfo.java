@@ -1,7 +1,7 @@
 package org.dselent.scheduling.server.model;
 
 import java.sql.JDBCType;
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +43,8 @@ public class SectionsInfo extends Model{
 		COLUMN_TYPE_MAP.put(Columns.DAYS, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.COURSES_NUMBER, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.COURSES_TITLE, JDBCType.VARCHAR);
-		COLUMN_TYPE_MAP.put(Columns.START_TIME, JDBCType.TIMESTAMP);
-		COLUMN_TYPE_MAP.put(Columns.END_TIME, JDBCType.TIMESTAMP);
+		COLUMN_TYPE_MAP.put(Columns.START_TIME, JDBCType.TIME);
+		COLUMN_TYPE_MAP.put(Columns.END_TIME, JDBCType.TIME);
 		COLUMN_TYPE_MAP.put(Columns.SECTIONS_NAME, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.FACULTY_FIRST_NAME, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.FACULTY_LAST_NAME, JDBCType.VARCHAR);
@@ -57,8 +57,8 @@ public class SectionsInfo extends Model{
 	private String days;
 	private String coursesNumber;
 	private String coursesTitle;
-	private Timestamp startTime;
-	private Timestamp endTime;
+	private Time startTime;
+	private Time endTime;
 	private String sectionsName;
 	private String facultyFirstName;
 	private String facultyLastName;
@@ -128,19 +128,19 @@ public class SectionsInfo extends Model{
 		this.coursesTitle = coursesTitle;
 	}
 
-	public Timestamp getStartTime() {
+	public Time getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
 
-	public Timestamp getEndTime() {
+	public Time getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
 	}
 

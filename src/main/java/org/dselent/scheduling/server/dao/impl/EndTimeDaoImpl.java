@@ -1,7 +1,7 @@
 package org.dselent.scheduling.server.dao.impl;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -152,7 +152,7 @@ public class EndTimeDaoImpl extends BaseDaoImpl<EndTime> implements EndTimeDao {
 		if(keyHolderColumnName.equals(EndTime.getColumnName(EndTime.Columns.ID))) {
 			EndTimeModel.setId((Integer) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(EndTime.getColumnName(EndTime.Columns.TIME))) {
-			EndTimeModel.setTime((Timestamp) keyMap.get(keyHolderColumnName));
+			EndTimeModel.setTime((Time) keyMap.get(keyHolderColumnName));
 		} else {
 			// should never end up here
 			// lists should have already been validated
