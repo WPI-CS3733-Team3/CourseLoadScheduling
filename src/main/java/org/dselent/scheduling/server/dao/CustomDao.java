@@ -52,5 +52,8 @@ public interface CustomDao
 	//Gets the names of all faculty who teach a course specified by courseId
 	public List<CourseFaculty> getCourseFaculty(int courseId);
 	
+	//Gets the info of all deleted accounts
+	public List<AccountInfo> getDeletedAccountInfo();
+	
 	
 }

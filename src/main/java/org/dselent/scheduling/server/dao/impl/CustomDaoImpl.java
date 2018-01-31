@@ -141,4 +141,16 @@ public class CustomDaoImpl implements CustomDao
 		return fullRequestTablesList;
 	}
 	
+	//Gets the info of all deleted accounts
+	public List<AccountInfo> getDeletedAccountInfo(){
+		AccountInfoExtractor extractor = new AccountInfoExtractor();
+		String queryTemplate = new String(QueryPathConstants.DELETED_ACCOUNT_INFO_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		//no parameters need to be added
+		List<AccountInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		return fullRequestTablesList;
+		
+	}
+	
+	
 }
