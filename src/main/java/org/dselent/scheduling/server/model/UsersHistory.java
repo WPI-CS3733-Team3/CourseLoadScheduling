@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.dselent.scheduling.server.model.UsersHistory.Columns;
+
 public class UsersHistory extends Model
 {
 	// table name
@@ -17,15 +19,13 @@ public class UsersHistory extends Model
 	public static enum Columns
 	{
 		ID,
-		USER_ID,
-		USER_NAME,
-		FIRST_NAME,
-		LAST_NAME,
-		EMAIL,
+		ACCOUNT_TYPE_ID,
+		FACULTY_ID,
 		ENCRYPTED_PASSWORD,
-		SALT,
-		USER_STATE_ID,
+		PASSWORD_SALT,
 		CREATED_AT,
+		UPDATED_AT,
+		DELETED,
 	}
 
 	// enum list
@@ -42,28 +42,25 @@ public class UsersHistory extends Model
 		}
 		
 		COLUMN_TYPE_MAP.put(Columns.ID, JDBCType.INTEGER);
-		COLUMN_TYPE_MAP.put(Columns.USER_ID, JDBCType.INTEGER);
-		COLUMN_TYPE_MAP.put(Columns.USER_NAME, JDBCType.VARCHAR);
-		COLUMN_TYPE_MAP.put(Columns.FIRST_NAME, JDBCType.VARCHAR);
-		COLUMN_TYPE_MAP.put(Columns.LAST_NAME, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.ACCOUNT_TYPE_ID, JDBCType.INTEGER);
+		COLUMN_TYPE_MAP.put(Columns.FACULTY_ID, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.ENCRYPTED_PASSWORD, JDBCType.VARCHAR);
-		COLUMN_TYPE_MAP.put(Columns.SALT, JDBCType.VARCHAR);
-		COLUMN_TYPE_MAP.put(Columns.USER_STATE_ID, JDBCType.INTEGER);
+		COLUMN_TYPE_MAP.put(Columns.PASSWORD_SALT, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.CREATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
+		COLUMN_TYPE_MAP.put(Columns.UPDATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
+		COLUMN_TYPE_MAP.put(Columns.DELETED, JDBCType.BOOLEAN);
 	};
 	
 	// attributes
 	
 	private Integer id;
-	private Integer userId;
-	private String userName;
-	private String firstName;
-	private String lastName;
-	private String email;
+	private Integer accountTypeId;  
+	private Integer facultyId;
 	private String encryptedPassword;
-	private String salt;
-	private Integer userStateId;
+	private String passwordSalt;
 	private Instant createdAt;
+	private Instant updatedAt;
+	private Boolean deleted;
 
 	// methods
 	
@@ -100,56 +97,25 @@ public class UsersHistory extends Model
 	{
 		this.id = id;
 	}
-	
-	public Integer getUserId()
+
+	public Integer getAccountTypeId()
 	{
-		return userId;
+		return accountTypeId;
 	}
 
-	public void setUserId(Integer userId)
+	public void setAccountTypeId(Integer accountTypeId)
 	{
-		this.userId = userId;
+		this.accountTypeId = accountTypeId;
 	}
 
-	public String getUserName()
+	public Integer getFacultyId()
 	{
-		return userName;
+		return facultyId;
 	}
 
-	public void setUserName(String userName)
+	public void setFacultyId(Integer facultyId)
 	{
-		this.userName = userName;
-	}
-
-	public String getFirstName()
-	{
-		return firstName;
-	}
-
-	public void setFirstName(String firstName)
-	{
-		this.firstName = firstName;
-	}
-
-	public String getLastName()
-	{
-		return lastName;
-	}
-
-	public void setLastName(String lastName)
-	{
-		this.lastName = lastName;
-	}
-
-
-	public String getEmail()
-	{
-		return email;
-	}
-
-	public void setEmail(String email)
-	{
-		this.email = email;
+		this.facultyId = facultyId;
 	}
 
 	public String getEncryptedPassword()
@@ -162,24 +128,14 @@ public class UsersHistory extends Model
 		this.encryptedPassword = encryptedPassword;
 	}
 
-	public String getSalt()
+	public String getPasswordSalt()
 	{
-		return salt;
+		return passwordSalt;
 	}
 
-	public void setSalt(String salt)
+	public void setPasswordSalt(String passwordSalt)
 	{
-		this.salt = salt;
-	}
-
-	public Integer getUserStateId()
-	{
-		return userStateId;
-	}
-
-	public void setUserStateId(Integer userStateId)
-	{
-		this.userStateId = userStateId;
+		this.passwordSalt = passwordSalt;
 	}
 
 	public Instant getCreatedAt()
@@ -200,21 +156,47 @@ public class UsersHistory extends Model
 		}
 	}
 
+	public Instant getUpdatedAt()
+	{
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Instant updatedAt)
+	{
+		this.updatedAt = updatedAt;
+	}
+	
+	public void setUpdatedAt(Timestamp updatedAt)
+	{
+		if(updatedAt != null)
+		{
+			this.updatedAt = updatedAt.toInstant();
+		}
+	}
+	
+	public Boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted)
+	{
+		this.deleted = deleted;
+	}
+
 	@Override
 	public int hashCode()
 	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((accountTypeId == null) ? 0 : accountTypeId.hashCode());
 		result = prime * result + ((encryptedPassword == null) ? 0 : encryptedPassword.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((facultyId == null) ? 0 : facultyId.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		result = prime * result + ((userStateId == null) ? 0 : userStateId.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
+		result = prime * result + ((passwordSalt == null) ? 0 : passwordSalt.hashCode());
+		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
 		return result;
 	}
 
@@ -229,7 +211,7 @@ public class UsersHistory extends Model
 		{
 			return false;
 		}
-		if (!(obj instanceof UsersHistory))
+		if (!(obj instanceof Users))
 		{
 			return false;
 		}
@@ -245,14 +227,14 @@ public class UsersHistory extends Model
 		{
 			return false;
 		}
-		if (email == null)
+		if (accountTypeId == null)
 		{
-			if (other.email != null)
+			if (other.accountTypeId != null)
 			{
 				return false;
 			}
 		}
-		else if (!email.equals(other.email))
+		else if (!accountTypeId.equals(other.accountTypeId))
 		{
 			return false;
 		}
@@ -267,14 +249,14 @@ public class UsersHistory extends Model
 		{
 			return false;
 		}
-		if (firstName == null)
+		if (facultyId == null)
 		{
-			if (other.firstName != null)
+			if (other.facultyId != null)
 			{
 				return false;
 			}
 		}
-		else if (!firstName.equals(other.firstName))
+		else if (!facultyId.equals(other.facultyId))
 		{
 			return false;
 		}
@@ -289,58 +271,36 @@ public class UsersHistory extends Model
 		{
 			return false;
 		}
-		if (lastName == null)
+		if (deleted == null)
 		{
-			if (other.lastName != null)
+			if (other.deleted != null)
 			{
 				return false;
 			}
 		}
-		else if (!lastName.equals(other.lastName))
+		else if (!deleted.equals(other.deleted))
 		{
 			return false;
 		}
-		if (salt == null)
+		if (passwordSalt == null)
 		{
-			if (other.salt != null)
+			if (other.passwordSalt != null)
 			{
 				return false;
 			}
 		}
-		else if (!salt.equals(other.salt))
+		else if (!passwordSalt.equals(other.passwordSalt))
 		{
 			return false;
 		}
-		if (userName == null)
+		if (updatedAt == null)
 		{
-			if (other.userName != null)
+			if (other.updatedAt != null)
 			{
 				return false;
 			}
 		}
-		else if (!userName.equals(other.userName))
-		{
-			return false;
-		}
-		if (userStateId == null)
-		{
-			if (other.userStateId != null)
-			{
-				return false;
-			}
-		}
-		else if (!userStateId.equals(other.userStateId))
-		{
-			return false;
-		}
-		if (userId == null)
-		{
-			if (other.userId != null)
-			{
-				return false;
-			}
-		}
-		else if (!userId.equals(other.userId))
+		else if (!updatedAt.equals(other.updatedAt))
 		{
 			return false;
 		}
@@ -351,26 +311,22 @@ public class UsersHistory extends Model
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append("UsersHistory [id=");
+		builder.append("Users [id=");
 		builder.append(id);
-		builder.append(", user_id=");
-		builder.append(userId);
-		builder.append(", userName=");
-		builder.append(userName);
-		builder.append(", firstName=");
-		builder.append(firstName);
-		builder.append(", lastName=");
-		builder.append(lastName);
-		builder.append(", email=");
-		builder.append(email);
+		builder.append(", accountTypeId=");
+		builder.append(accountTypeId);
+		builder.append(", facultyId=");
+		builder.append(facultyId);
 		builder.append(", encryptedPassword=");
 		builder.append(encryptedPassword);
-		builder.append(", salt=");
-		builder.append(salt);
-		builder.append(", userStateId=");
-		builder.append(userStateId);
+		builder.append(", passwordSalt=");
+		builder.append(passwordSalt);
 		builder.append(", createdAt=");
 		builder.append(createdAt);
+		builder.append(", updatedAt=");
+		builder.append(updatedAt);
+		builder.append(", deleted=");
+		builder.append(deleted);
 		builder.append("]");
 		return builder.toString();
 	}
