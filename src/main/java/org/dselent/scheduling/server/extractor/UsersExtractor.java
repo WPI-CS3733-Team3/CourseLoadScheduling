@@ -5,42 +5,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dselent.scheduling.server.model.User;
+import org.dselent.scheduling.server.model.Users;
 
-public class UsersExtractor extends Extractor<List<User>>
+public class UsersExtractor extends Extractor<List<Users>>
 {
 	@Override
-	public List<User> extractData(ResultSet rs) throws SQLException
+	public List<Users> extractData(ResultSet rs) throws SQLException
 	{
-		List<User> resultList = new ArrayList<>();
+		List<Users> resultList = new ArrayList<>();
 
 		while(rs.next())
 		{
-			User result = new User();
+			Users result = new Users();
 				
-			result.setId(rs.getInt(User.getColumnName(User.Columns.ID)));
+			result.setId(rs.getInt(Users.getColumnName(Users.Columns.ID)));
 			
 			if(rs.wasNull())
 			{
 				result.setId(null);
 			}
 			
-			result.setUserName(rs.getString(User.getColumnName(User.Columns.USER_NAME)));
-			result.setFirstName(rs.getString(User.getColumnName(User.Columns.FIRST_NAME)));
-			result.setLastName(rs.getString(User.getColumnName(User.Columns.LAST_NAME)));
-			result.setEmail(rs.getString(User.getColumnName(User.Columns.EMAIL)));
-			result.setEncryptedPassword(rs.getString(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD)));
-			result.setSalt(rs.getString(User.getColumnName(User.Columns.SALT)));
-			
-			result.setUserStateId(rs.getInt(User.getColumnName(User.Columns.USER_STATE_ID)));
-			
-			if(rs.wasNull())
-			{
-				result.setUserStateId(null);
-			}
-			
-			result.setCreatedAt(rs.getTimestamp(User.getColumnName(User.Columns.CREATED_AT)));
-			result.setUpdatedAt(rs.getTimestamp(User.getColumnName(User.Columns.UPDATED_AT)));
+			result.setAccountTypeId(rs.getInt(Users.getColumnName(Users.Columns.ACCOUNT_TYPE_ID)));
+			result.setFacultyId(rs.getInt(Users.getColumnName(Users.Columns.FACULTY_ID)));
+			result.setEncryptedPassword(rs.getString(Users.getColumnName(Users.Columns.ENCRYPTED_PASSWORD)));
+			result.setPasswordSalt(rs.getString(Users.getColumnName(Users.Columns.PASSWORD_SALT)));
+			result.setCreatedAt(rs.getTimestamp(Users.getColumnName(Users.Columns.CREATED_AT)));
+			result.setUpdatedAt(rs.getTimestamp(Users.getColumnName(Users.Columns.UPDATED_AT)));
+			result.setUpdatedAt(rs.getTimestamp(Users.getColumnName(Users.Columns.DELETED)));
 		
 			resultList.add(result);
 		}
