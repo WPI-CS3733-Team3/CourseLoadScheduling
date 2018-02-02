@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.dselent.scheduling.server.dao.UsersDao;
-import org.dselent.scheduling.server.extractor.UsersExtractor;
+import org.dselent.scheduling.server.dao.Group3UsersDao;
+import org.dselent.scheduling.server.extractor.Group3UsersExtractor;
 import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.miscellaneous.QueryStringBuilder;
-import org.dselent.scheduling.server.model.User;
+import org.dselent.scheduling.server.model.Group3User;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
@@ -28,16 +28,16 @@ import org.springframework.stereotype.Repository;
  * https://howtodoinjava.com/spring/spring-core/how-to-use-spring-component-repository-service-and-controller-annotations/
  */
 @Repository
-public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
+public class Group3UsersDaoImpl extends BaseDaoImpl<Group3User> implements Group3UsersDao
 {
 	@Override
-	public int insert(User userModel, List<String> insertColumnNameList, List<String> keyHolderColumnNameList) throws SQLException
+	public int insert(Group3User userModel, List<String> insertColumnNameList, List<String> keyHolderColumnNameList) throws SQLException
 	{
 		
 		validateColumnNames(insertColumnNameList);
 		validateColumnNames(keyHolderColumnNameList);
 
-		String queryTemplate = QueryStringBuilder.generateInsertString(User.TABLE_NAME, insertColumnNameList);
+		String queryTemplate = QueryStringBuilder.generateInsertString(Group3User.TABLE_NAME, insertColumnNameList);
 	    MapSqlParameterSource parameters = new MapSqlParameterSource();
 	    
 	    List<Map<String, Object>> keyList = new ArrayList<>();
@@ -65,10 +65,10 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
 	
 	
 	@Override
-	public List<User> select(List<String> selectColumnNameList, List<QueryTerm> queryTermList, List<Pair<String, ColumnOrder>> orderByList) throws SQLException
+	public List<Group3User> select(List<String> selectColumnNameList, List<QueryTerm> queryTermList, List<Pair<String, ColumnOrder>> orderByList) throws SQLException
 	{
-		UsersExtractor extractor = new UsersExtractor();
-		String queryTemplate = QueryStringBuilder.generateSelectString(User.TABLE_NAME, selectColumnNameList, queryTermList, orderByList);
+		Group3UsersExtractor extractor = new Group3UsersExtractor();
+		String queryTemplate = QueryStringBuilder.generateSelectString(Group3User.TABLE_NAME, selectColumnNameList, queryTermList, orderByList);
 
 		List<Object> objectList = new ArrayList<Object>();
 		
@@ -79,16 +79,16 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
 		
 	    Object[] parameters = objectList.toArray();
 		 
-	    List<User> usersList = jdbcTemplate.query(queryTemplate, extractor, parameters);
+	    List<Group3User> usersList = jdbcTemplate.query(queryTemplate, extractor, parameters);
 	    
 	    return usersList;
 	}
 
 	@Override
-	public User findById(int id) throws SQLException
+	public Group3User findById(int id) throws SQLException
 	{
-		String columnName = QueryStringBuilder.convertColumnName(User.getColumnName(User.Columns.ID), false);
-		List<String> selectColumnNames = User.getColumnNameList();
+		String columnName = QueryStringBuilder.convertColumnName(Group3User.getColumnName(Group3User.Columns.ID), false);
+		List<String> selectColumnNames = Group3User.getColumnNameList();
 		
 		List<QueryTerm> queryTermList = new ArrayList<>();
 		QueryTerm idTerm = new QueryTerm(columnName, ComparisonOperator.EQUAL, id, null);
@@ -98,9 +98,9 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
 		Pair<String, ColumnOrder> order = new Pair<String, ColumnOrder>(columnName, ColumnOrder.ASC);
 		orderByList.add(order);
 		
-		List<User> usersList = select(selectColumnNames, queryTermList, orderByList);
+		List<Group3User> usersList = select(selectColumnNames, queryTermList, orderByList);
 	
-	    User user = null;
+	    Group3User user = null;
 	    
 	    if(!usersList.isEmpty())
 	    {
@@ -113,7 +113,7 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
 	@Override
 	public int update(String columnName, Object newValue, List<QueryTerm> queryTermList)
 	{
-		String queryTemplate = QueryStringBuilder.generateUpdateString(User.TABLE_NAME, columnName, queryTermList);
+		String queryTemplate = QueryStringBuilder.generateUpdateString(Group3User.TABLE_NAME, columnName, queryTermList);
 
 		List<Object> objectList = new ArrayList<Object>();
 		objectList.add(newValue);
@@ -133,7 +133,7 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
 	@Override
 	public int delete(List<QueryTerm> queryTermList)
 	{
-		String queryTemplate = QueryStringBuilder.generateDeleteString(User.TABLE_NAME, queryTermList);
+		String queryTemplate = QueryStringBuilder.generateDeleteString(Group3User.TABLE_NAME, queryTermList);
 
 		List<Object> objectList = new ArrayList<Object>();
 		
@@ -149,7 +149,7 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
 		return rowsAffected;
 	}
 
-	private void addParameterMapValue(MapSqlParameterSource parameters, String insertColumnName, User userModel)
+	private void addParameterMapValue(MapSqlParameterSource parameters, String insertColumnName, Group3User userModel)
 	{
 		String parameterName = QueryStringBuilder.convertColumnName(insertColumnName, false);
     	
@@ -157,45 +157,37 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
     	// The getter must be distinguished unless the models are designed as simply a map of columns-values
     	// Would prefer not being that generic since it may end up leading to all code being collections of strings
 		
-    	if(insertColumnName.equals(User.getColumnName(User.Columns.ID)))
+    	if(insertColumnName.equals(Group3User.getColumnName(Group3User.Columns.ID)))
     	{
     		parameters.addValue(parameterName, userModel.getId());
     	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.USER_NAME)))
+    	else if(insertColumnName.equals(Group3User.getColumnName(Group3User.Columns.ACCOUNT_TYPE_ID)))
     	{
-    		parameters.addValue(parameterName, userModel.getUserName());
+    		parameters.addValue(parameterName, userModel.getAccountTypeId());
     	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.FIRST_NAME)))
+    	else if(insertColumnName.equals(Group3User.getColumnName(Group3User.Columns.FACULTY_ID)))
     	{
-    		parameters.addValue(parameterName, userModel.getFirstName());
+    		parameters.addValue(parameterName, userModel.getFacultyId());
     	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.LAST_NAME)))
-    	{
-    		parameters.addValue(parameterName, userModel.getLastName());
-    	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.EMAIL)))
-    	{
-    		parameters.addValue(parameterName, userModel.getEmail());
-    	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD)))
+    	else if(insertColumnName.equals(Group3User.getColumnName(Group3User.Columns.ENCRYPTED_PASSWORD)))
     	{
     		parameters.addValue(parameterName, userModel.getEncryptedPassword());
     	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.SALT)))
+    	else if(insertColumnName.equals(Group3User.getColumnName(Group3User.Columns.PASSWORD_SALT)))
     	{
-    		parameters.addValue(parameterName, userModel.getSalt());
+    		parameters.addValue(parameterName, userModel.getPasswordSalt());
     	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.USER_STATE_ID)))
-    	{
-    		parameters.addValue(parameterName, userModel.getUserStateId());
-    	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.CREATED_AT)))
+    	else if(insertColumnName.equals(Group3User.getColumnName(Group3User.Columns.CREATED_AT)))
     	{
     		parameters.addValue(parameterName, userModel.getCreatedAt());
     	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.UPDATED_AT)))
+    	else if(insertColumnName.equals(Group3User.getColumnName(Group3User.Columns.UPDATED_AT)))
     	{
     		parameters.addValue(parameterName, userModel.getUpdatedAt());
+    	}
+    	else if(insertColumnName.equals(Group3User.getColumnName(Group3User.Columns.DELETED)))
+    	{
+    		parameters.addValue(parameterName, userModel.getDeleted());
     	}
     	else
     	{
@@ -205,47 +197,39 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
     	}
 	}	
 
-	private void addObjectValue(Map<String, Object> keyMap, String keyHolderColumnName, User userModel)
+	private void addObjectValue(Map<String, Object> keyMap, String keyHolderColumnName, Group3User userModel)
 	{
-    	if(keyHolderColumnName.equals(User.getColumnName(User.Columns.ID)))
+    	if(keyHolderColumnName.equals(Group3User.getColumnName(Group3User.Columns.ID)))
     	{
     		userModel.setId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.USER_NAME)))
+    	else if(keyHolderColumnName.equals(Group3User.getColumnName(Group3User.Columns.ACCOUNT_TYPE_ID)))
     	{
-    		userModel.setUserName((String) keyMap.get(keyHolderColumnName));
+    		userModel.setAccountTypeId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.FIRST_NAME)))
+    	else if(keyHolderColumnName.equals(Group3User.getColumnName(Group3User.Columns.FACULTY_ID)))
     	{
-    		userModel.setFirstName((String) keyMap.get(keyHolderColumnName));
+    		userModel.setFacultyId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.LAST_NAME)))
-    	{
-    		userModel.setLastName((String) keyMap.get(keyHolderColumnName));
-    	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.EMAIL)))
-    	{
-    		userModel.setEmail((String) keyMap.get(keyHolderColumnName));
-    	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD)))
+    	else if(keyHolderColumnName.equals(Group3User.getColumnName(Group3User.Columns.ENCRYPTED_PASSWORD)))
     	{
     		userModel.setEncryptedPassword((String) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.SALT)))
+    	else if(keyHolderColumnName.equals(Group3User.getColumnName(Group3User.Columns.PASSWORD_SALT)))
     	{
-    		userModel.setSalt((String) keyMap.get(keyHolderColumnName));
+    		userModel.setPasswordSalt((String) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.USER_STATE_ID)))
-    	{
-    		userModel.setUserStateId((Integer) keyMap.get(keyHolderColumnName));
-    	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.CREATED_AT)))
+    	else if(keyHolderColumnName.equals(Group3User.getColumnName(Group3User.Columns.CREATED_AT)))
     	{
     		userModel.setCreatedAt((Timestamp) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.UPDATED_AT)))
+    	else if(keyHolderColumnName.equals(Group3User.getColumnName(Group3User.Columns.UPDATED_AT)))
     	{
     		userModel.setUpdatedAt((Timestamp) keyMap.get(keyHolderColumnName));
+    	}
+    	else if(keyHolderColumnName.equals(Group3User.getColumnName(Group3User.Columns.DELETED)))
+    	{
+    		userModel.setDeleted((Boolean) keyMap.get(keyHolderColumnName));
     	}
     	else
     	{
@@ -258,7 +242,7 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
 	@Override
 	public void validateColumnNames(List<String> columnNameList)
 	{
-		List<String> actualColumnNames = User.getColumnNameList();
+		List<String> actualColumnNames = Group3User.getColumnNameList();
 		boolean valid = actualColumnNames.containsAll(columnNameList);
 		
 		if(!valid)

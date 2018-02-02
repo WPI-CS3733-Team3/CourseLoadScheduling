@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dselent.scheduling.server.model.User;
+import org.dselent.scheduling.server.model.Group3User;
 import org.dselent.scheduling.server.model.UsersRolesLink;
 
 public class UsersRolesLinksExtractor extends Extractor<List<UsersRolesLink>>
@@ -40,7 +40,7 @@ public class UsersRolesLinksExtractor extends Extractor<List<UsersRolesLink>>
 				result.setRoleId(null);
 			}
 			
-			result.setCreatedAt(rs.getTimestamp(User.getColumnName(User.Columns.CREATED_AT)));
+			result.setCreatedAt(rs.getTimestamp(Group3User.getColumnName(Group3User.Columns.CREATED_AT)));
 		
 			resultList.add(result);
 		}

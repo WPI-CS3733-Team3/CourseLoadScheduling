@@ -175,7 +175,7 @@ public class Faculty extends Model {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof User)) {
+		if (!(obj instanceof Group3User)) {
 			return false;
 		}
 		Faculty other = (Faculty) obj;

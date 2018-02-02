@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.dselent.scheduling.server.config.AppConfig;
-import org.dselent.scheduling.server.model.User;
+import org.dselent.scheduling.server.model.Group3User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class CustomDaoTest
     {
     	@SuppressWarnings("unused")
     	
-		List<User> userList = customDao.getAllUsersWithRole(1);
+		List<Group3User> userList = customDao.getAllUsersWithRole(1);
     	
     	// see things in debugger
     	System.out.println();

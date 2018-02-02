@@ -8,10 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UsersHistory extends Model
+
+public class Group3User extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "users_history";
+	public static final String TABLE_NAME = "users";
 		
 	// column names
 	public static enum Columns
@@ -25,7 +26,7 @@ public class UsersHistory extends Model
 		UPDATED_AT,
 		DELETED,
 	}
-
+	
 	// enum list
 	private static final List<Columns> COLUMN_LIST = new ArrayList<>();
 	
@@ -61,7 +62,7 @@ public class UsersHistory extends Model
 	private Boolean deleted;
 
 	// methods
-	
+		
 	public static JDBCType getColumnType(Columns column)
 	{
 		return COLUMN_TYPE_MAP.get(column);
@@ -209,11 +210,11 @@ public class UsersHistory extends Model
 		{
 			return false;
 		}
-		if (!(obj instanceof UsersHistory))
+		if (!(obj instanceof Group3User))
 		{
 			return false;
 		}
-		UsersHistory other = (UsersHistory) obj;
+		Group3User other = (Group3User) obj;
 		if (createdAt == null)
 		{
 			if (other.createdAt != null)
@@ -304,6 +305,7 @@ public class UsersHistory extends Model
 		}
 		return true;
 	}
+	
 
 	@Override
 	public String toString()
@@ -328,4 +330,5 @@ public class UsersHistory extends Model
 		builder.append("]");
 		return builder.toString();
 	}
+	
 }

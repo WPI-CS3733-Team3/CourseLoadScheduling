@@ -9,7 +9,7 @@ import org.dselent.scheduling.server.extractor.SectionsInfoExtractor;
 import org.dselent.scheduling.server.extractor.CourseSectionsExtractor;
 import org.dselent.scheduling.server.extractor.AccountInfoExtractor;
 import org.dselent.scheduling.server.extractor.CourseFacultyExtractor;
-import org.dselent.scheduling.server.extractor.UsersExtractor;
+import org.dselent.scheduling.server.extractor.Group3UsersExtractor;
 import org.dselent.scheduling.server.miscellaneous.QueryPathConstants;
 import org.dselent.scheduling.server.model.CourseInfo;
 import org.dselent.scheduling.server.model.RequestTables;
@@ -17,7 +17,7 @@ import org.dselent.scheduling.server.model.SectionsInfo;
 import org.dselent.scheduling.server.model.CourseSections;
 import org.dselent.scheduling.server.model.AccountInfo;
 import org.dselent.scheduling.server.model.CourseFaculty;
-import org.dselent.scheduling.server.model.User;
+import org.dselent.scheduling.server.model.Group3User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -33,13 +33,13 @@ public class CustomDaoImpl implements CustomDao
 	// can make custom models and extractors as needed or reuse existing ones if applicable
 	
 	@Override
-	public List<User> getAllUsersWithRole(int roleId)
+	public List<Group3User> getAllUsersWithRole(int roleId)
 	{
-		UsersExtractor extractor = new UsersExtractor();
+		Group3UsersExtractor extractor = new Group3UsersExtractor();
 		String queryTemplate = new String(QueryPathConstants.USERS_WITH_ROLE_QUERY);
 	    MapSqlParameterSource parameters = new MapSqlParameterSource();
 	    parameters.addValue("roleId", roleId);
-	    List<User> usersWithRoleList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+	    List<Group3User> usersWithRoleList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
 	    return usersWithRoleList;
 	}
 	
