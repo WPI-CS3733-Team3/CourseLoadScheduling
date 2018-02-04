@@ -1,9 +1,8 @@
-package org.dselent.scheduling.server.miscellaneous;
+package org.dselent.scheduling.server.sqlutils;
 
 import java.util.List;
 
-import org.dselent.scheduling.server.sqlutils.ColumnOrder;
-import org.dselent.scheduling.server.sqlutils.QueryTerm;
+import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.springframework.util.StringUtils;
 
 public class QueryStringBuilder
@@ -20,8 +19,9 @@ public class QueryStringBuilder
 	
 	private static final String UPDATE_PIECE1 = "UPDATE ";
 	private static final String UPDATE_PIECE2 = " SET ";
-	private static final String UPDATE_PIECE3 = " = ?";
-	private static final String UPDATE_PIECE4 = " WHERE ";
+	private static final String UPDATE_PIECE3 = ", ";
+	private static final String UPDATE_PIECE4 = " = ?";
+	private static final String UPDATE_PIECE5 = " WHERE ";
 	
 	private static final String DELETE_PIECE1 = "DELETE FROM ";
 	private static final String DELETE_PIECE2 = " WHERE ";
@@ -140,12 +140,63 @@ public class QueryStringBuilder
 		sb.append(tableName);
 		sb.append(UPDATE_PIECE2);
 		sb.append(columnName);
-		sb.append(UPDATE_PIECE3);
+		sb.append(UPDATE_PIECE4);
 	
 		
 		if(!queryTermList.isEmpty())
 		{
+			sb.append(UPDATE_PIECE5);
+			
+			for(QueryTerm queryTerm : queryTermList)
+			{
+				if(queryTerm.getLogicalOperator() != null)
+				{
+					sb.append(" ");
+					sb.append(queryTerm.getLogicalOperator().getStringFormat());
+					sb.append(" ");
+				}
+				
+				sb.append(queryTerm.getColumnName());
+				sb.append(" ");
+				sb.append(queryTerm.getComparisonOperator().getStringFormat());
+				sb.append(" ");
+				sb.append("?");
+			}
+		}
+				
+		sb.append(";");
+		
+		return sb.toString();
+	}
+	
+	public static String generateUpdateString(String tableName, List<String> columnNameList, List<QueryTerm> queryTermList)
+	{
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(UPDATE_PIECE1);
+		sb.append(tableName);
+		
+		for(int i=0; i<columnNameList.size(); i++)
+		{
+			String columnName = columnNameList.get(i);
+			
+			if(i == 0)
+			{
+				sb.append(UPDATE_PIECE2);
+			}
+			else
+			{
+				sb.append(UPDATE_PIECE3);
+			}
+			
+			sb.append(columnName);
 			sb.append(UPDATE_PIECE4);
+		}
+			
+		
+		if(!queryTermList.isEmpty())
+		{
+			sb.append(UPDATE_PIECE5);
 			
 			for(QueryTerm queryTerm : queryTermList)
 			{
