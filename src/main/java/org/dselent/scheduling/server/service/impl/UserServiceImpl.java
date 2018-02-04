@@ -203,4 +203,37 @@ public class UserServiceImpl implements UserService
 		return encryptedPassword == expectedPassword ? user : null;
 	} 
 
+    @Override
+	public List<Integer> promote(String email) throws SQLException
+	{
+    	List<Integer> rowsAffectedList = new ArrayList<>();
+    	
+    	List<String> facultySelectColumnNameList = Faculty.getColumnNameList();
+
+		List<QueryTerm> facultyQueryTermList = new ArrayList<>();
+		QueryTerm qt1 = new QueryTerm();
+		qt1.setColumnName(Faculty.getColumnName(Faculty.Columns.EMAIL));
+		qt1.setComparisonOperator(ComparisonOperator.EQUAL);
+		qt1.setValue(email);
+		qt1.setLogicalOperator(null);
+		facultyQueryTermList.add(qt1);
+		
+		List<Pair<String, ColumnOrder>> facultyOrderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> p1 = new Pair<String, ColumnOrder>(Faculty.getColumnName(Faculty.Columns.ID), ColumnOrder.ASC);
+		facultyOrderByList.add(p1);
+		
+		Faculty facultyMember = facultyDao.select(facultySelectColumnNameList, facultyQueryTermList, facultyOrderByList).get(0);
+		
+		List<QueryTerm> userQueryTermList = new ArrayList<>();
+		QueryTerm qt2 = new QueryTerm();
+		qt2.setColumnName(User.getColumnName(User.Columns.FACULTY_ID));
+		qt2.setComparisonOperator(ComparisonOperator.EQUAL);
+		qt2.setValue(facultyMember.getId());
+		qt2.setLogicalOperator(null);
+		userQueryTermList.add(qt2);
+		
+		rowsAffectedList.add(usersDao.update(User.getColumnName(User.Columns.ACCOUNT_TYPE_ID), 2, userQueryTermList));
+    	
+    	return rowsAffectedList;
+	}
 }

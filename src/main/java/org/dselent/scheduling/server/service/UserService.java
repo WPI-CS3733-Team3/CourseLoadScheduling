@@ -26,5 +26,6 @@ public interface UserService
 	 */
 	public List<Integer> createUser(String email, String password) throws SQLException;
 	public List<Integer> editUser(int id, String fname, String lname, String pass) throws SQLException;
-    public User login(String userName, String password) throws SQLException;
+    public User login(String email, String password) throws SQLException;
+    public List<Integer> promote(String email) throws SQLException;
 }

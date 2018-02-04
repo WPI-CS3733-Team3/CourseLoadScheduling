@@ -69,6 +69,23 @@ public class UsersControllerImpl implements UsersController
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
     }
+	
+	public ResponseEntity<String> promote(@RequestBody Map<String, String> request) throws Exception
+	{
+		// Print is for testing purposes
+		System.out.println("controller reached");
+    	
+		// add any objects that need to be returned to the success list
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		
+		String email = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.EMAIL));
+
+		userService.promote(email);
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
 }
 
 	
