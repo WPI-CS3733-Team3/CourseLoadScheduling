@@ -8,7 +8,7 @@ import org.dselent.scheduling.server.model.SectionsInfo;
 import org.dselent.scheduling.server.model.CourseSections;
 import org.dselent.scheduling.server.model.AccountInfo;
 import org.dselent.scheduling.server.model.CourseFaculty;
-import org.dselent.scheduling.server.model.Group3User;
+import org.dselent.scheduling.server.model.User;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -23,7 +23,7 @@ public interface CustomDao
 {
 	// custom queries here
 	
-	public List<Group3User> getAllUsersWithRole(int roleId);//**example, delete this one once finished!**
+	public List<User> getAllUsersWithRole(int roleId);//**example, delete this one once finished!**
 	
 	//Gets the information pertaining to every course
 	public List<CourseInfo> getCourseInfo();

@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.dselent.scheduling.server.controller.UsersController;
-import org.dselent.scheduling.server.dto.RegisterUserDto;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
-import org.dselent.scheduling.server.requests.user.Register;
+import org.dselent.scheduling.server.requests.user.CreateAccount;
 import org.dselent.scheduling.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class UsersControllerImpl implements UsersController
 {
 	@Autowired
-    private UserService userService;
+    private UserService group3UserService;
     
 	/**
 	 * 
@@ -35,7 +34,7 @@ public class UsersControllerImpl implements UsersController
 	 * @return A ResponseEntity for the response object(s) and the status code
 	 * @throws Exception 
 	 */
-	public ResponseEntity<String> register(@RequestBody Map<String, String> request) throws Exception 
+	public ResponseEntity<String> createGroup3User(@RequestBody Map<String, String> request) throws Exception 
     {
     	// Print is for testing purposes
 		System.out.println("controller reached");
@@ -44,21 +43,10 @@ public class UsersControllerImpl implements UsersController
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String userName = request.get(Register.getBodyName(Register.BodyKey.USER_NAME));
-		String firstName = request.get(Register.getBodyName(Register.BodyKey.FIRST_NAME));
-		String lastName = request.get(Register.getBodyName(Register.BodyKey.LAST_NAME));
-		String email = request.get(Register.getBodyName(Register.BodyKey.EMAIL));
-		String password = request.get(Register.getBodyName(Register.BodyKey.PASSWORD));
+		String email = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.EMAIL));
+		String password = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.PASSWORD));
 
-		RegisterUserDto.Builder builder = RegisterUserDto.builder();
-		RegisterUserDto registerUserDto = builder.withUserName(userName)
-		.withFirstName(firstName)
-		.withLastName(lastName)
-		.withEmail(email)
-		.withPassword(password)
-		.build();
-		
-		userService.registerUser(registerUserDto);
+		group3UserService.createGroup3User(email, password);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);

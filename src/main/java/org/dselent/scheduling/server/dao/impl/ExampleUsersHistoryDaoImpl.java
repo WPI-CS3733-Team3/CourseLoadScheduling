@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.dselent.scheduling.server.dao.UsersHistoryDao;
-import org.dselent.scheduling.server.extractor.UsersHistoryExtractor;
+import org.dselent.scheduling.server.dao.ExampleUsersHistoryDao;
+import org.dselent.scheduling.server.extractor.ExampleUsersHistoryExtractor;
 import org.dselent.scheduling.server.miscellaneous.Pair;
-import org.dselent.scheduling.server.model.UsersHistory;
+import org.dselent.scheduling.server.model.ExampleUsersHistory;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryStringBuilder;
@@ -28,16 +28,16 @@ import org.springframework.stereotype.Repository;
  * https://howtodoinjava.com/spring/spring-core/how-to-use-spring-component-repository-service-and-controller-annotations/
  */
 @Repository
-public class UsersHistoryDaoImpl extends BaseDaoImpl<UsersHistory> implements UsersHistoryDao
+public class ExampleUsersHistoryDaoImpl extends BaseDaoImpl<ExampleUsersHistory> implements ExampleUsersHistoryDao
 {
 	@Override
-	public int insert(UsersHistory usersHistoryModel, List<String> insertColumnNameList, List<String> keyHolderColumnNameList) throws SQLException
+	public int insert(ExampleUsersHistory usersHistoryModel, List<String> insertColumnNameList, List<String> keyHolderColumnNameList) throws SQLException
 	{
 		
 		validateColumnNames(insertColumnNameList);
 		validateColumnNames(keyHolderColumnNameList);
 
-		String queryTemplate = QueryStringBuilder.generateInsertString(UsersHistory.TABLE_NAME, insertColumnNameList);
+		String queryTemplate = QueryStringBuilder.generateInsertString(ExampleUsersHistory.TABLE_NAME, insertColumnNameList);
 	    MapSqlParameterSource parameters = new MapSqlParameterSource();
 	    
 	    List<Map<String, Object>> keyList = new ArrayList<>();
@@ -65,10 +65,10 @@ public class UsersHistoryDaoImpl extends BaseDaoImpl<UsersHistory> implements Us
 	
 	
 	@Override
-	public List<UsersHistory> select(List<String> selectColumnNameList, List<QueryTerm> queryTermList, List<Pair<String, ColumnOrder>> orderByList) throws SQLException
+	public List<ExampleUsersHistory> select(List<String> selectColumnNameList, List<QueryTerm> queryTermList, List<Pair<String, ColumnOrder>> orderByList) throws SQLException
 	{
-		UsersHistoryExtractor extractor = new UsersHistoryExtractor();
-		String queryTemplate = QueryStringBuilder.generateSelectString(UsersHistory.TABLE_NAME, selectColumnNameList, queryTermList, orderByList);
+		ExampleUsersHistoryExtractor extractor = new ExampleUsersHistoryExtractor();
+		String queryTemplate = QueryStringBuilder.generateSelectString(ExampleUsersHistory.TABLE_NAME, selectColumnNameList, queryTermList, orderByList);
 
 		List<Object> objectList = new ArrayList<Object>();
 		
@@ -79,16 +79,16 @@ public class UsersHistoryDaoImpl extends BaseDaoImpl<UsersHistory> implements Us
 		
 	    Object[] parameters = objectList.toArray();
 		 
-	    List<UsersHistory> usersHistoryList = jdbcTemplate.query(queryTemplate, extractor, parameters);
+	    List<ExampleUsersHistory> usersHistoryList = jdbcTemplate.query(queryTemplate, extractor, parameters);
 	    
 	    return usersHistoryList;
 	}
 
 	@Override
-	public UsersHistory findById(int id) throws SQLException
+	public ExampleUsersHistory findById(int id) throws SQLException
 	{
-		String columnName = QueryStringBuilder.convertColumnName(UsersHistory.getColumnName(UsersHistory.Columns.ID), false);
-		List<String> selectColumnNames = UsersHistory.getColumnNameList();
+		String columnName = QueryStringBuilder.convertColumnName(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.ID), false);
+		List<String> selectColumnNames = ExampleUsersHistory.getColumnNameList();
 		
 		List<QueryTerm> queryTermList = new ArrayList<>();
 		QueryTerm idTerm = new QueryTerm(columnName, ComparisonOperator.EQUAL, id, null);
@@ -98,9 +98,9 @@ public class UsersHistoryDaoImpl extends BaseDaoImpl<UsersHistory> implements Us
 		Pair<String, ColumnOrder> order = new Pair<String, ColumnOrder>(columnName, ColumnOrder.ASC);
 		orderByList.add(order);
 		
-		List<UsersHistory> usersHistoryList = select(selectColumnNames, queryTermList, orderByList);
+		List<ExampleUsersHistory> usersHistoryList = select(selectColumnNames, queryTermList, orderByList);
 	
-		UsersHistory usersHistory = null;
+		ExampleUsersHistory usersHistory = null;
 	    
 	    if(!usersHistoryList.isEmpty())
 	    {
@@ -113,7 +113,7 @@ public class UsersHistoryDaoImpl extends BaseDaoImpl<UsersHistory> implements Us
 	@Override
 	public int update(String columnName, Object newValue, List<QueryTerm> queryTermList)
 	{
-		String queryTemplate = QueryStringBuilder.generateUpdateString(UsersHistory.TABLE_NAME, columnName, queryTermList);
+		String queryTemplate = QueryStringBuilder.generateUpdateString(ExampleUsersHistory.TABLE_NAME, columnName, queryTermList);
 
 		List<Object> objectList = new ArrayList<Object>();
 		objectList.add(newValue);
@@ -133,7 +133,7 @@ public class UsersHistoryDaoImpl extends BaseDaoImpl<UsersHistory> implements Us
 	@Override
 	public int delete(List<QueryTerm> queryTermList)
 	{
-		String queryTemplate = QueryStringBuilder.generateDeleteString(UsersHistory.TABLE_NAME, queryTermList);
+		String queryTemplate = QueryStringBuilder.generateDeleteString(ExampleUsersHistory.TABLE_NAME, queryTermList);
 
 		List<Object> objectList = new ArrayList<Object>();
 		
@@ -149,7 +149,7 @@ public class UsersHistoryDaoImpl extends BaseDaoImpl<UsersHistory> implements Us
 		return rowsAffected;
 	}
 
-	private void addParameterMapValue(MapSqlParameterSource parameters, String insertColumnName, UsersHistory usersHistoryModel)
+	private void addParameterMapValue(MapSqlParameterSource parameters, String insertColumnName, ExampleUsersHistory usersHistoryModel)
 	{
 		String parameterName = QueryStringBuilder.convertColumnName(insertColumnName, false);
     	
@@ -157,35 +157,35 @@ public class UsersHistoryDaoImpl extends BaseDaoImpl<UsersHistory> implements Us
     	// The getter must be distinguished unless the models are designed as simply a map of columns-values
     	// Would prefer not being that generic since it may end up leading to all code being collections of strings
 		
-    	if(insertColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.ID)))
+    	if(insertColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.ID)))
     	{
     		parameters.addValue(parameterName, usersHistoryModel.getId());
     	}
-    	else if(insertColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.ACCOUNT_TYPE_ID)))
+    	else if(insertColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.ACCOUNT_TYPE_ID)))
     	{
     		parameters.addValue(parameterName, usersHistoryModel.getAccountTypeId());
     	}
-    	else if(insertColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.FACULTY_ID)))
+    	else if(insertColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.FACULTY_ID)))
     	{
     		parameters.addValue(parameterName, usersHistoryModel.getFacultyId());
     	}
-    	else if(insertColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.ENCRYPTED_PASSWORD)))
+    	else if(insertColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.ENCRYPTED_PASSWORD)))
     	{
     		parameters.addValue(parameterName, usersHistoryModel.getEncryptedPassword());
     	}
-    	else if(insertColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.PASSWORD_SALT)))
+    	else if(insertColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.PASSWORD_SALT)))
     	{
     		parameters.addValue(parameterName, usersHistoryModel.getPasswordSalt());
     	}
-    	else if(insertColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.CREATED_AT)))
+    	else if(insertColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.CREATED_AT)))
     	{
     		parameters.addValue(parameterName, usersHistoryModel.getCreatedAt());
     	}
-    	else if(insertColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.UPDATED_AT)))
+    	else if(insertColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.UPDATED_AT)))
     	{
     		parameters.addValue(parameterName, usersHistoryModel.getUpdatedAt());
     	}
-    	else if(insertColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.DELETED)))
+    	else if(insertColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.DELETED)))
     	{
     		parameters.addValue(parameterName, usersHistoryModel.getDeleted());
     	}
@@ -197,37 +197,37 @@ public class UsersHistoryDaoImpl extends BaseDaoImpl<UsersHistory> implements Us
     	}
 	}	
 
-	private void addObjectValue(Map<String, Object> keyMap, String keyHolderColumnName, UsersHistory usersHistoryModel)
+	private void addObjectValue(Map<String, Object> keyMap, String keyHolderColumnName, ExampleUsersHistory usersHistoryModel)
 	{
-    	if(keyHolderColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.ID)))
+    	if(keyHolderColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.ID)))
     	{
     		usersHistoryModel.setId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.ACCOUNT_TYPE_ID)))
+    	else if(keyHolderColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.ACCOUNT_TYPE_ID)))
     	{
     		usersHistoryModel.setAccountTypeId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.FACULTY_ID)))
+    	else if(keyHolderColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.FACULTY_ID)))
     	{
     		usersHistoryModel.setFacultyId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.ENCRYPTED_PASSWORD)))
+    	else if(keyHolderColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.ENCRYPTED_PASSWORD)))
     	{
     		usersHistoryModel.setEncryptedPassword((String) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.PASSWORD_SALT)))
+    	else if(keyHolderColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.PASSWORD_SALT)))
     	{
     		usersHistoryModel.setPasswordSalt((String) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.CREATED_AT)))
+    	else if(keyHolderColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.CREATED_AT)))
     	{
     		usersHistoryModel.setCreatedAt((Timestamp) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.UPDATED_AT)))
+    	else if(keyHolderColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.UPDATED_AT)))
     	{
     		usersHistoryModel.setUpdatedAt((Timestamp) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersHistory.getColumnName(UsersHistory.Columns.DELETED)))
+    	else if(keyHolderColumnName.equals(ExampleUsersHistory.getColumnName(ExampleUsersHistory.Columns.DELETED)))
     	{
     		usersHistoryModel.setDeleted((Boolean) keyMap.get(keyHolderColumnName));
     	}
@@ -242,7 +242,7 @@ public class UsersHistoryDaoImpl extends BaseDaoImpl<UsersHistory> implements Us
 	@Override
 	public void validateColumnNames(List<String> columnNameList)
 	{
-		List<String> actualColumnNames = UsersHistory.getColumnNameList();
+		List<String> actualColumnNames = ExampleUsersHistory.getColumnNameList();
 		boolean valid = actualColumnNames.containsAll(columnNameList);
 		
 		if(!valid)

@@ -4,12 +4,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dselent.scheduling.server.dao.FacultyDao;
 import org.dselent.scheduling.server.dao.UsersDao;
-import org.dselent.scheduling.server.dao.UsersRolesLinksDao;
-import org.dselent.scheduling.server.dto.RegisterUserDto;
+import org.dselent.scheduling.server.miscellaneous.Pair;
+import org.dselent.scheduling.server.model.Faculty;
 import org.dselent.scheduling.server.model.User;
-import org.dselent.scheduling.server.model.UsersRolesLink;
 import org.dselent.scheduling.server.service.UserService;
+import org.dselent.scheduling.server.sqlutils.ColumnOrder;
+import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
+import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.keygen.KeyGenerators;
@@ -22,10 +25,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService
 {
 	@Autowired
-	private UsersDao usersDao;
+	private UsersDao group3UsersDao;
 	
 	@Autowired
-	private UsersRolesLinksDao usersRolesLinksDao;
+	private FacultyDao facultyDao;
 	
     public UserServiceImpl()
     {
@@ -38,7 +41,7 @@ public class UserServiceImpl implements UserService
      */
     @Transactional
     @Override
-	public List<Integer> registerUser(RegisterUserDto dto) throws SQLException
+	public List<Integer> createGroup3User(String email, String password) throws SQLException
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
 		
@@ -48,60 +51,53 @@ public class UserServiceImpl implements UserService
 			// email requirements
 			// null values
 			// etc...
+		List<String> selectColumnNameList = Faculty.getColumnNameList();
+
+		List<QueryTerm> queryTermList = new ArrayList<>();
+		QueryTerm qt = new QueryTerm();
+		qt.setColumnName(Faculty.getColumnName(Faculty.Columns.EMAIL));
+		qt.setComparisonOperator(ComparisonOperator.EQUAL);
+		qt.setValue(email);
+		qt.setLogicalOperator(null);
+		queryTermList.add(qt);
+		
+		List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> p = new Pair<String, ColumnOrder>(Faculty.getColumnName(Faculty.Columns.ID), ColumnOrder.ASC);
+		orderByList.add(p);
+		
+		System.out.println(selectColumnNameList);
+		System.out.println(queryTermList);
+		System.out.println(orderByList);
+		List<Faculty> facultyList = facultyDao.select(selectColumnNameList, queryTermList, orderByList);
+		System.out.println(facultyList);
 		
 		String salt = KeyGenerators.string().generateKey();
-		String saltedPassword = dto.getPassword() + salt;
+		String saltedPassword = password + salt;
 		PasswordEncoder passwordEncorder = new BCryptPasswordEncoder();
 		String encryptedPassword = passwordEncorder.encode(saltedPassword);
 		
-		User user = new User();
-		user.setUserName(dto.getUserName());
-		user.setFirstName(dto.getFirstName());
-		user.setLastName(dto.getLastName());
-		user.setEmail(dto.getEmail());
-		user.setEncryptedPassword(encryptedPassword);
-		user.setSalt(salt);
-    	user.setUserStateId(1);
+		User group3User = new User();
+		group3User.setAccountTypeId(1);
+		group3User.setFacultyId(facultyList.get(0).getId());
+		group3User.setEncryptedPassword(encryptedPassword);
+		group3User.setPasswordSalt(salt);
     	
-    	List<String> userInsertColumnNameList = new ArrayList<>();
-    	List<String> userKeyHolderColumnNameList = new ArrayList<>();
-    	
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.USER_NAME));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.FIRST_NAME));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.LAST_NAME));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.EMAIL));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.SALT));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.USER_STATE_ID));
-    	
-    	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.ID));
-    	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.CREATED_AT));
-    	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.UPDATED_AT));
+    	List<String> group3UserInsertColumnNameList = new ArrayList<>();
+    	List<String> group3UserKeyHolderColumnNameList = new ArrayList<>();
 		
-    	rowsAffectedList.add(usersDao.insert(user, userInsertColumnNameList, userKeyHolderColumnNameList));
-
-		//
-     	
-    	// for now, assume users can only register with default role id
-    	// may change in the future
+    	group3UserInsertColumnNameList.add(User.getColumnName(User.Columns.ACCOUNT_TYPE_ID));
+    	group3UserInsertColumnNameList.add(User.getColumnName(User.Columns.FACULTY_ID));
+    	group3UserInsertColumnNameList.add(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD));
+    	group3UserInsertColumnNameList.add(User.getColumnName(User.Columns.PASSWORD_SALT));
     	
-		UsersRolesLink usersRolesLink = new UsersRolesLink();
-		usersRolesLink.setUserId(user.getId());
-		usersRolesLink.setRoleId(1); // hard coded as regular user
-    	
-    	List<String> usersRolesLinksInsertColumnNameList = new ArrayList<>();
-    	List<String> usersRolesLinksKeyHolderColumnNameList = new ArrayList<>();
-    	
-    	usersRolesLinksInsertColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.USER_ID));
-    	usersRolesLinksInsertColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ROLE_ID));
-    	
-    	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ID));
-    	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.CREATED_AT));
-    	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.DELETED));
+    	group3UserKeyHolderColumnNameList.add(User.getColumnName(User.Columns.ID));
+    	group3UserKeyHolderColumnNameList.add(User.getColumnName(User.Columns.CREATED_AT));
+    	group3UserKeyHolderColumnNameList.add(User.getColumnName(User.Columns.UPDATED_AT));
+    	group3UserKeyHolderColumnNameList.add(User.getColumnName(User.Columns.DELETED));
 		
-    	rowsAffectedList.add(usersRolesLinksDao.insert(usersRolesLink, usersRolesLinksInsertColumnNameList, usersRolesLinksKeyHolderColumnNameList));
-		
-		return rowsAffectedList;
+    	rowsAffectedList.add(group3UsersDao.insert(group3User, group3UserInsertColumnNameList, group3UserKeyHolderColumnNameList));
+    	
+    	return rowsAffectedList;
 	}
 	
 	//

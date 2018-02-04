@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.dselent.scheduling.server.dao.UsersRolesLinksDao;
-import org.dselent.scheduling.server.extractor.UsersRolesLinksExtractor;
+import org.dselent.scheduling.server.dao.ExampleUsersRolesLinksDao;
+import org.dselent.scheduling.server.extractor.ExampleUsersRolesLinksExtractor;
 import org.dselent.scheduling.server.miscellaneous.Pair;
-import org.dselent.scheduling.server.model.User;
-import org.dselent.scheduling.server.model.UsersRolesLink;
+import org.dselent.scheduling.server.model.ExampleUser;
+import org.dselent.scheduling.server.model.ExampleUsersRolesLink;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryStringBuilder;
@@ -21,15 +21,15 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implements UsersRolesLinksDao
+public class ExampleUsersRolesLinksDaoImpl extends BaseDaoImpl<ExampleUsersRolesLink> implements ExampleUsersRolesLinksDao
 {
 	@Override
-	public int insert(UsersRolesLink usersRolesLinkModel, List<String> insertColumnNameList, List<String> keyHolderColumnNameList) throws SQLException
+	public int insert(ExampleUsersRolesLink usersRolesLinkModel, List<String> insertColumnNameList, List<String> keyHolderColumnNameList) throws SQLException
 	{
 		validateColumnNames(insertColumnNameList);
 		validateColumnNames(keyHolderColumnNameList);
 
-		String queryTemplate = QueryStringBuilder.generateInsertString(UsersRolesLink.TABLE_NAME, insertColumnNameList);
+		String queryTemplate = QueryStringBuilder.generateInsertString(ExampleUsersRolesLink.TABLE_NAME, insertColumnNameList);
 	    MapSqlParameterSource parameters = new MapSqlParameterSource();
 	    
 	    List<Map<String, Object>> keyList = new ArrayList<>();
@@ -55,10 +55,10 @@ public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implemen
 	
 	
 	@Override
-	public List<UsersRolesLink> select(List<String> selectColumnNameList, List<QueryTerm> queryTermList, List<Pair<String, ColumnOrder>> orderByList) throws SQLException
+	public List<ExampleUsersRolesLink> select(List<String> selectColumnNameList, List<QueryTerm> queryTermList, List<Pair<String, ColumnOrder>> orderByList) throws SQLException
 	{
-		UsersRolesLinksExtractor extractor = new UsersRolesLinksExtractor();
-		String queryTemplate = QueryStringBuilder.generateSelectString(UsersRolesLink.TABLE_NAME, selectColumnNameList, queryTermList, orderByList);
+		ExampleUsersRolesLinksExtractor extractor = new ExampleUsersRolesLinksExtractor();
+		String queryTemplate = QueryStringBuilder.generateSelectString(ExampleUsersRolesLink.TABLE_NAME, selectColumnNameList, queryTermList, orderByList);
 
 		List<Object> objectList = new ArrayList<Object>();
 		
@@ -69,16 +69,16 @@ public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implemen
 		
 	    Object[] parameters = objectList.toArray();
 		 
-	    List<UsersRolesLink> usersList = jdbcTemplate.query(queryTemplate, extractor, parameters);
+	    List<ExampleUsersRolesLink> usersList = jdbcTemplate.query(queryTemplate, extractor, parameters);
 	    
 	    return usersList;
 	}
 
 	@Override
-	public UsersRolesLink findById(int id) throws SQLException
+	public ExampleUsersRolesLink findById(int id) throws SQLException
 	{
-		String columnName = QueryStringBuilder.convertColumnName(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ID), false);
-		List<String> selectColumnNames = User.getColumnNameList();
+		String columnName = QueryStringBuilder.convertColumnName(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ID), false);
+		List<String> selectColumnNames = ExampleUser.getColumnNameList();
 		
 		List<QueryTerm> queryTermList = new ArrayList<>();
 		QueryTerm idTerm = new QueryTerm(columnName, ComparisonOperator.EQUAL, id, null);
@@ -88,9 +88,9 @@ public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implemen
 		Pair<String, ColumnOrder> order = new Pair<String, ColumnOrder>(columnName, ColumnOrder.ASC);
 		orderByList.add(order);
 		
-		List<UsersRolesLink> usersRolesLinksList = select(selectColumnNames, queryTermList, orderByList);
+		List<ExampleUsersRolesLink> usersRolesLinksList = select(selectColumnNames, queryTermList, orderByList);
 	
-	    UsersRolesLink usersRolesLink = null;
+	    ExampleUsersRolesLink usersRolesLink = null;
 	    
 	    if(!usersRolesLinksList.isEmpty())
 	    {
@@ -103,7 +103,7 @@ public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implemen
 	@Override
 	public int update(String columnName, Object newValue, List<QueryTerm> queryTermList)
 	{
-		String queryTemplate = QueryStringBuilder.generateUpdateString(UsersRolesLink.TABLE_NAME, columnName, queryTermList);
+		String queryTemplate = QueryStringBuilder.generateUpdateString(ExampleUsersRolesLink.TABLE_NAME, columnName, queryTermList);
 
 		List<Object> objectList = new ArrayList<Object>();
 		objectList.add(newValue);
@@ -123,7 +123,7 @@ public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implemen
 	@Override
 	public int delete(List<QueryTerm> queryTermList)
 	{
-		String queryTemplate = QueryStringBuilder.generateDeleteString(UsersRolesLink.TABLE_NAME, queryTermList);
+		String queryTemplate = QueryStringBuilder.generateDeleteString(ExampleUsersRolesLink.TABLE_NAME, queryTermList);
 
 		List<Object> objectList = new ArrayList<Object>();
 		
@@ -139,27 +139,27 @@ public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implemen
 		return rowsAffected;
 	}
 
-	private void addParameterMapValue(MapSqlParameterSource parameters, String insertColumnName, UsersRolesLink usersRolesLinkModel)
+	private void addParameterMapValue(MapSqlParameterSource parameters, String insertColumnName, ExampleUsersRolesLink usersRolesLinkModel)
 	{
 		String parameterName = QueryStringBuilder.convertColumnName(insertColumnName, false);
     	
-    	if(insertColumnName.equals(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ID)))
+    	if(insertColumnName.equals(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ID)))
     	{
     		parameters.addValue(parameterName, usersRolesLinkModel.getId());
     	}
-    	else if(insertColumnName.equals(UsersRolesLink.getColumnName(UsersRolesLink.Columns.USER_ID)))
+    	else if(insertColumnName.equals(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.USER_ID)))
     	{
     		parameters.addValue(parameterName, usersRolesLinkModel.getUserId());
     	}
-    	else if(insertColumnName.equals(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ROLE_ID)))
+    	else if(insertColumnName.equals(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ROLE_ID)))
     	{
     		parameters.addValue(parameterName, usersRolesLinkModel.getRoleId());
     	}
-    	else if(insertColumnName.equals(UsersRolesLink.getColumnName(UsersRolesLink.Columns.CREATED_AT)))
+    	else if(insertColumnName.equals(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.CREATED_AT)))
     	{
     		parameters.addValue(parameterName, usersRolesLinkModel.getCreatedAt());
     	}
-    	else if(insertColumnName.equals(UsersRolesLink.getColumnName(UsersRolesLink.Columns.DELETED)))
+    	else if(insertColumnName.equals(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.DELETED)))
     	{
     		parameters.addValue(parameterName, usersRolesLinkModel.isDeleted());
     	}
@@ -169,25 +169,25 @@ public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implemen
     	}
 	}	
 
-	private void addObjectValue(Map<String, Object> keyMap, String keyHolderColumnName, UsersRolesLink usersRolesLinkModel)
+	private void addObjectValue(Map<String, Object> keyMap, String keyHolderColumnName, ExampleUsersRolesLink usersRolesLinkModel)
 	{
-    	if(keyHolderColumnName.equals(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ID)))
+    	if(keyHolderColumnName.equals(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ID)))
     	{
     		usersRolesLinkModel.setId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersRolesLink.getColumnName(UsersRolesLink.Columns.USER_ID)))
+    	else if(keyHolderColumnName.equals(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.USER_ID)))
     	{
     		usersRolesLinkModel.setUserId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ROLE_ID)))
+    	else if(keyHolderColumnName.equals(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ROLE_ID)))
     	{
     		usersRolesLinkModel.setRoleId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersRolesLink.getColumnName(UsersRolesLink.Columns.CREATED_AT)))
+    	else if(keyHolderColumnName.equals(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.CREATED_AT)))
     	{
     		usersRolesLinkModel.setCreatedAt((Timestamp) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(UsersRolesLink.getColumnName(UsersRolesLink.Columns.DELETED)))
+    	else if(keyHolderColumnName.equals(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.DELETED)))
     	{
     		usersRolesLinkModel.setDeleted((Boolean) keyMap.get(keyHolderColumnName));
     	}
@@ -200,7 +200,7 @@ public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implemen
 	@Override
 	public void validateColumnNames(List<String> columnNameList)
 	{
-		List<String> actualColumnNames = UsersRolesLink.getColumnNameList();
+		List<String> actualColumnNames = ExampleUsersRolesLink.getColumnNameList();
 		boolean valid = actualColumnNames.containsAll(columnNameList);
 		
 		if(!valid)

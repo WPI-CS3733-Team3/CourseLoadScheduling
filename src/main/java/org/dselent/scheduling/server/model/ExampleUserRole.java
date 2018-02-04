@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserRole extends Model
+public class ExampleUserRole extends Model
 {
 	// table name
 	public static final String TABLE_NAME = "users_roles";
@@ -167,11 +167,11 @@ public class UserRole extends Model
 		{
 			return false;
 		}
-		if (!(obj instanceof UserRole))
+		if (!(obj instanceof ExampleUserRole))
 		{
 			return false;
 		}
-		UserRole other = (UserRole) obj;
+		ExampleUserRole other = (ExampleUserRole) obj;
 		if (createdAt == null)
 		{
 			if (other.createdAt != null)

@@ -9,22 +9,19 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Group3User extends Model
+public class ExampleUserState extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "users";
+	public static final String TABLE_NAME = "users_states";
 		
 	// column names
 	public static enum Columns
 	{
 		ID,
-		ACCOUNT_TYPE_ID,
-		FACULTY_ID,
-		ENCRYPTED_PASSWORD,
-		PASSWORD_SALT,
+		STATE,
 		CREATED_AT,
 		UPDATED_AT,
-		DELETED,
+		DELETED
 	}
 	
 	// enum list
@@ -41,10 +38,7 @@ public class Group3User extends Model
 		}
 		
 		COLUMN_TYPE_MAP.put(Columns.ID, JDBCType.INTEGER);
-		COLUMN_TYPE_MAP.put(Columns.ACCOUNT_TYPE_ID, JDBCType.INTEGER);
-		COLUMN_TYPE_MAP.put(Columns.FACULTY_ID, JDBCType.INTEGER);
-		COLUMN_TYPE_MAP.put(Columns.ENCRYPTED_PASSWORD, JDBCType.VARCHAR);
-		COLUMN_TYPE_MAP.put(Columns.PASSWORD_SALT, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.STATE, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.CREATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
 		COLUMN_TYPE_MAP.put(Columns.UPDATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
 		COLUMN_TYPE_MAP.put(Columns.DELETED, JDBCType.BOOLEAN);
@@ -53,16 +47,13 @@ public class Group3User extends Model
 	// attributes
 	
 	private Integer id;
-	private Integer accountTypeId;  
-	private Integer facultyId;
-	private String encryptedPassword;
-	private String passwordSalt;
+	private String state;
 	private Instant createdAt;
 	private Instant updatedAt;
 	private Boolean deleted;
 
 	// methods
-		
+	
 	public static JDBCType getColumnType(Columns column)
 	{
 		return COLUMN_TYPE_MAP.get(column);
@@ -85,6 +76,8 @@ public class Group3User extends Model
 		return columnNameList;
 	}
 	
+	//
+	
 	public Integer getId()
 	{
 		return id;
@@ -95,44 +88,14 @@ public class Group3User extends Model
 		this.id = id;
 	}
 
-	public Integer getAccountTypeId()
+	public String getState()
 	{
-		return accountTypeId;
+		return state;
 	}
 
-	public void setAccountTypeId(Integer accountTypeId)
+	public void setState(String state)
 	{
-		this.accountTypeId = accountTypeId;
-	}
-
-	public Integer getFacultyId()
-	{
-		return facultyId;
-	}
-
-	public void setFacultyId(Integer facultyId)
-	{
-		this.facultyId = facultyId;
-	}
-
-	public String getEncryptedPassword()
-	{
-		return encryptedPassword;
-	}
-
-	public void setEncryptedPassword(String encryptedPassword)
-	{
-		this.encryptedPassword = encryptedPassword;
-	}
-
-	public String getPasswordSalt()
-	{
-		return passwordSalt;
-	}
-
-	public void setPasswordSalt(String passwordSalt)
-	{
-		this.passwordSalt = passwordSalt;
+		this.state = state;
 	}
 
 	public Instant getCreatedAt()
@@ -171,11 +134,11 @@ public class Group3User extends Model
 		}
 	}
 	
-	public Boolean getDeleted()
+	public Boolean isDeleted()
 	{
 		return deleted;
 	}
-
+	
 	public void setDeleted(Boolean deleted)
 	{
 		this.deleted = deleted;
@@ -187,12 +150,9 @@ public class Group3User extends Model
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((accountTypeId == null) ? 0 : accountTypeId.hashCode());
-		result = prime * result + ((encryptedPassword == null) ? 0 : encryptedPassword.hashCode());
-		result = prime * result + ((facultyId == null) ? 0 : facultyId.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
-		result = prime * result + ((passwordSalt == null) ? 0 : passwordSalt.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
 		return result;
 	}
@@ -208,11 +168,11 @@ public class Group3User extends Model
 		{
 			return false;
 		}
-		if (!(obj instanceof Group3User))
+		if (!(obj instanceof ExampleUserState))
 		{
 			return false;
 		}
-		Group3User other = (Group3User) obj;
+		ExampleUserState other = (ExampleUserState) obj;
 		if (createdAt == null)
 		{
 			if (other.createdAt != null)
@@ -221,50 +181,6 @@ public class Group3User extends Model
 			}
 		}
 		else if (!createdAt.equals(other.createdAt))
-		{
-			return false;
-		}
-		if (accountTypeId == null)
-		{
-			if (other.accountTypeId != null)
-			{
-				return false;
-			}
-		}
-		else if (!accountTypeId.equals(other.accountTypeId))
-		{
-			return false;
-		}
-		if (encryptedPassword == null)
-		{
-			if (other.encryptedPassword != null)
-			{
-				return false;
-			}
-		}
-		else if (!encryptedPassword.equals(other.encryptedPassword))
-		{
-			return false;
-		}
-		if (facultyId == null)
-		{
-			if (other.facultyId != null)
-			{
-				return false;
-			}
-		}
-		else if (!facultyId.equals(other.facultyId))
-		{
-			return false;
-		}
-		if (id == null)
-		{
-			if (other.id != null)
-			{
-				return false;
-			}
-		}
-		else if (!id.equals(other.id))
 		{
 			return false;
 		}
@@ -279,14 +195,25 @@ public class Group3User extends Model
 		{
 			return false;
 		}
-		if (passwordSalt == null)
+		if (id == null)
 		{
-			if (other.passwordSalt != null)
+			if (other.id != null)
 			{
 				return false;
 			}
 		}
-		else if (!passwordSalt.equals(other.passwordSalt))
+		else if (!id.equals(other.id))
+		{
+			return false;
+		}
+		if (state == null)
+		{
+			if (other.state != null)
+			{
+				return false;
+			}
+		}
+		else if (!state.equals(other.state))
 		{
 			return false;
 		}
@@ -303,22 +230,15 @@ public class Group3User extends Model
 		}
 		return true;
 	}
-	
 
 	@Override
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append("Users [id=");
+		builder.append("UserStates [id=");
 		builder.append(id);
-		builder.append(", accountTypeId=");
-		builder.append(accountTypeId);
-		builder.append(", facultyId=");
-		builder.append(facultyId);
-		builder.append(", encryptedPassword=");
-		builder.append(encryptedPassword);
-		builder.append(", passwordSalt=");
-		builder.append(passwordSalt);
+		builder.append(", state=");
+		builder.append(state);
 		builder.append(", createdAt=");
 		builder.append(createdAt);
 		builder.append(", updatedAt=");
@@ -328,5 +248,4 @@ public class Group3User extends Model
 		builder.append("]");
 		return builder.toString();
 	}
-	
 }

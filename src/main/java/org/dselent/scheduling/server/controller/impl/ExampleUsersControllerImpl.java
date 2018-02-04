@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.dselent.scheduling.server.controller.Group3UsersController;
+import org.dselent.scheduling.server.controller.ExampleUsersController;
+import org.dselent.scheduling.server.dto.RegisterUserDto;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
-import org.dselent.scheduling.server.requests.user.CreateAccount;
-import org.dselent.scheduling.server.service.Group3UserService;
+import org.dselent.scheduling.server.requests.user.Register;
+import org.dselent.scheduling.server.service.ExampleUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +24,10 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author dselent
  */
 @Controller
-public class Group3UsersControllerImpl implements Group3UsersController
+public class ExampleUsersControllerImpl implements ExampleUsersController
 {
 	@Autowired
-    private Group3UserService group3UserService;
+    private ExampleUserService userService;
     
 	/**
 	 * 
@@ -34,7 +35,7 @@ public class Group3UsersControllerImpl implements Group3UsersController
 	 * @return A ResponseEntity for the response object(s) and the status code
 	 * @throws Exception 
 	 */
-	public ResponseEntity<String> createGroup3User(@RequestBody Map<String, String> request) throws Exception 
+	public ResponseEntity<String> register(@RequestBody Map<String, String> request) throws Exception 
     {
     	// Print is for testing purposes
 		System.out.println("controller reached");
@@ -43,10 +44,21 @@ public class Group3UsersControllerImpl implements Group3UsersController
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String email = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.EMAIL));
-		String password = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.PASSWORD));
+		String userName = request.get(Register.getBodyName(Register.BodyKey.USER_NAME));
+		String firstName = request.get(Register.getBodyName(Register.BodyKey.FIRST_NAME));
+		String lastName = request.get(Register.getBodyName(Register.BodyKey.LAST_NAME));
+		String email = request.get(Register.getBodyName(Register.BodyKey.EMAIL));
+		String password = request.get(Register.getBodyName(Register.BodyKey.PASSWORD));
 
-		group3UserService.createGroup3User(email, password);
+		RegisterUserDto.Builder builder = RegisterUserDto.builder();
+		RegisterUserDto registerUserDto = builder.withUserName(userName)
+		.withFirstName(firstName)
+		.withLastName(lastName)
+		.withEmail(email)
+		.withPassword(password)
+		.build();
+		
+		userService.registerUser(registerUserDto);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);

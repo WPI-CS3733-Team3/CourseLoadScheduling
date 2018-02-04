@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.config.AppConfig;
-import org.dselent.scheduling.server.dao.UsersDao;
+import org.dselent.scheduling.server.dao.ExampleUsersDao;
 import org.dselent.scheduling.server.miscellaneous.Pair;
-import org.dselent.scheduling.server.model.User;
+import org.dselent.scheduling.server.model.ExampleUser;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class UsersDaoTest
 {
 	@Autowired
-	private UsersDao usersDao;
+	private ExampleUsersDao usersDao;
 	
 	/*
 	 * Not really an using this as a JUnit test
@@ -35,7 +35,7 @@ public class UsersDaoTest
     {
     	// INSERT
     	
-    	User user1 = new User();
+    	ExampleUser user1 = new ExampleUser();
     	user1.setUserName("user2");
     	user1.setFirstName("user");
     	user1.setLastName("two");
@@ -47,24 +47,24 @@ public class UsersDaoTest
     	List<String> insertColumnNameList = new ArrayList<>();
     	List<String> keyHolderColumnNameList = new ArrayList<>();
     	
-    	insertColumnNameList.add(User.getColumnName(User.Columns.USER_NAME));
-    	insertColumnNameList.add(User.getColumnName(User.Columns.FIRST_NAME));
-    	insertColumnNameList.add(User.getColumnName(User.Columns.LAST_NAME));
-    	insertColumnNameList.add(User.getColumnName(User.Columns.EMAIL));
-    	insertColumnNameList.add(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD));
-    	insertColumnNameList.add(User.getColumnName(User.Columns.SALT));
-    	insertColumnNameList.add(User.getColumnName(User.Columns.USER_STATE_ID));
+    	insertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.USER_NAME));
+    	insertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.FIRST_NAME));
+    	insertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.LAST_NAME));
+    	insertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.EMAIL));
+    	insertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.ENCRYPTED_PASSWORD));
+    	insertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.SALT));
+    	insertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.USER_STATE_ID));
     	
-    	keyHolderColumnNameList.add(User.getColumnName(User.Columns.ID));
-    	keyHolderColumnNameList.add(User.getColumnName(User.Columns.CREATED_AT));
-    	keyHolderColumnNameList.add(User.getColumnName(User.Columns.UPDATED_AT));
+    	keyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.ID));
+    	keyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.CREATED_AT));
+    	keyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.UPDATED_AT));
    	
     	usersDao.insert(user1, insertColumnNameList, keyHolderColumnNameList);
     	
     	
     	// UPDATE
     	
-    	String updateColumnName = User.getColumnName(User.Columns.USER_NAME);
+    	String updateColumnName = ExampleUser.getColumnName(ExampleUser.Columns.USER_NAME);
     	String oldUserName = "user2";
     	String newUserName = "newUserName2";
     	List<QueryTerm> updateQueryTermList = new ArrayList<>();
@@ -81,7 +81,7 @@ public class UsersDaoTest
     	// SELECT
     	// by user name
     	
-    	String selectColumnName = User.getColumnName(User.Columns.USER_NAME);
+    	String selectColumnName = ExampleUser.getColumnName(ExampleUser.Columns.USER_NAME);
     	String selectUserName = newUserName;
     	
     	List<QueryTerm> selectQueryTermList = new ArrayList<>();
@@ -92,14 +92,14 @@ public class UsersDaoTest
     	selectUseNameTerm.setValue(selectUserName);
     	selectQueryTermList.add(selectUseNameTerm);
     	
-    	List<String> selectColumnNameList = User.getColumnNameList();
+    	List<String> selectColumnNameList = ExampleUser.getColumnNameList();
     	
     	List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
     	Pair<String, ColumnOrder> orderPair1 = new Pair<String, ColumnOrder>(selectColumnName, ColumnOrder.ASC);
     	orderByList.add(orderPair1);
     	
 		@SuppressWarnings("unused")
-		List<User> selectedUserList = usersDao.select(selectColumnNameList, selectQueryTermList, orderByList);
+		List<ExampleUser> selectedUserList = usersDao.select(selectColumnNameList, selectQueryTermList, orderByList);
     	
     	System.out.println();
     }

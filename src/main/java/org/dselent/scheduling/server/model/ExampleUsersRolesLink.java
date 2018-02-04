@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class UsersRolesLink extends Model
+public class ExampleUsersRolesLink extends Model
 {
 	// table name
 	public static final String TABLE_NAME = "users_roles_links";
@@ -160,11 +160,11 @@ public class UsersRolesLink extends Model
 		{
 			return false;
 		}
-		if (!(obj instanceof UsersRolesLink))
+		if (!(obj instanceof ExampleUsersRolesLink))
 		{
 			return false;
 		}
-		UsersRolesLink other = (UsersRolesLink) obj;
+		ExampleUsersRolesLink other = (ExampleUsersRolesLink) obj;
 		if (createdAt == null)
 		{
 			if (other.createdAt != null)
