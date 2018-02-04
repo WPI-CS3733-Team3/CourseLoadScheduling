@@ -161,33 +161,21 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
     	{
     		parameters.addValue(parameterName, userModel.getId());
     	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.USER_NAME)))
+    	else if(insertColumnName.equals(User.getColumnName(User.Columns.ACCOUNT_TYPE_ID)))
     	{
-    		parameters.addValue(parameterName, userModel.getUserName());
+    		parameters.addValue(parameterName, userModel.getAccountTypeId());
     	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.FIRST_NAME)))
+    	else if(insertColumnName.equals(User.getColumnName(User.Columns.FACULTY_ID)))
     	{
-    		parameters.addValue(parameterName, userModel.getFirstName());
-    	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.LAST_NAME)))
-    	{
-    		parameters.addValue(parameterName, userModel.getLastName());
-    	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.EMAIL)))
-    	{
-    		parameters.addValue(parameterName, userModel.getEmail());
+    		parameters.addValue(parameterName, userModel.getFacultyId());
     	}
     	else if(insertColumnName.equals(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD)))
     	{
     		parameters.addValue(parameterName, userModel.getEncryptedPassword());
     	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.SALT)))
+    	else if(insertColumnName.equals(User.getColumnName(User.Columns.PASSWORD_SALT)))
     	{
-    		parameters.addValue(parameterName, userModel.getSalt());
-    	}
-    	else if(insertColumnName.equals(User.getColumnName(User.Columns.USER_STATE_ID)))
-    	{
-    		parameters.addValue(parameterName, userModel.getUserStateId());
+    		parameters.addValue(parameterName, userModel.getPasswordSalt());
     	}
     	else if(insertColumnName.equals(User.getColumnName(User.Columns.CREATED_AT)))
     	{
@@ -196,6 +184,10 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
     	else if(insertColumnName.equals(User.getColumnName(User.Columns.UPDATED_AT)))
     	{
     		parameters.addValue(parameterName, userModel.getUpdatedAt());
+    	}
+    	else if(insertColumnName.equals(User.getColumnName(User.Columns.DELETED)))
+    	{
+    		parameters.addValue(parameterName, userModel.getDeleted());
     	}
     	else
     	{
@@ -211,33 +203,21 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
     	{
     		userModel.setId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.USER_NAME)))
+    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.ACCOUNT_TYPE_ID)))
     	{
-    		userModel.setUserName((String) keyMap.get(keyHolderColumnName));
+    		userModel.setAccountTypeId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.FIRST_NAME)))
+    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.FACULTY_ID)))
     	{
-    		userModel.setFirstName((String) keyMap.get(keyHolderColumnName));
-    	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.LAST_NAME)))
-    	{
-    		userModel.setLastName((String) keyMap.get(keyHolderColumnName));
-    	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.EMAIL)))
-    	{
-    		userModel.setEmail((String) keyMap.get(keyHolderColumnName));
+    		userModel.setFacultyId((Integer) keyMap.get(keyHolderColumnName));
     	}
     	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD)))
     	{
     		userModel.setEncryptedPassword((String) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.SALT)))
+    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.PASSWORD_SALT)))
     	{
-    		userModel.setSalt((String) keyMap.get(keyHolderColumnName));
-    	}
-    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.USER_STATE_ID)))
-    	{
-    		userModel.setUserStateId((Integer) keyMap.get(keyHolderColumnName));
+    		userModel.setPasswordSalt((String) keyMap.get(keyHolderColumnName));
     	}
     	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.CREATED_AT)))
     	{
@@ -246,6 +226,10 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
     	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.UPDATED_AT)))
     	{
     		userModel.setUpdatedAt((Timestamp) keyMap.get(keyHolderColumnName));
+    	}
+    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.DELETED)))
+    	{
+    		userModel.setDeleted((Boolean) keyMap.get(keyHolderColumnName));
     	}
     	else
     	{

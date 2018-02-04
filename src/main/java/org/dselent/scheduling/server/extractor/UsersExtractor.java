@@ -25,23 +25,28 @@ public class UsersExtractor extends Extractor<List<User>>
 				result.setId(null);
 			}
 			
-			result.setUserName(rs.getString(User.getColumnName(User.Columns.USER_NAME)));
-			result.setFirstName(rs.getString(User.getColumnName(User.Columns.FIRST_NAME)));
-			result.setLastName(rs.getString(User.getColumnName(User.Columns.LAST_NAME)));
-			result.setEmail(rs.getString(User.getColumnName(User.Columns.EMAIL)));
-			result.setEncryptedPassword(rs.getString(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD)));
-			result.setSalt(rs.getString(User.getColumnName(User.Columns.SALT)));
-			
-			result.setUserStateId(rs.getInt(User.getColumnName(User.Columns.USER_STATE_ID)));
-			
+			result.setAccountTypeId(rs.getInt(User.getColumnName(User.Columns.ACCOUNT_TYPE_ID)));
 			if(rs.wasNull())
 			{
-				result.setUserStateId(null);
+				result.setAccountTypeId(null);
 			}
 			
+			result.setFacultyId(rs.getInt(User.getColumnName(User.Columns.FACULTY_ID)));
+			if(rs.wasNull())
+			{
+				result.setFacultyId(null);
+			}
+			
+			result.setEncryptedPassword(rs.getString(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD)));
+			result.setPasswordSalt(rs.getString(User.getColumnName(User.Columns.PASSWORD_SALT)));
 			result.setCreatedAt(rs.getTimestamp(User.getColumnName(User.Columns.CREATED_AT)));
 			result.setUpdatedAt(rs.getTimestamp(User.getColumnName(User.Columns.UPDATED_AT)));
-		
+			result.setDeleted(rs.getBoolean(User.getColumnName(User.Columns.DELETED)));
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
+			
 			resultList.add(result);
 		}
 			

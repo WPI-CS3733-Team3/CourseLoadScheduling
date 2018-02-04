@@ -4,12 +4,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dselent.scheduling.server.dao.FacultyDao;
 import org.dselent.scheduling.server.dao.UsersDao;
-import org.dselent.scheduling.server.dao.UsersRolesLinksDao;
-import org.dselent.scheduling.server.dto.RegisterUserDto;
+import org.dselent.scheduling.server.miscellaneous.Pair;
+import org.dselent.scheduling.server.model.Faculty;
 import org.dselent.scheduling.server.model.User;
-import org.dselent.scheduling.server.model.UsersRolesLink;
 import org.dselent.scheduling.server.service.UserService;
+import org.dselent.scheduling.server.sqlutils.ColumnOrder;
+import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
+import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.keygen.KeyGenerators;
@@ -25,7 +28,7 @@ public class UserServiceImpl implements UserService
 	private UsersDao usersDao;
 	
 	@Autowired
-	private UsersRolesLinksDao usersRolesLinksDao;
+	private FacultyDao facultyDao;
 	
     public UserServiceImpl()
     {
@@ -38,7 +41,7 @@ public class UserServiceImpl implements UserService
      */
     @Transactional
     @Override
-	public List<Integer> registerUser(RegisterUserDto dto) throws SQLException
+	public List<Integer> createUser(String email, String password) throws SQLException
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
 		
@@ -48,69 +51,98 @@ public class UserServiceImpl implements UserService
 			// email requirements
 			// null values
 			// etc...
+		List<String> selectColumnNameList = Faculty.getColumnNameList();
+
+		List<QueryTerm> queryTermList = new ArrayList<>();
+		QueryTerm qt = new QueryTerm();
+		qt.setColumnName(Faculty.getColumnName(Faculty.Columns.EMAIL));
+		qt.setComparisonOperator(ComparisonOperator.EQUAL);
+		qt.setValue(email);
+		qt.setLogicalOperator(null);
+		queryTermList.add(qt);
+		
+		List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> p = new Pair<String, ColumnOrder>(Faculty.getColumnName(Faculty.Columns.ID), ColumnOrder.ASC);
+		orderByList.add(p);
+		
+		System.out.println(selectColumnNameList);
+		System.out.println(queryTermList);
+		System.out.println(orderByList);
+		List<Faculty> facultyList = facultyDao.select(selectColumnNameList, queryTermList, orderByList);
+		System.out.println(facultyList);
 		
 		String salt = KeyGenerators.string().generateKey();
-		String saltedPassword = dto.getPassword() + salt;
+		String saltedPassword = password + salt;
 		PasswordEncoder passwordEncorder = new BCryptPasswordEncoder();
 		String encryptedPassword = passwordEncorder.encode(saltedPassword);
 		
 		User user = new User();
-		user.setUserName(dto.getUserName());
-		user.setFirstName(dto.getFirstName());
-		user.setLastName(dto.getLastName());
-		user.setEmail(dto.getEmail());
+		user.setAccountTypeId(1);
+		user.setFacultyId(facultyList.get(0).getId());
 		user.setEncryptedPassword(encryptedPassword);
-		user.setSalt(salt);
-    	user.setUserStateId(1);
+		user.setPasswordSalt(salt);
     	
     	List<String> userInsertColumnNameList = new ArrayList<>();
     	List<String> userKeyHolderColumnNameList = new ArrayList<>();
-    	
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.USER_NAME));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.FIRST_NAME));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.LAST_NAME));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.EMAIL));
+		
+    	userInsertColumnNameList.add(User.getColumnName(User.Columns.ACCOUNT_TYPE_ID));
+    	userInsertColumnNameList.add(User.getColumnName(User.Columns.FACULTY_ID));
     	userInsertColumnNameList.add(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.SALT));
-    	userInsertColumnNameList.add(User.getColumnName(User.Columns.USER_STATE_ID));
+    	userInsertColumnNameList.add(User.getColumnName(User.Columns.PASSWORD_SALT));
     	
     	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.ID));
     	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.CREATED_AT));
     	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.UPDATED_AT));
+    	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.DELETED));
 		
     	rowsAffectedList.add(usersDao.insert(user, userInsertColumnNameList, userKeyHolderColumnNameList));
-
-		//
-     	
-    	// for now, assume users can only register with default role id
-    	// may change in the future
     	
-		UsersRolesLink usersRolesLink = new UsersRolesLink();
-		usersRolesLink.setUserId(user.getId());
-		usersRolesLink.setRoleId(1); // hard coded as regular user
-    	
-    	List<String> usersRolesLinksInsertColumnNameList = new ArrayList<>();
-    	List<String> usersRolesLinksKeyHolderColumnNameList = new ArrayList<>();
-    	
-    	usersRolesLinksInsertColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.USER_ID));
-    	usersRolesLinksInsertColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ROLE_ID));
-    	
-    	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ID));
-    	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.CREATED_AT));
-    	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.DELETED));
-		
-    	rowsAffectedList.add(usersRolesLinksDao.insert(usersRolesLink, usersRolesLinksInsertColumnNameList, usersRolesLinksKeyHolderColumnNameList));
-		
-		return rowsAffectedList;
+    	return rowsAffectedList;
 	}
 	
 	//
 
-	@Override
-	public User loginUser(String userName, String password)
+    @Override
+	public User login(String email, String password) throws SQLException
 	{
-		// TODO Auto-generated method stub
-		return null;
-	}   
+		List<String> facultySelectColumnNameList = Faculty.getColumnNameList();
+
+		List<QueryTerm> facultyQueryTermList = new ArrayList<>();
+		QueryTerm qt1 = new QueryTerm();
+		qt1.setColumnName(Faculty.getColumnName(Faculty.Columns.EMAIL));
+		qt1.setComparisonOperator(ComparisonOperator.EQUAL);
+		qt1.setValue(email);
+		qt1.setLogicalOperator(null);
+		facultyQueryTermList.add(qt1);
+		
+		List<Pair<String, ColumnOrder>> facultyOrderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> p1 = new Pair<String, ColumnOrder>(Faculty.getColumnName(Faculty.Columns.ID), ColumnOrder.ASC);
+		facultyOrderByList.add(p1);
+		
+		Faculty facultyMember = facultyDao.select(facultySelectColumnNameList, facultyQueryTermList, facultyOrderByList).get(0);
+		
+		List<String> userSelectColumnNameList = User.getColumnNameList();
+		
+		List<QueryTerm> userQueryTermList = new ArrayList<>();
+		QueryTerm qt2 = new QueryTerm();
+		qt2.setColumnName(User.getColumnName(User.Columns.FACULTY_ID));
+		qt2.setComparisonOperator(ComparisonOperator.EQUAL);
+		qt2.setValue(facultyMember.getId());
+		qt2.setLogicalOperator(null);
+		userQueryTermList.add(qt2);
+		
+		List<Pair<String, ColumnOrder>> userOrderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> p2 = new Pair<String, ColumnOrder>(User.getColumnName(User.Columns.ID), ColumnOrder.ASC);
+		facultyOrderByList.add(p2);
+		
+		User user = usersDao.select(userSelectColumnNameList, userQueryTermList, userOrderByList).get(0);
+		
+		String saltedPassword = password + user.getPasswordSalt();
+		PasswordEncoder passwordEncorder = new BCryptPasswordEncoder();
+		String encryptedPassword = passwordEncorder.encode(saltedPassword);
+		String expectedPassword = user.getEncryptedPassword();
+		
+		return encryptedPassword == expectedPassword ? user : null;
+	} 
 
 }

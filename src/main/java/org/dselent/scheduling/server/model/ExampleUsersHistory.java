@@ -8,22 +8,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-public class UserState extends Model
+public class ExampleUsersHistory extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "users_states";
+	public static final String TABLE_NAME = "users_history";
 		
 	// column names
 	public static enum Columns
 	{
 		ID,
-		STATE,
+		ACCOUNT_TYPE_ID,
+		FACULTY_ID,
+		ENCRYPTED_PASSWORD,
+		PASSWORD_SALT,
 		CREATED_AT,
 		UPDATED_AT,
-		DELETED
+		DELETED,
 	}
-	
+
 	// enum list
 	private static final List<Columns> COLUMN_LIST = new ArrayList<>();
 	
@@ -38,7 +40,10 @@ public class UserState extends Model
 		}
 		
 		COLUMN_TYPE_MAP.put(Columns.ID, JDBCType.INTEGER);
-		COLUMN_TYPE_MAP.put(Columns.STATE, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.ACCOUNT_TYPE_ID, JDBCType.INTEGER);
+		COLUMN_TYPE_MAP.put(Columns.FACULTY_ID, JDBCType.INTEGER);
+		COLUMN_TYPE_MAP.put(Columns.ENCRYPTED_PASSWORD, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.PASSWORD_SALT, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.CREATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
 		COLUMN_TYPE_MAP.put(Columns.UPDATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
 		COLUMN_TYPE_MAP.put(Columns.DELETED, JDBCType.BOOLEAN);
@@ -47,7 +52,10 @@ public class UserState extends Model
 	// attributes
 	
 	private Integer id;
-	private String state;
+	private Integer accountTypeId;  
+	private Integer facultyId;
+	private String encryptedPassword;
+	private String passwordSalt;
 	private Instant createdAt;
 	private Instant updatedAt;
 	private Boolean deleted;
@@ -88,14 +96,44 @@ public class UserState extends Model
 		this.id = id;
 	}
 
-	public String getState()
+	public Integer getAccountTypeId()
 	{
-		return state;
+		return accountTypeId;
 	}
 
-	public void setState(String state)
+	public void setAccountTypeId(Integer accountTypeId)
 	{
-		this.state = state;
+		this.accountTypeId = accountTypeId;
+	}
+
+	public Integer getFacultyId()
+	{
+		return facultyId;
+	}
+
+	public void setFacultyId(Integer facultyId)
+	{
+		this.facultyId = facultyId;
+	}
+
+	public String getEncryptedPassword()
+	{
+		return encryptedPassword;
+	}
+
+	public void setEncryptedPassword(String encryptedPassword)
+	{
+		this.encryptedPassword = encryptedPassword;
+	}
+
+	public String getPasswordSalt()
+	{
+		return passwordSalt;
+	}
+
+	public void setPasswordSalt(String passwordSalt)
+	{
+		this.passwordSalt = passwordSalt;
 	}
 
 	public Instant getCreatedAt()
@@ -134,11 +172,11 @@ public class UserState extends Model
 		}
 	}
 	
-	public Boolean isDeleted()
+	public Boolean getDeleted()
 	{
 		return deleted;
 	}
-	
+
 	public void setDeleted(Boolean deleted)
 	{
 		this.deleted = deleted;
@@ -150,9 +188,12 @@ public class UserState extends Model
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
+		result = prime * result + ((accountTypeId == null) ? 0 : accountTypeId.hashCode());
+		result = prime * result + ((encryptedPassword == null) ? 0 : encryptedPassword.hashCode());
+		result = prime * result + ((facultyId == null) ? 0 : facultyId.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
+		result = prime * result + ((passwordSalt == null) ? 0 : passwordSalt.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
 		return result;
 	}
@@ -168,11 +209,11 @@ public class UserState extends Model
 		{
 			return false;
 		}
-		if (!(obj instanceof UserState))
+		if (!(obj instanceof ExampleUsersHistory))
 		{
 			return false;
 		}
-		UserState other = (UserState) obj;
+		ExampleUsersHistory other = (ExampleUsersHistory) obj;
 		if (createdAt == null)
 		{
 			if (other.createdAt != null)
@@ -184,14 +225,36 @@ public class UserState extends Model
 		{
 			return false;
 		}
-		if (deleted == null)
+		if (accountTypeId == null)
 		{
-			if (other.deleted != null)
+			if (other.accountTypeId != null)
 			{
 				return false;
 			}
 		}
-		else if (!deleted.equals(other.deleted))
+		else if (!accountTypeId.equals(other.accountTypeId))
+		{
+			return false;
+		}
+		if (encryptedPassword == null)
+		{
+			if (other.encryptedPassword != null)
+			{
+				return false;
+			}
+		}
+		else if (!encryptedPassword.equals(other.encryptedPassword))
+		{
+			return false;
+		}
+		if (facultyId == null)
+		{
+			if (other.facultyId != null)
+			{
+				return false;
+			}
+		}
+		else if (!facultyId.equals(other.facultyId))
 		{
 			return false;
 		}
@@ -206,14 +269,25 @@ public class UserState extends Model
 		{
 			return false;
 		}
-		if (state == null)
+		if (deleted == null)
 		{
-			if (other.state != null)
+			if (other.deleted != null)
 			{
 				return false;
 			}
 		}
-		else if (!state.equals(other.state))
+		else if (!deleted.equals(other.deleted))
+		{
+			return false;
+		}
+		if (passwordSalt == null)
+		{
+			if (other.passwordSalt != null)
+			{
+				return false;
+			}
+		}
+		else if (!passwordSalt.equals(other.passwordSalt))
 		{
 			return false;
 		}
@@ -235,10 +309,16 @@ public class UserState extends Model
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append("UserStates [id=");
+		builder.append("Users [id=");
 		builder.append(id);
-		builder.append(", state=");
-		builder.append(state);
+		builder.append(", accountTypeId=");
+		builder.append(accountTypeId);
+		builder.append(", facultyId=");
+		builder.append(facultyId);
+		builder.append(", encryptedPassword=");
+		builder.append(encryptedPassword);
+		builder.append(", passwordSalt=");
+		builder.append(passwordSalt);
 		builder.append(", createdAt=");
 		builder.append(createdAt);
 		builder.append(", updatedAt=");

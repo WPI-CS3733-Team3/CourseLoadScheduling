@@ -8,24 +8,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UsersHistory extends Model
+
+public class ExampleUser extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "users_history";
+	public static final String TABLE_NAME = "users";
 		
 	// column names
 	public static enum Columns
 	{
 		ID,
-		ACCOUNT_TYPE_ID,
-		FACULTY_ID,
+		USER_NAME,
+		FIRST_NAME,
+		LAST_NAME,
+		EMAIL,
 		ENCRYPTED_PASSWORD,
-		PASSWORD_SALT,
+		SALT,
+		USER_STATE_ID,
 		CREATED_AT,
-		UPDATED_AT,
-		DELETED,
+		UPDATED_AT
 	}
-
+	
 	// enum list
 	private static final List<Columns> COLUMN_LIST = new ArrayList<>();
 	
@@ -40,28 +43,31 @@ public class UsersHistory extends Model
 		}
 		
 		COLUMN_TYPE_MAP.put(Columns.ID, JDBCType.INTEGER);
-		COLUMN_TYPE_MAP.put(Columns.ACCOUNT_TYPE_ID, JDBCType.INTEGER);
-		COLUMN_TYPE_MAP.put(Columns.FACULTY_ID, JDBCType.INTEGER);
+		COLUMN_TYPE_MAP.put(Columns.USER_NAME, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.FIRST_NAME, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.LAST_NAME, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.ENCRYPTED_PASSWORD, JDBCType.VARCHAR);
-		COLUMN_TYPE_MAP.put(Columns.PASSWORD_SALT, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.SALT, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.USER_STATE_ID, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.CREATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
 		COLUMN_TYPE_MAP.put(Columns.UPDATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
-		COLUMN_TYPE_MAP.put(Columns.DELETED, JDBCType.BOOLEAN);
 	};
 	
 	// attributes
 	
 	private Integer id;
-	private Integer accountTypeId;  
-	private Integer facultyId;
+	private String userName;
+	private String firstName;
+	private String lastName;
+	private String email;
 	private String encryptedPassword;
-	private String passwordSalt;
+	private String salt;
+	private Integer userStateId;
 	private Instant createdAt;
 	private Instant updatedAt;
-	private Boolean deleted;
 
 	// methods
-	
+		
 	public static JDBCType getColumnType(Columns column)
 	{
 		return COLUMN_TYPE_MAP.get(column);
@@ -96,24 +102,45 @@ public class UsersHistory extends Model
 		this.id = id;
 	}
 
-	public Integer getAccountTypeId()
+	public String getUserName()
 	{
-		return accountTypeId;
+		return userName;
 	}
 
-	public void setAccountTypeId(Integer accountTypeId)
+	public void setUserName(String userName)
 	{
-		this.accountTypeId = accountTypeId;
+		this.userName = userName;
 	}
 
-	public Integer getFacultyId()
+	public String getFirstName()
 	{
-		return facultyId;
+		return firstName;
 	}
 
-	public void setFacultyId(Integer facultyId)
+	public void setFirstName(String firstName)
 	{
-		this.facultyId = facultyId;
+		this.firstName = firstName;
+	}
+
+	public String getLastName()
+	{
+		return lastName;
+	}
+
+	public void setLastName(String lastName)
+	{
+		this.lastName = lastName;
+	}
+
+
+	public String getEmail()
+	{
+		return email;
+	}
+
+	public void setEmail(String email)
+	{
+		this.email = email;
 	}
 
 	public String getEncryptedPassword()
@@ -126,14 +153,24 @@ public class UsersHistory extends Model
 		this.encryptedPassword = encryptedPassword;
 	}
 
-	public String getPasswordSalt()
+	public String getSalt()
 	{
-		return passwordSalt;
+		return salt;
 	}
 
-	public void setPasswordSalt(String passwordSalt)
+	public void setSalt(String salt)
 	{
-		this.passwordSalt = passwordSalt;
+		this.salt = salt;
+	}
+
+	public Integer getUserStateId()
+	{
+		return userStateId;
+	}
+
+	public void setUserStateId(Integer userStateId)
+	{
+		this.userStateId = userStateId;
 	}
 
 	public Instant getCreatedAt()
@@ -171,16 +208,6 @@ public class UsersHistory extends Model
 			this.updatedAt = updatedAt.toInstant();
 		}
 	}
-	
-	public Boolean getDeleted()
-	{
-		return deleted;
-	}
-
-	public void setDeleted(Boolean deleted)
-	{
-		this.deleted = deleted;
-	}
 
 	@Override
 	public int hashCode()
@@ -188,13 +215,15 @@ public class UsersHistory extends Model
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((accountTypeId == null) ? 0 : accountTypeId.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((encryptedPassword == null) ? 0 : encryptedPassword.hashCode());
-		result = prime * result + ((facultyId == null) ? 0 : facultyId.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
-		result = prime * result + ((passwordSalt == null) ? 0 : passwordSalt.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+		result = prime * result + ((userStateId == null) ? 0 : userStateId.hashCode());
 		return result;
 	}
 
@@ -209,11 +238,11 @@ public class UsersHistory extends Model
 		{
 			return false;
 		}
-		if (!(obj instanceof UsersHistory))
+		if (!(obj instanceof ExampleUser))
 		{
 			return false;
 		}
-		UsersHistory other = (UsersHistory) obj;
+		ExampleUser other = (ExampleUser) obj;
 		if (createdAt == null)
 		{
 			if (other.createdAt != null)
@@ -225,14 +254,14 @@ public class UsersHistory extends Model
 		{
 			return false;
 		}
-		if (accountTypeId == null)
+		if (email == null)
 		{
-			if (other.accountTypeId != null)
+			if (other.email != null)
 			{
 				return false;
 			}
 		}
-		else if (!accountTypeId.equals(other.accountTypeId))
+		else if (!email.equals(other.email))
 		{
 			return false;
 		}
@@ -247,14 +276,14 @@ public class UsersHistory extends Model
 		{
 			return false;
 		}
-		if (facultyId == null)
+		if (firstName == null)
 		{
-			if (other.facultyId != null)
+			if (other.firstName != null)
 			{
 				return false;
 			}
 		}
-		else if (!facultyId.equals(other.facultyId))
+		else if (!firstName.equals(other.firstName))
 		{
 			return false;
 		}
@@ -269,25 +298,25 @@ public class UsersHistory extends Model
 		{
 			return false;
 		}
-		if (deleted == null)
+		if (lastName == null)
 		{
-			if (other.deleted != null)
+			if (other.lastName != null)
 			{
 				return false;
 			}
 		}
-		else if (!deleted.equals(other.deleted))
+		else if (!lastName.equals(other.lastName))
 		{
 			return false;
 		}
-		if (passwordSalt == null)
+		if (salt == null)
 		{
-			if (other.passwordSalt != null)
+			if (other.salt != null)
 			{
 				return false;
 			}
 		}
-		else if (!passwordSalt.equals(other.passwordSalt))
+		else if (!salt.equals(other.salt))
 		{
 			return false;
 		}
@@ -302,8 +331,31 @@ public class UsersHistory extends Model
 		{
 			return false;
 		}
+		if (userName == null)
+		{
+			if (other.userName != null)
+			{
+				return false;
+			}
+		}
+		else if (!userName.equals(other.userName))
+		{
+			return false;
+		}
+		if (userStateId == null)
+		{
+			if (other.userStateId != null)
+			{
+				return false;
+			}
+		}
+		else if (!userStateId.equals(other.userStateId))
+		{
+			return false;
+		}
 		return true;
 	}
+	
 
 	@Override
 	public String toString()
@@ -311,21 +363,26 @@ public class UsersHistory extends Model
 		StringBuilder builder = new StringBuilder();
 		builder.append("Users [id=");
 		builder.append(id);
-		builder.append(", accountTypeId=");
-		builder.append(accountTypeId);
-		builder.append(", facultyId=");
-		builder.append(facultyId);
+		builder.append(", userName=");
+		builder.append(userName);
+		builder.append(", firstName=");
+		builder.append(firstName);
+		builder.append(", lastName=");
+		builder.append(lastName);
+		builder.append(", email=");
+		builder.append(email);
 		builder.append(", encryptedPassword=");
 		builder.append(encryptedPassword);
-		builder.append(", passwordSalt=");
-		builder.append(passwordSalt);
+		builder.append(", salt=");
+		builder.append(salt);
+		builder.append(", userStateId=");
+		builder.append(userStateId);
 		builder.append(", createdAt=");
 		builder.append(createdAt);
 		builder.append(", updatedAt=");
 		builder.append(updatedAt);
-		builder.append(", deleted=");
-		builder.append(deleted);
 		builder.append("]");
 		return builder.toString();
 	}
+	
 }

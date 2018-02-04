@@ -3,7 +3,8 @@ package org.dselent.scheduling.server.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.dselent.scheduling.server.model.Group3User;
+import org.dselent.scheduling.server.dto.RegisterUserDto;
+import org.dselent.scheduling.server.model.ExampleUser;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public interface Group3UserService
+public interface ExampleUserService
 {
 	/**
 	 * Registers a user into the system
@@ -24,6 +25,6 @@ public interface Group3UserService
 	 * @return A list of rows affected for each insert operation
 	 * @throws SQLException
 	 */
-	public List<Integer> createGroup3User(String email, String password) throws SQLException;
-    public Group3User login(String email, String password) throws SQLException;
+	public List<Integer> registerUser(RegisterUserDto registerUserDto) throws SQLException;
+    public ExampleUser loginUser(String userName, String password);
 }

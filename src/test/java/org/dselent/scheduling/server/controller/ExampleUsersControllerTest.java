@@ -1,7 +1,7 @@
 package org.dselent.scheduling.server.controller;
 
 import org.dselent.scheduling.server.config.AppConfig;
-import org.dselent.scheduling.server.requests.user.CreateAccount;
+import org.dselent.scheduling.server.requests.user.Register;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 @WebAppConfiguration
-public class Group3UsersControllerTest
+public class ExampleUsersControllerTest
 {
 	@Autowired
 	private WebApplicationContext wac;
@@ -41,16 +41,19 @@ public class Group3UsersControllerTest
 	 * More of an example on how to use the classes
 	 */
     @Test
-    public void testGroup3UsersController() throws Exception
+    public void testUsersController() throws Exception
     {
     	JSONObject jsonObject = new JSONObject();
-    	jsonObject.put(CreateAccount.getBodyName(CreateAccount.BodyKey.EMAIL), "dselent@wpi.edu");
-    	jsonObject.put(CreateAccount.getBodyName(CreateAccount.BodyKey.PASSWORD), "password1");
+    	jsonObject.put(Register.getBodyName(Register.BodyKey.USER_NAME), "dselent");
+    	jsonObject.put(Register.getBodyName(Register.BodyKey.FIRST_NAME), "Doug");
+    	jsonObject.put(Register.getBodyName(Register.BodyKey.LAST_NAME), "Selent");
+    	jsonObject.put(Register.getBodyName(Register.BodyKey.PASSWORD), "password1");
+    	jsonObject.put(Register.getBodyName(Register.BodyKey.EMAIL), "dselent@wpi.edu");
     	String jsonString = jsonObject.toString();
         
     	// System.out.println(jsonString);
     	
-        this.mockMvc.perform(post("/user/create").content(jsonString)
+        this.mockMvc.perform(post("/user/register").content(jsonString)
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .characterEncoding("utf-8"))
         .andDo(MockMvcResultHandlers.print())
