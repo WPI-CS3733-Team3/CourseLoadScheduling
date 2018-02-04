@@ -1,16 +1,14 @@
 package org.dselent.scheduling.server.requests.course;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
-public class Create {
+public class RemoveCourse {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "create";//create course
+	public static final String REQUEST_NAME = "remove course";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
@@ -22,16 +20,15 @@ public class Create {
 	
 	public static enum ParameterKey
 	{
-		
 
 	}
 	
 	public static enum BodyKey
 	{
-		COURSE_NAME,
-		COURSE_NUMBER,
-		FREQUENCY;
+		COURSE_ID;
 	}
+	
+
 	
 	static
 	{
@@ -56,11 +53,10 @@ public class Create {
 		
 	};
 	
-	private Create()
+	private RemoveCourse()
 	{
 		
 	};
-	
 	
 	public static String getHeaderName(HeaderKey key)
 	{
