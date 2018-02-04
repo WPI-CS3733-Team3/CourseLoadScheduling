@@ -25,5 +25,5 @@ public interface Group3UserService
 	 * @throws SQLException
 	 */
 	public List<Integer> createGroup3User(String email, String password) throws SQLException;
-    public Group3User loginUser(String userName, String password);
+    public Group3User login(String email, String password) throws SQLException;
 }

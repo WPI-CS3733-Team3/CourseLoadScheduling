@@ -65,11 +65,7 @@ public class Group3UserServiceImpl implements Group3UserService
 		Pair<String, ColumnOrder> p = new Pair<String, ColumnOrder>(Faculty.getColumnName(Faculty.Columns.ID), ColumnOrder.ASC);
 		orderByList.add(p);
 		
-		System.out.println(selectColumnNameList);
-		System.out.println(queryTermList);
-		System.out.println(orderByList);
 		List<Faculty> facultyList = facultyDao.select(selectColumnNameList, queryTermList, orderByList);
-		System.out.println(facultyList);
 		
 		String salt = KeyGenerators.string().generateKey();
 		String saltedPassword = password + salt;
@@ -103,10 +99,46 @@ public class Group3UserServiceImpl implements Group3UserService
 	//
 
 	@Override
-	public Group3User loginUser(String userName, String password)
+	public Group3User login(String email, String password) throws SQLException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		List<String> facultySelectColumnNameList = Faculty.getColumnNameList();
+
+		List<QueryTerm> facultyQueryTermList = new ArrayList<>();
+		QueryTerm qt1 = new QueryTerm();
+		qt1.setColumnName(Faculty.getColumnName(Faculty.Columns.EMAIL));
+		qt1.setComparisonOperator(ComparisonOperator.EQUAL);
+		qt1.setValue(email);
+		qt1.setLogicalOperator(null);
+		facultyQueryTermList.add(qt1);
+		
+		List<Pair<String, ColumnOrder>> facultyOrderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> p1 = new Pair<String, ColumnOrder>(Faculty.getColumnName(Faculty.Columns.ID), ColumnOrder.ASC);
+		facultyOrderByList.add(p1);
+		
+		Faculty facultyMember = facultyDao.select(facultySelectColumnNameList, facultyQueryTermList, facultyOrderByList).get(0);
+		
+		List<String> userSelectColumnNameList = Group3User.getColumnNameList();
+		
+		List<QueryTerm> userQueryTermList = new ArrayList<>();
+		QueryTerm qt2 = new QueryTerm();
+		qt2.setColumnName(Group3User.getColumnName(Group3User.Columns.FACULTY_ID));
+		qt2.setComparisonOperator(ComparisonOperator.EQUAL);
+		qt2.setValue(facultyMember.getId());
+		qt2.setLogicalOperator(null);
+		userQueryTermList.add(qt2);
+		
+		List<Pair<String, ColumnOrder>> userOrderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> p2 = new Pair<String, ColumnOrder>(Group3User.getColumnName(Group3User.Columns.ID), ColumnOrder.ASC);
+		facultyOrderByList.add(p2);
+		
+		Group3User user = group3UsersDao.select(userSelectColumnNameList, userQueryTermList, userOrderByList).get(0);
+		
+		String saltedPassword = password + user.getPasswordSalt();
+		PasswordEncoder passwordEncorder = new BCryptPasswordEncoder();
+		String encryptedPassword = passwordEncorder.encode(saltedPassword);
+		String expectedPassword = user.getEncryptedPassword();
+		
+		return encryptedPassword == expectedPassword ? user : null;
 	}   
 
 }

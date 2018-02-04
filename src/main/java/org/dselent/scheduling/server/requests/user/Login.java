@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author dselent
  *
  */
-public class CreateAccount
+public class Login
 {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "create";
+	public static final String REQUEST_NAME = "login";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
@@ -62,7 +62,7 @@ public class CreateAccount
 		
 	};
 	
-	private CreateAccount()
+	private Login()
 	{
 		
 	};

@@ -51,6 +51,24 @@ public class Group3UsersControllerImpl implements Group3UsersController
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
     }
+	
+	public ResponseEntity<String> login(@RequestBody Map<String, String> request) throws Exception 
+    {
+    	// Print is for testing purposes
+		System.out.println("controller reached");
+    	
+		// add any objects that need to be returned to the success list
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		
+		String email = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.EMAIL));
+		String password = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.PASSWORD));
+
+		group3UserService.login(email, password);
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+    }
 }
 
 	
