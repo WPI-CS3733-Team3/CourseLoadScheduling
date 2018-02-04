@@ -135,9 +135,9 @@ public class CustomDaoImpl implements CustomDao
 	public List<CourseFaculty> getCourseFaculty(int courseId){
 		CourseFacultyExtractor extractor = new CourseFacultyExtractor();
 		String queryTemplate = new String(QueryPathConstants.COURSE_FACULTY_QUERY);
-		MapSqlParameterSource parameters = new MapSqlParameterSource();
+
 		//no parameters need to be added
-		List<CourseFaculty> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		List<CourseFaculty> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
 		return fullRequestTablesList;
 	}
 	
@@ -145,9 +145,9 @@ public class CustomDaoImpl implements CustomDao
 	public List<AccountInfo> getDeletedAccountInfo(){
 		AccountInfoExtractor extractor = new AccountInfoExtractor();
 		String queryTemplate = new String(QueryPathConstants.DELETED_ACCOUNT_INFO_QUERY);
-		MapSqlParameterSource parameters = new MapSqlParameterSource();
+
 		//no parameters need to be added
-		List<AccountInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		List<AccountInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
 		return fullRequestTablesList;
 		
 	}
