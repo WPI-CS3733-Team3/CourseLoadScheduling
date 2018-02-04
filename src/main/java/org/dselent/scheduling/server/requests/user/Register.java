@@ -1,4 +1,4 @@
-package org.dselent.scheduling.server.requests;
+package org.dselent.scheduling.server.requests.user;
 
 import java.util.ArrayList;
 import java.util.List;

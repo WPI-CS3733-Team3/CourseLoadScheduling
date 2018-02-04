@@ -1,7 +1,7 @@
 package org.dselent.scheduling.server.controller;
 
 import org.dselent.scheduling.server.config.AppConfig;
-import org.dselent.scheduling.server.requests.Register;
+import org.dselent.scheduling.server.requests.user.Register;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;

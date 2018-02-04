@@ -2,7 +2,7 @@ package org.dselent.scheduling.server.controller;
 
 import java.util.Map;
 
-import org.dselent.scheduling.server.requests.Register;
+import org.dselent.scheduling.server.requests.user.Register;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
