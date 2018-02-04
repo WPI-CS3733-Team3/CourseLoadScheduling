@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author dselent
  *
  */
-public class Edit
+public class EditAccount
 {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
 	public static final String REQUEST_NAME = "edit";
@@ -63,7 +63,7 @@ public class Edit
 		
 	};
 	
-	private Edit()
+	private EditAccount()
 	{
 		
 	};
