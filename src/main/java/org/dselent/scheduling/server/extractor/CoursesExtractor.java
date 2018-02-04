@@ -28,10 +28,19 @@ public class CoursesExtractor extends Extractor<List<Courses>>
 			result.setTitle(rs.getString(Courses.getColumnName(Courses.Columns.TITLE)));
 			result.setNumber(rs.getString(Courses.getColumnName(Courses.Columns.NUMBER)));
 			result.setFrequencyID(rs.getInt(Courses.getColumnName(Courses.Columns.FREQUENCY_ID)));
+			if(rs.wasNull())
+			{
+				result.setFrequencyID(null);
+			}
+			
 			result.setCreatedAt(rs.getTimestamp(Courses.getColumnName(Courses.Columns.CREATED_AT)));
 			result.setUpdatedAt(rs.getTimestamp(Courses.getColumnName(Courses.Columns.UPDATED_AT)));
 			result.setDeleted(rs.getBoolean(Courses.getColumnName(Courses.Columns.DELETED)));
-		
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
+			
 			resultList.add(result);
 		}
 			

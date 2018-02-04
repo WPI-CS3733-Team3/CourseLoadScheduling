@@ -23,9 +23,19 @@ public class FacultyHistoryExtractor extends Extractor<List<FacultyHistory>> {
 			result.setLastName(rs.getString(FacultyHistory.getColumnName(FacultyHistory.Columns.LAST_NAME)));
 			result.setEmail(rs.getString(FacultyHistory.getColumnName(FacultyHistory.Columns.EMAIL)));
 			result.setFacultyTypeId(rs.getInt(FacultyHistory.getColumnName(FacultyHistory.Columns.FACULTY_TYPE_ID)));
+			if(rs.wasNull())
+			{
+				result.setFacultyTypeId(null);
+			}
+			
 			result.setCreatedAt(rs.getTimestamp(FacultyHistory.getColumnName(FacultyHistory.Columns.CREATED_AT)));
 			result.setUpdatedAt(rs.getTimestamp(FacultyHistory.getColumnName(FacultyHistory.Columns.UPDATED_AT)));
 			result.setDeleted(rs.getBoolean(FacultyHistory.getColumnName(FacultyHistory.Columns.DELETED)));
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
+			
 			resultList.add(result);
 		}
 			

@@ -19,17 +19,30 @@ public class RequestCourseExtractor extends Extractor<List<RequestCourse>>
 			RequestCourse result = new RequestCourse();
 				
 			result.setId(rs.getInt(RequestCourse.getColumnName(RequestCourse.Columns.ID)));
-			
 			if(rs.wasNull())
 			{
 				result.setId(null);
 			}
 			
 			result.setRequestsID(rs.getInt(RequestCourse.getColumnName(RequestCourse.Columns.REQUESTS_ID)));
+			if(rs.wasNull())
+			{
+				result.setRequestsID(null);
+			}
+			
 			result.setCoursesID(rs.getInt(RequestCourse.getColumnName(RequestCourse.Columns.COURSES_ID)));
-			result.setCreatedAt(rs.getTimestamp(RequestCourse.getColumnName(RequestCourse.Columns.CREATED_AT)));
+			if(rs.wasNull())
+			{
+				result.setCoursesID(null);
+			}
+			
+			result.setCreatedAt(rs.getTimestamp(RequestCourse.getColumnName(RequestCourse.Columns.CREATED_AT)));			
 			result.setUpdatedAt(rs.getTimestamp(RequestCourse.getColumnName(RequestCourse.Columns.UPDATED_AT)));
 			result.setDeleted(rs.getBoolean(RequestCourse.getColumnName(RequestCourse.Columns.DELETED)));
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
 		
 			resultList.add(result);
 		}

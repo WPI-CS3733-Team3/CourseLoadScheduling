@@ -26,11 +26,25 @@ public class RequestsExtractor extends Extractor<List<Requests>>
 			}
 			
 			result.setUsersID(rs.getInt(Requests.getColumnName(Requests.Columns.USERS_ID)));
+			if(rs.wasNull())
+			{
+				result.setUsersID(null);
+			}
+			
 			result.setRequestStatusID(rs.getInt(Requests.getColumnName(Requests.Columns.REQUEST_STATUS_ID)));
+			if(rs.wasNull())
+			{
+				result.setRequestStatusID(null);
+			}
+			
 			result.setCreatedAt(rs.getTimestamp(Requests.getColumnName(Requests.Columns.CREATED_AT)));
 			result.setUpdatedAt(rs.getTimestamp(Requests.getColumnName(Requests.Columns.UPDATED_AT)));
 			result.setDeleted(rs.getBoolean(Requests.getColumnName(Requests.Columns.DELETED)));
-		
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
+			
 			resultList.add(result);
 		}
 			
