@@ -85,8 +85,6 @@ public class Group3User extends Model
 		return columnNameList;
 	}
 	
-	//
-	
 	public Integer getId()
 	{
 		return id;
