@@ -26,11 +26,20 @@ public class RequestOtherExtractor extends Extractor<List<RequestOther>>
 			}
 			
 			result.setRequestsID(rs.getInt(RequestOther.getColumnName(RequestOther.Columns.REQUESTS_ID)));
+			if(rs.wasNull())
+			{
+				result.setRequestsID(null);
+			}
+			
 			result.setMessage(rs.getString(RequestOther.getColumnName(RequestOther.Columns.MESSAGE)));
 			result.setCreatedAt(rs.getTimestamp(RequestOther.getColumnName(RequestOther.Columns.CREATED_AT)));
 			result.setUpdatedAt(rs.getTimestamp(RequestOther.getColumnName(RequestOther.Columns.UPDATED_AT)));
 			result.setDeleted(rs.getBoolean(RequestOther.getColumnName(RequestOther.Columns.DELETED)));
-		
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
+			
 			resultList.add(result);
 		}
 			

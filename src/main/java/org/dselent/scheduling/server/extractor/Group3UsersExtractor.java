@@ -26,13 +26,27 @@ public class Group3UsersExtractor extends Extractor<List<Group3User>>
 			}
 			
 			result.setAccountTypeId(rs.getInt(Group3User.getColumnName(Group3User.Columns.ACCOUNT_TYPE_ID)));
+			if(rs.wasNull())
+			{
+				result.setAccountTypeId(null);
+			}
+			
 			result.setFacultyId(rs.getInt(Group3User.getColumnName(Group3User.Columns.FACULTY_ID)));
+			if(rs.wasNull())
+			{
+				result.setFacultyId(null);
+			}
+			
 			result.setEncryptedPassword(rs.getString(Group3User.getColumnName(Group3User.Columns.ENCRYPTED_PASSWORD)));
 			result.setPasswordSalt(rs.getString(Group3User.getColumnName(Group3User.Columns.PASSWORD_SALT)));
 			result.setCreatedAt(rs.getTimestamp(Group3User.getColumnName(Group3User.Columns.CREATED_AT)));
 			result.setUpdatedAt(rs.getTimestamp(Group3User.getColumnName(Group3User.Columns.UPDATED_AT)));
-			result.setUpdatedAt(rs.getTimestamp(Group3User.getColumnName(Group3User.Columns.DELETED)));
-		
+			result.setDeleted(rs.getBoolean(Group3User.getColumnName(Group3User.Columns.DELETED)));
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
+			
 			resultList.add(result);
 		}
 			

@@ -26,11 +26,25 @@ public class ScheduleExtractor extends Extractor<List<Schedule>>
 			}
 			
 			result.setFacultyID(rs.getInt(Schedule.getColumnName(Schedule.Columns.FACULTY_ID)));
+			if(rs.wasNull())
+			{
+				result.setFacultyID(null);
+			}
+			
 			result.setSectionsID(rs.getInt(Schedule.getColumnName(Schedule.Columns.SECTIONS_ID)));
+			if(rs.wasNull())
+			{
+				result.setSectionsID(null);
+			}
+			
 			result.setCreatedAt(rs.getTimestamp(Schedule.getColumnName(Schedule.Columns.CREATED_AT)));
 			result.setUpdatedAt(rs.getTimestamp(Schedule.getColumnName(Schedule.Columns.UPDATED_AT)));
 			result.setDeleted(rs.getBoolean(Schedule.getColumnName(Schedule.Columns.DELETED)));
-		
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
+			
 			resultList.add(result);
 		}
 			

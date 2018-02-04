@@ -26,12 +26,31 @@ public class CourseLoadExtractor extends Extractor<List<CourseLoad>>
 			}
 			
 			result.setCourseLoadTypeID(rs.getInt(CourseLoad.getColumnName(CourseLoad.Columns.COURSE_LOAD_TYPE_ID)));
+			if(rs.wasNull())
+			{
+				result.setCourseLoadTypeID(null);
+			}
+			
 			result.setCourseLoadHours(rs.getInt(CourseLoad.getColumnName(CourseLoad.Columns.COURSE_LOAD_HOURS)));
+			if(rs.wasNull())
+			{
+				result.setCourseLoadHours(null);
+			}
+			
 			result.setFacultyID(rs.getInt(CourseLoad.getColumnName(CourseLoad.Columns.FACULTY_ID)));
+			if(rs.wasNull())
+			{
+				result.setFacultyID(null);
+			}
+			
 			result.setCreatedAt(rs.getTimestamp(CourseLoad.getColumnName(CourseLoad.Columns.CREATED_AT)));
 			result.setUpdatedAt(rs.getTimestamp(CourseLoad.getColumnName(CourseLoad.Columns.UPDATED_AT)));
 			result.setDeleted(rs.getBoolean(CourseLoad.getColumnName(CourseLoad.Columns.DELETED)));
-		
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
+			
 			resultList.add(result);
 		}
 			

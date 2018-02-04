@@ -26,12 +26,31 @@ public class RequestTimeExtractor extends Extractor<List<RequestTime>>
 			}
 			
 			result.setRequestsID(rs.getInt(RequestTime.getColumnName(RequestTime.Columns.REQUESTS_ID)));
+			if(rs.wasNull())
+			{
+				result.setRequestsID(null);
+			}
+			
 			result.setStartID(rs.getInt(RequestTime.getColumnName(RequestTime.Columns.START_ID)));
+			if(rs.wasNull())
+			{
+				result.setStartID(null);
+			}
+			
 			result.setEndID(rs.getInt(RequestTime.getColumnName(RequestTime.Columns.END_ID)));
+			if(rs.wasNull())
+			{
+				result.setEndID(null);
+			}
+			
 			result.setCreatedAt(rs.getTimestamp(RequestTime.getColumnName(RequestTime.Columns.CREATED_AT)));
 			result.setUpdatedAt(rs.getTimestamp(RequestTime.getColumnName(RequestTime.Columns.UPDATED_AT)));
 			result.setDeleted(rs.getBoolean(RequestTime.getColumnName(RequestTime.Columns.DELETED)));
-		
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
+			
 			resultList.add(result);
 		}
 			
