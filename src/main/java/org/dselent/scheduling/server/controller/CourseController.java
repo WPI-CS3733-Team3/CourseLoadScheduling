@@ -6,6 +6,8 @@ import org.dselent.scheduling.server.requests.course.Create;
 import org.dselent.scheduling.server.requests.course.Edit;
 import org.dselent.scheduling.server.requests.course.ViewOneCourse;
 import org.dselent.scheduling.server.requests.course.RemoveCourse;
+import org.dselent.scheduling.server.requests.course.ViewAllCourse;
+
 //Import request classes
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,9 +26,11 @@ public interface CourseController
     @RequestMapping(method=RequestMethod.POST, value = ViewOneCourse.REQUEST_NAME)
 	public ResponseEntity<String> ViewOneCourse(@RequestBody Map<String, String> request) throws Exception;
     
-    @RequestMapping(method=RequestMethod.POST, value = ViewOneCourse.REQUEST_NAME)
+    @RequestMapping(method=RequestMethod.POST, value = RemoveCourse.REQUEST_NAME)
 	public ResponseEntity<String> RemoveCourse(@RequestBody Map<String, String> request) throws Exception;
     
+    @RequestMapping(method=RequestMethod.POST, value = ViewAllCourse.REQUEST_NAME)
+	public ResponseEntity<String> ViewAllCourse(@RequestBody Map<String, String> request) throws Exception;
     
     
 }
