@@ -7,15 +7,15 @@ import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Defines information for the view all request including the keys for the
+ * Defines information for the update request including the keys for the
  * header, parameters, and body and the request type (RequestMethod).
  * 
  * @author dselent, modified by fcampanelli
  *
  */
-public class ViewAll {
+public class Update {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "view/all";
+	public static final String REQUEST_NAME = "update";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
@@ -32,7 +32,8 @@ public class ViewAll {
 
 	public static enum BodyKey
 	{
-
+		REQUEST_ID,
+		REQUEST_STATUS_ID,
 	}
 
 
@@ -60,7 +61,7 @@ public class ViewAll {
 
 	};
 
-	private ViewAll()
+	private Update()
 	{
 
 	};
