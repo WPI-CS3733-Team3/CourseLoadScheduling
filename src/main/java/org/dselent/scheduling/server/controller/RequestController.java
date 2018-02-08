@@ -14,8 +14,8 @@ public interface RequestController
 	@RequestMapping(method=RequestMethod.POST, value=ViewAll.REQUEST_NAME)
 	public ResponseEntity<String> viewAll(@RequestBody Map<String, String> request) throws Exception;
 
-	@RequestMapping(method=RequestMethod.POST, value=Update.REQUEST_NAME)
-	public ResponseEntity<String> update(@RequestBody Map<String, String> request) throws Exception;
+	@RequestMapping(method=RequestMethod.POST, value=Review.REQUEST_NAME)
+	public ResponseEntity<String> review(@RequestBody Map<String, String> request) throws Exception;
 
 	@RequestMapping(method=RequestMethod.POST, value=Submit.REQUEST_NAME)
 	public ResponseEntity<String> submit(@RequestBody Map<String, String> request) throws Exception;

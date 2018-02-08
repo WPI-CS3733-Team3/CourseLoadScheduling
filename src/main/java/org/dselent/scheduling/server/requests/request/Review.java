@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author dselent, modified by fcampanelli
  *
  */
-public class Update {
+public class Review {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "update";
+	public static final String REQUEST_NAME = "review";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
@@ -61,7 +61,7 @@ public class Update {
 
 	};
 
-	private Update()
+	private Review()
 	{
 
 	};

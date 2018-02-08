@@ -33,7 +33,7 @@ public class Submit {
 	public static enum BodyKey
 	{
 		USER_ID,
-		COURSE_ID,
+		COURSES_ID,
 		START_ID,
 		END_ID,
 		TERMS_ID,

@@ -35,7 +35,7 @@ public class Add
 	{
 		NAME,
 		CRN,
-		TERM_ID,
+		TERMS_ID,
 		SECTION_TYPE_ID,
 		DAYS_ID,
 		COURSES_ID,

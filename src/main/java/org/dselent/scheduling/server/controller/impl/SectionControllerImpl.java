@@ -8,7 +8,9 @@ import org.dselent.scheduling.server.controller.SectionController;
 import org.dselent.scheduling.server.dto.AddSectionDto;
 import org.dselent.scheduling.server.dto.EditSectionDto;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
-import org.dselent.scheduling.server.requests.section.*;
+import org.dselent.scheduling.server.requests.section.Add;
+import org.dselent.scheduling.server.requests.section.Edit;
+import org.dselent.scheduling.server.requests.section.Remove;
 import org.dselent.scheduling.server.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +50,7 @@ public class SectionControllerImpl implements SectionController
 		//Add functions
 		String name = request.get(Add.getBodyName(Add.BodyKey.NAME));
 		Integer crn = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.CRN)));
-		Integer termID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.TERM_ID)));
+		Integer termsID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.TERMS_ID)));
 		Integer sectionTypeID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.SECTION_TYPE_ID)));
 		Integer daysID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.DAYS_ID)));
 		Integer coursesID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.COURSES_ID)));
@@ -59,7 +61,7 @@ public class SectionControllerImpl implements SectionController
 		AddSectionDto.Builder builder = AddSectionDto.builder();
 		AddSectionDto addSectionDto = builder.withName(name)
 				.withCrn(crn)
-				.withTermID(termID)
+				.withTermID(termsID)
 				.withSectionTypeID(sectionTypeID)
 				.withDaysID(daysID)
 				.withCoursesID(coursesID)
@@ -85,7 +87,7 @@ public class SectionControllerImpl implements SectionController
 		//Edit functions
 		String editName = request.get(Edit.getBodyName(Edit.BodyKey.NAME));
 		Integer facultyID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.FACULTY_ID)));
-		Integer editTermID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.TERM_ID)));
+		Integer editTermID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.TERMS_ID)));
 		Integer editSectionTypeID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.SECTION_TYPE_ID)));
 		Integer editDaysID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.DAYS_ID)));
 		Integer editCoursesID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.COURSES_ID)));

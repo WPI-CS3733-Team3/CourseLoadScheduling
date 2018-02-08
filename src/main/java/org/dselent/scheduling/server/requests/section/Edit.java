@@ -34,7 +34,7 @@ public class Edit
 	public static enum BodyKey
 	{
 		NAME,
-		TERM_ID,
+		TERMS_ID,
 		SECTION_TYPE_ID,
 		DAYS_ID,
 		COURSES_ID,
