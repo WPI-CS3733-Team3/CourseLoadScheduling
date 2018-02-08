@@ -34,7 +34,7 @@ public class UsersControllerImpl implements UsersController
 	 * @return A ResponseEntity for the response object(s) and the status code
 	 * @throws Exception 
 	 */
-	public ResponseEntity<String> createGroup3User(@RequestBody Map<String, String> request) throws Exception 
+	public ResponseEntity<String> createAccount(@RequestBody Map<String, String> request) throws Exception 
     {
     	// Print is for testing purposes
 		System.out.println("controller reached");
