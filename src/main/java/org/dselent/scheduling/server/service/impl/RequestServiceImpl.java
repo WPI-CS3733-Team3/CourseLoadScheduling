@@ -60,7 +60,7 @@ public class RequestServiceImpl implements RequestService {
 	 */
 	@Override
 	public List<Integer> reviewRequest(Integer requestId, Integer reviewedStatusId) throws SQLException {
-		
+
 		List<Integer> rowsAffectedList = new ArrayList<>();
 		//Generate QueeryTerm for selecting the request based on its ID
 		List<QueryTerm> queryTermList = new ArrayList<>();
@@ -71,7 +71,7 @@ public class RequestServiceImpl implements RequestService {
 		qt.setLogicalOperator(null);
 		queryTermList.add(qt);
 		rowsAffectedList.add(requestsDao.update(Request.getColumnName(Request.Columns.REQUEST_STATUS_ID), reviewedStatusId, queryTermList));
-		
+
 		return rowsAffectedList;
 	}
 
@@ -83,7 +83,7 @@ public class RequestServiceImpl implements RequestService {
 	public List<Integer> submitRequest(RequestDto submitRequestDto) throws SQLException {
 
 		List<Integer> rowsAffectedList = new ArrayList<Integer>();
-		
+
 		//Extract Requests table data and insert
 		Request request = new Request();
 		request.setUserId(submitRequestDto.getUserId());
@@ -115,7 +115,7 @@ public class RequestServiceImpl implements RequestService {
 		requestCourseKeyHolderColumnNameList.add(RequestCourse.getColumnName(RequestCourse.Columns.UPDATED_AT));
 		requestCourseKeyHolderColumnNameList.add(RequestCourse.getColumnName(RequestCourse.Columns.DELETED));
 		rowsAffectedList.add(requestCourseDao.insert(requestCourse, requestInsertColumnNameList, requestKeyHolderColumnNameList));
-		
+
 		//Extract RequestOther table data and insert
 		RequestOther requestOther = new RequestOther();
 		requestOther.setMessage(submitRequestDto.getMessage());
@@ -147,7 +147,7 @@ public class RequestServiceImpl implements RequestService {
 		requestTermKeyHolderColumnNameList.add(RequestTerm.getColumnName(RequestTerm.Columns.UPDATED_AT));
 		requestTermKeyHolderColumnNameList.add(RequestTerm.getColumnName(RequestTerm.Columns.DELETED));
 		rowsAffectedList.add(requestTermDao.insert(requestTerm, requestInsertColumnNameList, requestKeyHolderColumnNameList));
-		
+
 		//Extract RequestTerm table data and insert
 		RequestTime requestTime = new RequestTime();
 		requestTime.setStartID(submitRequestDto.getStartId());
@@ -165,7 +165,7 @@ public class RequestServiceImpl implements RequestService {
 		requestTimeKeyHolderColumnNameList.add(RequestTime.getColumnName(RequestTime.Columns.UPDATED_AT));
 		requestTimeKeyHolderColumnNameList.add(RequestTime.getColumnName(RequestTime.Columns.DELETED));
 		rowsAffectedList.add(requestTimeDao.insert(requestTime, requestInsertColumnNameList, requestKeyHolderColumnNameList));
-		
+
 		return rowsAffectedList;
 
 	}

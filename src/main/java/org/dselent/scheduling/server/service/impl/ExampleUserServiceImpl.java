@@ -23,37 +23,37 @@ public class ExampleUserServiceImpl implements ExampleUserService
 {
 	@Autowired
 	private ExampleUsersDao usersDao;
-	
+
 	@Autowired
 	private ExampleUsersRolesLinksDao usersRolesLinksDao;
-	
-    public ExampleUserServiceImpl()
-    {
-    	//
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see org.dselent.scheduling.server.service.UserService#registerUser(org.dselent.scheduling.server.dto.RegisterUserDto)
-     */
-    @Transactional
-    @Override
+
+	public ExampleUserServiceImpl()
+	{
+		//
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.dselent.scheduling.server.service.UserService#registerUser(org.dselent.scheduling.server.dto.RegisterUserDto)
+	 */
+	@Transactional
+	@Override
 	public List<Integer> registerUser(RegisterUserDto dto) throws SQLException
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
-		
+
 		// TODO validate business constraints
-			// ^^students should do this^^
-			// password strength requirements
-			// email requirements
-			// null values
-			// etc...
-		
+		// ^^students should do this^^
+		// password strength requirements
+		// email requirements
+		// null values
+		// etc...
+
 		String salt = KeyGenerators.string().generateKey();
 		String saltedPassword = dto.getPassword() + salt;
 		PasswordEncoder passwordEncorder = new BCryptPasswordEncoder();
 		String encryptedPassword = passwordEncorder.encode(saltedPassword);
-		
+
 		ExampleUser user = new ExampleUser();
 		user.setUserName(dto.getUserName());
 		user.setFirstName(dto.getFirstName());
@@ -61,49 +61,49 @@ public class ExampleUserServiceImpl implements ExampleUserService
 		user.setEmail(dto.getEmail());
 		user.setEncryptedPassword(encryptedPassword);
 		user.setSalt(salt);
-    	user.setUserStateId(1);
-    	
-    	List<String> userInsertColumnNameList = new ArrayList<>();
-    	List<String> userKeyHolderColumnNameList = new ArrayList<>();
-    	
-    	userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.USER_NAME));
-    	userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.FIRST_NAME));
-    	userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.LAST_NAME));
-    	userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.EMAIL));
-    	userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.ENCRYPTED_PASSWORD));
-    	userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.SALT));
-    	userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.USER_STATE_ID));
-    	
-    	userKeyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.ID));
-    	userKeyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.CREATED_AT));
-    	userKeyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.UPDATED_AT));
-		
-    	rowsAffectedList.add(usersDao.insert(user, userInsertColumnNameList, userKeyHolderColumnNameList));
+		user.setUserStateId(1);
+
+		List<String> userInsertColumnNameList = new ArrayList<>();
+		List<String> userKeyHolderColumnNameList = new ArrayList<>();
+
+		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.USER_NAME));
+		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.FIRST_NAME));
+		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.LAST_NAME));
+		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.EMAIL));
+		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.ENCRYPTED_PASSWORD));
+		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.SALT));
+		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.USER_STATE_ID));
+
+		userKeyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.ID));
+		userKeyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.CREATED_AT));
+		userKeyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.UPDATED_AT));
+
+		rowsAffectedList.add(usersDao.insert(user, userInsertColumnNameList, userKeyHolderColumnNameList));
 
 		//
-     	
-    	// for now, assume users can only register with default role id
-    	// may change in the future
-    	
+
+		// for now, assume users can only register with default role id
+		// may change in the future
+
 		ExampleUsersRolesLink usersRolesLink = new ExampleUsersRolesLink();
 		usersRolesLink.setUserId(user.getId());
 		usersRolesLink.setRoleId(1); // hard coded as regular user
-    	
-    	List<String> usersRolesLinksInsertColumnNameList = new ArrayList<>();
-    	List<String> usersRolesLinksKeyHolderColumnNameList = new ArrayList<>();
-    	
-    	usersRolesLinksInsertColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.USER_ID));
-    	usersRolesLinksInsertColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ROLE_ID));
-    	
-    	usersRolesLinksKeyHolderColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ID));
-    	usersRolesLinksKeyHolderColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.CREATED_AT));
-    	usersRolesLinksKeyHolderColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.DELETED));
-		
-    	rowsAffectedList.add(usersRolesLinksDao.insert(usersRolesLink, usersRolesLinksInsertColumnNameList, usersRolesLinksKeyHolderColumnNameList));
-		
+
+		List<String> usersRolesLinksInsertColumnNameList = new ArrayList<>();
+		List<String> usersRolesLinksKeyHolderColumnNameList = new ArrayList<>();
+
+		usersRolesLinksInsertColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.USER_ID));
+		usersRolesLinksInsertColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ROLE_ID));
+
+		usersRolesLinksKeyHolderColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ID));
+		usersRolesLinksKeyHolderColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.CREATED_AT));
+		usersRolesLinksKeyHolderColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.DELETED));
+
+		rowsAffectedList.add(usersRolesLinksDao.insert(usersRolesLink, usersRolesLinksInsertColumnNameList, usersRolesLinksKeyHolderColumnNameList));
+
 		return rowsAffectedList;
 	}
-	
+
 	//
 
 	@Override

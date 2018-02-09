@@ -32,7 +32,7 @@ public class QueryTerm
 	private ComparisonOperator comparisonOperator;
 	private Object value;
 	private LogicalOperator logicalOperator;
-	
+
 	public QueryTerm()
 	{
 		columnName = null;
