@@ -33,8 +33,10 @@ public class ScheduleControllerImpl implements ScheduleController {
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
+		//draw information form the request parameter
 		Integer termsId = Integer.parseInt(request.get(ViewAll.getBodyName(ViewAll.BodyKey.TERMS_ID)));
 		
+		//create response and return it
 		success.add(schedulingService.viewAllSchedule(termsId));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
@@ -52,9 +54,9 @@ public class ScheduleControllerImpl implements ScheduleController {
 		List<Object> success = new ArrayList<Object>();
 		
 		Integer termsId = Integer.parseInt(request.get(ViewOne.getBodyName(ViewOne.BodyKey.TERMS_ID)));
-		Integer usersId = Integer.parseInt(request.get(ViewOne.getBodyName(ViewOne.BodyKey.USERS_ID)));
+		Integer facultyId = Integer.parseInt(request.get(ViewOne.getBodyName(ViewOne.BodyKey.FACULTY_ID)));
 		
-		success.add(schedulingService.viewOneSchedule(termsId, usersId));
+		success.add(schedulingService.viewOneSchedule(termsId, facultyId));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -73,6 +75,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 		
 		Integer scheduleId = Integer.parseInt(request.get(Remove.getBodyName(Remove.BodyKey.SCHEDULE_ID)));
 		
+		//build response
 		schedulingService.removeClassSchedule(scheduleId);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
@@ -93,6 +96,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 		Integer sectionId = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.SECTIONS_ID)));
 		Integer facultyId = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.FACULTY_ID)));
 		
+		//build repsponse
 		success.add(schedulingService.addClassSchedule(sectionId, facultyId));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
@@ -122,7 +126,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 		UpdateScheduleDto dto = builder.withTermsId(termsId).withScheduleId(scheduleId).withDaysId(daysId)
 				.withStartId(startId).withEndId(endId).withFacultyId(facultyId).build();
 		
-		
+		//build response
 		success.add(schedulingService.updateSchedule(dto));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 

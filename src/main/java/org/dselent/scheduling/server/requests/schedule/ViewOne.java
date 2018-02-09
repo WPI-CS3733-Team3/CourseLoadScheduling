@@ -26,7 +26,7 @@ public class ViewOne {
 	public static enum BodyKey                                                        
 	{                                                                                 
 		TERMS_ID,
-		USERS_ID;//May not be same as own Id                                                                 
+		FACULTY_ID;                                                                
 	}                                                                                 
 	                                                                                  
 	                                                                                  
