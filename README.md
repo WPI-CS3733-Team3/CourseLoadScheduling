@@ -33,6 +33,6 @@ Our custom tests need the course_load_scheduler database
 
 Assignment 4
 ------------
-- [ ] Document all Network Requests
+- [x] Document all Network Requests
 - [ ] Program the Controller Layer
 - [ ] Program the Service Layer
