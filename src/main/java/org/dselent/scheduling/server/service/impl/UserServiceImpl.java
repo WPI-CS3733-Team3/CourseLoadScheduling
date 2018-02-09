@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService
     	return rowsAffectedList;
 	}
 
-
+    
     @Transactional
     @Override
 	public List<Integer> editUser(int id, String fname, String lname, String password) throws SQLException
@@ -158,7 +158,6 @@ public class UserServiceImpl implements UserService
     	return rowsAffectedList;
 	}
     
-
 
     @Override
 	public User login(String email, String password) throws SQLException
@@ -236,4 +235,52 @@ public class UserServiceImpl implements UserService
     	
     	return rowsAffectedList;
 	}
+    
+    @Transactional
+    @Override
+	public List<Integer> deleteUser(int id, int idToDelete) throws SQLException
+	{
+		List<Integer> rowsAffectedList = new ArrayList<>();
+		
+		// TODO validate business constraints
+			// ^^students should do this^^
+			// password strength requirements
+			// email requirements
+			// null values
+			// etc...
+		
+		User deleter = usersDao.findById(id);
+		//In case user tries to enter 
+		if(deleter.getAccountTypeId() != 2 && id !=  idToDelete)
+		{
+			System.out.println("Regular Users can only delete their own account.");
+			return null;
+		}
+		
+		List<String> selectColumnNameList = Faculty.getColumnNameList();
+
+		List<QueryTerm> queryTermList = new ArrayList<>();
+		QueryTerm qt = new QueryTerm();
+		qt.setColumnName(User.getColumnName(User.Columns.ID));
+		qt.setComparisonOperator(ComparisonOperator.EQUAL);
+		qt.setValue(idToDelete);
+		qt.setLogicalOperator(null);
+		queryTermList.add(qt);
+		
+		
+		List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> p = new Pair<String, ColumnOrder>(Faculty.getColumnName(Faculty.Columns.ID), ColumnOrder.ASC);
+		orderByList.add(p);
+		
+		System.out.println(selectColumnNameList);
+		System.out.println(queryTermList);
+		System.out.println(orderByList);
+
+	
+    		rowsAffectedList.add(usersDao.delete(queryTermList));
+    		
+
+    	
+    	return rowsAffectedList;
+	} 
 }
