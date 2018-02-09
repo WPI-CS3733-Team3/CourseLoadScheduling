@@ -25,7 +25,7 @@ public class Update {
 	                                                                                  
 	public static enum BodyKey                                                        
 	{                                                                                 
-		SECTIONS_ID,
+		SCHEDULE_ID,
 		TERMS_ID,
 		DAYS_ID,
 		START_ID,

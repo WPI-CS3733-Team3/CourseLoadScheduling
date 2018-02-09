@@ -1,6 +1,5 @@
 package org.dselent.scheduling.server.controller.impl;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ScheduleControllerImpl implements ScheduleController {
@@ -25,6 +22,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 	@Autowired
     private ScheduleService schedulingService;
 	
+	//view all currently created classes
 	@Override
 	public ResponseEntity<String> viewAll(@RequestBody Map<String, String> request) throws Exception 
     {
@@ -37,15 +35,14 @@ public class ScheduleControllerImpl implements ScheduleController {
 		
 		Integer termsId = Integer.parseInt(request.get(ViewAll.getBodyName(ViewAll.BodyKey.TERMS_ID)));
 		
-		schedulingService.viewAllSchedule(termsId);
+		success.add(schedulingService.viewAllSchedule(termsId));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
-				
-		//return null;
     }
 	
-
+	//view all currently created classes for one user
+    @Override
 	public ResponseEntity<String> view(@RequestBody Map<String, String> request) throws Exception{
 		// Print is for testing purposes
 		System.out.println("controller (schedule/viewOne) reached");
@@ -57,14 +54,15 @@ public class ScheduleControllerImpl implements ScheduleController {
 		Integer termsId = Integer.parseInt(request.get(ViewOne.getBodyName(ViewOne.BodyKey.TERMS_ID)));
 		Integer usersId = Integer.parseInt(request.get(ViewOne.getBodyName(ViewOne.BodyKey.USERS_ID)));
 		
-		schedulingService.viewOneSchedule(termsId, usersId);
+		success.add(schedulingService.viewOneSchedule(termsId, usersId));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
-
-		//return null;
 	}
     
+	//remove a class from the current schedule
+    @Transactional
+    @Override
 	public ResponseEntity<String> remove(@RequestBody Map<String, String> request) throws Exception{
 		// Print is for testing purposes
 		System.out.println("controller (schedule/remove) reached");
@@ -73,16 +71,17 @@ public class ScheduleControllerImpl implements ScheduleController {
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		Integer sectionId = Integer.parseInt(request.get(Remove.getBodyName(Remove.BodyKey.SECTIONS_ID)));
+		Integer scheduleId = Integer.parseInt(request.get(Remove.getBodyName(Remove.BodyKey.SCHEDULE_ID)));
 		
-		schedulingService.removeClassSchedule(sectionId);
+		schedulingService.removeClassSchedule(scheduleId);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
-		
-		//return null;
 	}
     
+	//add a class to the schedule
+    @Transactional
+    @Override
 	public ResponseEntity<String> add(@RequestBody Map<String, String> request) throws Exception{
 		// Print is for testing purposes
 		System.out.println("controller (schedule/add) reached");
@@ -94,14 +93,15 @@ public class ScheduleControllerImpl implements ScheduleController {
 		Integer sectionId = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.SECTIONS_ID)));
 		Integer facultyId = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.FACULTY_ID)));
 		
-		schedulingService.addClassSchedule(sectionId, facultyId);
+		success.add(schedulingService.addClassSchedule(sectionId, facultyId));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
-		
-		//return null;
 	}
     
+	//updates an entry in the schedule table
+	@Transactional
+	@Override
 	public ResponseEntity<String> update(@RequestBody Map<String, String> request) throws Exception{
 		// Print is for testing purposes
 		System.out.println("controller (schedule/update) reached");
@@ -111,7 +111,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 		List<Object> success = new ArrayList<Object>();
 		
 		Integer termsId = Integer.parseInt(request.get(Update.getBodyName(Update.BodyKey.TERMS_ID)));
-		Integer sectionId = Integer.parseInt(request.get(Update.getBodyName(Update.BodyKey.SECTIONS_ID)));
+		Integer scheduleId = Integer.parseInt(request.get(Update.getBodyName(Update.BodyKey.SCHEDULE_ID)));
 		Integer daysId = Integer.parseInt(request.get(Update.getBodyName(Update.BodyKey.DAYS_ID)));
 		Integer startId = Integer.parseInt(request.get(Update.getBodyName(Update.BodyKey.START_ID)));
 		Integer endId = Integer.parseInt(request.get(Update.getBodyName(Update.BodyKey.END_ID)));
@@ -119,19 +119,15 @@ public class ScheduleControllerImpl implements ScheduleController {
 		
 		//build dto to pass in here
 		UpdateScheduleDto.Builder builder = UpdateScheduleDto.builder();
-		UpdateScheduleDto dto = builder.withTermsId(termsId).withSectionsId(sectionId).withDaysId(daysId)
+		UpdateScheduleDto dto = builder.withTermsId(termsId).withScheduleId(scheduleId).withDaysId(daysId)
 				.withStartId(startId).withEndId(endId).withFacultyId(facultyId).build();
 		
 		
-		schedulingService.updateSchedule(dto);
+		success.add(schedulingService.updateSchedule(dto));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
-				
-		//return null;
 	}
     
-	
-	
 	
 }

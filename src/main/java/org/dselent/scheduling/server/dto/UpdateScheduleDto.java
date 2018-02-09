@@ -12,7 +12,7 @@ import javax.annotation.Generated;
  *
  */
 public class UpdateScheduleDto {
-	private final Integer sectionsId;
+	private final Integer scheduleId;
 	private final Integer termsId;
 	private final Integer daysId;
 	private final Integer startId;
@@ -23,8 +23,7 @@ public class UpdateScheduleDto {
 	private UpdateScheduleDto(Builder builder)
 	{
 		// can add defaults if null for other places where the builder pattern is used
-		
-		this.sectionsId = builder.sectionsId;
+		this.scheduleId = builder.scheduleId;
 		this.termsId = builder.termsId;
 		this.daysId = builder.daysId;
 		this.startId = builder.startId;
@@ -34,9 +33,9 @@ public class UpdateScheduleDto {
 		// making claim that none of these can be null
 		// add other state checks here as necessary
 		
-		if(this.sectionsId == null)
+		if(this.scheduleId == null)
 		{
-			throw new IllegalStateException("sectionsId cannot be null");
+			throw new IllegalStateException("scheduleId cannot be null");
 		}
 		else if(this.termsId == null)
 		{
@@ -60,9 +59,9 @@ public class UpdateScheduleDto {
 		}
 	}
 
-	//getters and setters
-	public Integer getSectionsId() {
-		return sectionsId;
+	//getters
+	public Integer getScheduleId() {
+		return scheduleId;
 	}
 
 	public Integer getTermsId() {
@@ -93,7 +92,7 @@ public class UpdateScheduleDto {
 		result = prime * result + ((daysId == null) ? 0 : daysId.hashCode());
 		result = prime * result + ((endId == null) ? 0 : endId.hashCode());
 		result = prime * result + ((facultyId == null) ? 0 : facultyId.hashCode());
-		result = prime * result + ((sectionsId == null) ? 0 : sectionsId.hashCode());
+		result = prime * result + ((scheduleId == null) ? 0 : scheduleId.hashCode());
 		result = prime * result + ((startId == null) ? 0 : startId.hashCode());
 		result = prime * result + ((termsId == null) ? 0 : termsId.hashCode());
 		return result;
@@ -132,11 +131,11 @@ public class UpdateScheduleDto {
 		} else if (!facultyId.equals(other.facultyId)) {
 			return false;
 		}
-		if (sectionsId == null) {
-			if (other.sectionsId != null) {
+		if (scheduleId == null) {
+			if (other.scheduleId != null) {
 				return false;
 			}
-		} else if (!sectionsId.equals(other.sectionsId)) {
+		} else if (!scheduleId.equals(other.scheduleId)) {
 			return false;
 		}
 		if (startId == null) {
@@ -159,7 +158,7 @@ public class UpdateScheduleDto {
 	//toString
 	@Override
 	public String toString() {
-		return "UpdateScheduleDto [sectionsId=" + sectionsId + ", termsId=" + termsId + ", daysId=" + daysId
+		return "UpdateScheduleDto [scheduleId=" + scheduleId + ", termsId=" + termsId + ", daysId=" + daysId
 				+ ", startId=" + startId + ", endId=" + endId + ", facultyId=" + facultyId + "]";
 	}
 	
@@ -181,7 +180,7 @@ public class UpdateScheduleDto {
 	@Generated("SparkTools")
 	public static final class Builder
 	{
-		private Integer sectionsId;
+		private Integer scheduleId;
 		private Integer termsId;
 		private Integer daysId;
 		private Integer startId;
@@ -191,10 +190,10 @@ public class UpdateScheduleDto {
 		private Builder()
 		{
 		}
-
-		public Builder withSectionsId(Integer sectionsId)
+		
+		public Builder withScheduleId(Integer scheduleId)
 		{
-			this.sectionsId = sectionsId;
+			this.scheduleId = scheduleId;
 			return this;
 		}
 

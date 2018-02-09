@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public interface ScheduleService {
 
 	//view all currently created classes
-    public List<Schedule> viewAllSchedule(Integer termsId) throws SQLException;
+    public List<SectionsInfo> viewAllSchedule(Integer termsId) throws SQLException;
     
     //view all currently created classes for one user
     public List<SectionsInfo> viewOneSchedule(Integer termsId, Integer usersId) throws SQLException;
@@ -21,7 +21,7 @@ public interface ScheduleService {
     public Integer removeClassSchedule(Integer sectionId) throws SQLException;
     
     //add a class to the schedule
-    public List<Integer> addClassSchedule(Integer sectionId, Integer facultyId) throws SQLException;
+    public Integer addClassSchedule(Integer sectionId, Integer facultyId) throws SQLException;
     
     //changes information about a class
     public Schedule updateSchedule(UpdateScheduleDto dto) throws SQLException;

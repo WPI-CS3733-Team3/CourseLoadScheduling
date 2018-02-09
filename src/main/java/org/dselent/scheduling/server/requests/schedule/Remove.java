@@ -25,7 +25,7 @@ public class Remove {
 	                                                                                  
 	public static enum BodyKey                                                        
 	{                                                                                 
-		SECTIONS_ID;                                                                     
+		SCHEDULE_ID;                                                                     
 	}                                                                                 
 	                                                                                  
 	                                                                                  

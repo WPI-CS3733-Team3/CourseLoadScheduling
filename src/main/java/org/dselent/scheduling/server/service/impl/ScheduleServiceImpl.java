@@ -41,19 +41,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 	 
 	//view all currently created classes
 	@Override
-    public List<Schedule> viewAllSchedule(Integer termsId) throws SQLException{
-		//SELECT * FROM schedule WHERE termsId = :termsId
-		
-		
-		//column name list
-		
-		
-		//scheduleDao.select
-		
-		//Another custom query here!?!?
-    	
-		
-    	return null;
+    public List<SectionsInfo> viewAllSchedule(Integer termsId) throws SQLException{
+		//display classes for all terms, if none specified.
+		//Since the term selection will be in a menu, there is no other "incorrect" input to account for.
+		if(termsId == null) {
+			return customDao.getSectionsInfo();
+		}
+		else {
+			return customDao.getSectionsInfo(termsId);
+		}
     }
     
     //view all currently created classes for one user
@@ -68,21 +64,27 @@ public class ScheduleServiceImpl implements ScheduleService {
     		return new ArrayList<SectionsInfo>();
     	}
     	
-    	//***potentially add in some sort of check for term here....***
-    	return customDao.getOneFacultySectionsInfo(facultyId);
+    	//display classes for all terms, if none specified.
+    	//Since the term selection will be in a menu, there is no other "incorrect" input to account for.
+    	if(termsId == null) {   	
+    		return customDao.getOneFacultySectionsInfo(facultyId);
+    	}
+    	else {
+    		return customDao.getOneFacultySectionsInfo(facultyId, termsId);
+    	}
     }
     
     //remove a class from the current schedule
     @Transactional
     @Override
-    public Integer removeClassSchedule(Integer sectionId) throws SQLException{
-    	//DELETE FROM schedule WHERE section_id = :sectionId
+    public Integer removeClassSchedule(Integer scheduleId) throws SQLException{
+    	//specifiy the scheduleId to be removed
     	QueryTerm deleteTerms = new QueryTerm();
     	
-    	deleteTerms.setColumnName(Schedule.getColumnName(Schedule.Columns.SECTIONS_ID));
+    	deleteTerms.setColumnName(Schedule.getColumnName(Schedule.Columns.ID));
     	deleteTerms.setComparisonOperator(ComparisonOperator.EQUAL);
     	deleteTerms.setLogicalOperator(null);
-    	deleteTerms.setValue(sectionId);
+    	deleteTerms.setValue(scheduleId);
     	
     	List<QueryTerm> qtList = new ArrayList<QueryTerm>();
     	qtList.add(deleteTerms);
@@ -93,8 +95,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     //add a class to the schedule
     @Transactional
     @Override
-    public List<Integer> addClassSchedule(Integer sectionId, Integer facultyId) throws SQLException{
-    	List<Integer> rowsAffectedList = new ArrayList<>();
+    public Integer addClassSchedule(Integer sectionId, Integer facultyId) throws SQLException{
     	
     	//any validation logic here
     	
@@ -115,29 +116,20 @@ public class ScheduleServiceImpl implements ScheduleService {
    		scheduleKeyHolderColNameList.add(Schedule.getColumnName(Schedule.Columns.UPDATED_AT));
    		scheduleKeyHolderColNameList.add(Schedule.getColumnName(Schedule.Columns.DELETED));
 
-    	rowsAffectedList.add(scheduleDao.insert(schedule, scheduleInsertColNameList, scheduleKeyHolderColNameList));
-    	
-    	return rowsAffectedList;
+    	return scheduleDao.insert(schedule, scheduleInsertColNameList, scheduleKeyHolderColNameList);
     }
     
-    //changes information about a class**********************************************************
+    //changes information about a class*
     @Transactional
     @Override
     public Schedule updateSchedule(UpdateScheduleDto dto) throws SQLException{
-    	
-    	//updates schedule table if faculty id changes, but updates just the sections
-    	//if only section info changes (will probs update both anyways)
-    	
-    	//create update query
-    	
-    	//save rows affected int, then return as specified
+    	//update course section info in schedule
     	QueryTerm qt1 = new QueryTerm();
-    	QueryTerm qt2 = new QueryTerm();
     	
     	qt1.setColumnName(Sections.getColumnName(Sections.Columns.ID));
     	qt1.setComparisonOperator(ComparisonOperator.EQUAL);
     	qt1.setLogicalOperator(null);
-    	qt1.setValue(dto.getSectionsId());
+    	qt1.setValue(scheduleDao.findById(dto.getScheduleId()).getSectionsID());
     	
     	List<QueryTerm> qtList = new ArrayList<QueryTerm>();
     	qtList.add(qt1);
@@ -147,18 +139,20 @@ public class ScheduleServiceImpl implements ScheduleService {
     	sectionsDao.update(Sections.getColumnName(Sections.Columns.END_ID), dto.getEndId(), qtList);
     	sectionsDao.update(Sections.getColumnName(Sections.Columns.TERMS_ID), dto.getTermsId(), qtList);
 
+    	//update facultyId
+    	QueryTerm qt2 = new QueryTerm();
 
     	qt2.setColumnName(Schedule.getColumnName(Schedule.Columns.ID));
     	qt2.setComparisonOperator(ComparisonOperator.EQUAL);
     	qt2.setLogicalOperator(null);
-    	qt2.setValue(dto.getId());//******************************
+    	qt2.setValue(dto.getScheduleId());
     	
     	List<QueryTerm> qtList2 = new ArrayList<QueryTerm>();
-    	qtList.add(qt2);
+    	qtList2.add(qt2);
     	
-    	scheduleDao.update(Schedule.getColumnName(Schedule.Columns.FACULTY_ID), dto.getFacultyId(), qtList);
+    	scheduleDao.update(Schedule.getColumnName(Schedule.Columns.FACULTY_ID), dto.getFacultyId(), qtList2);
     	
-    	return scheduleDao.findById(dto.getId());
+    	return scheduleDao.findById(dto.getScheduleId());
     }
 	
 	
