@@ -34,6 +34,7 @@ public class UsersControllerImpl implements UsersController
 	 * @return A ResponseEntity for the response object(s) and the status code
 	 * @throws Exception 
 	 */
+	@Override
 	public ResponseEntity<String> createAccount(@RequestBody Map<String, String> request) throws Exception 
     {
     	// Print is for testing purposes
@@ -52,6 +53,7 @@ public class UsersControllerImpl implements UsersController
 		return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 	
+	@Override
 	public ResponseEntity<String> login(@RequestBody Map<String, String> request) throws Exception 
     {
     	// Print is for testing purposes
@@ -61,8 +63,8 @@ public class UsersControllerImpl implements UsersController
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String email = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.EMAIL));
-		String password = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.PASSWORD));
+		String email = request.get(Login.getBodyName(Login.BodyKey.EMAIL));
+		String password = request.get(Login.getBodyName(Login.BodyKey.PASSWORD));
 
 		userService.login(email, password);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
@@ -70,6 +72,7 @@ public class UsersControllerImpl implements UsersController
 		return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 	
+	@Override
 	public ResponseEntity<String> promote(@RequestBody Map<String, String> request) throws Exception
 	{
 		// Print is for testing purposes
@@ -79,7 +82,7 @@ public class UsersControllerImpl implements UsersController
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String email = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.EMAIL));
+		String email = request.get(Promote.getBodyName(Promote.BodyKey.EMAIL));
 
 		userService.promote(email);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
@@ -117,6 +120,22 @@ public class UsersControllerImpl implements UsersController
 		int idToDelete = Integer.parseInt(request.get(DeleteAccount.getBodyName(DeleteAccount.BodyKey.ID_TO_DELETE)));
 		
 		userService.deleteUser(id, idToDelete);
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> viewRoster(@RequestBody Map<String, String> request) throws Exception
+	{
+		// Print is for testing purposes
+		System.out.println("controller reached");
+    	
+		// add any objects that need to be returned to the success list
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+
+		success.add(userService.viewRoster());
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);

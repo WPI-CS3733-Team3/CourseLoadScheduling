@@ -276,11 +276,19 @@ public class UserServiceImpl implements UserService
 		System.out.println(queryTermList);
 		System.out.println(orderByList);
 
-
 		rowsAffectedList.add(usersDao.delete(queryTermList));
-
-
 
 		return rowsAffectedList;
 	} 
+    
+    @Override
+	public List<Faculty> viewRoster() throws SQLException
+	{
+    	List<String> facultySelectColumnNameList = Faculty.getColumnNameList();
+    	List<QueryTerm> qtlist = new ArrayList<QueryTerm>();
+    	List<Pair<String,ColumnOrder>> plist = new ArrayList<Pair<String,ColumnOrder>>();
+    	List<Faculty> facultyList = facultyDao.select(facultySelectColumnNameList, qtlist, plist);
+    	
+    	return facultyList;
+	}
 }

@@ -3,6 +3,7 @@ package org.dselent.scheduling.server.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.dselent.scheduling.server.model.Faculty;
 import org.dselent.scheduling.server.model.User;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +30,5 @@ public interface UserService
 	public List<Integer> editUser(int id, String fname, String lname, String pass) throws SQLException;
 	public List<Integer> deleteUser(int id, int idToDelete) throws SQLException;
     public List<Integer> promote(String email) throws SQLException;
+    public List<Faculty> viewRoster() throws SQLException;
 }

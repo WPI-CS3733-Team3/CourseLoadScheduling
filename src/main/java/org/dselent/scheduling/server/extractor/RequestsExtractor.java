@@ -25,16 +25,16 @@ public class RequestsExtractor extends Extractor<List<Request>>
 				result.setId(null);
 			}
 			
-			result.setUsersID(rs.getInt(Request.getColumnName(Request.Columns.USERS_ID)));
+			result.setUserId(rs.getInt(Request.getColumnName(Request.Columns.USERS_ID)));
 			if(rs.wasNull())
 			{
-				result.setUsersID(null);
+				result.setUserId(null);
 			}
 			
-			result.setRequestStatusID(rs.getInt(Request.getColumnName(Request.Columns.REQUEST_STATUS_ID)));
+			result.setStatusId(rs.getInt(Request.getColumnName(Request.Columns.REQUEST_STATUS_ID)));
 			if(rs.wasNull())
 			{
-				result.setRequestStatusID(null);
+				result.setStatusId(null);
 			}
 			
 			result.setCreatedAt(rs.getTimestamp(Request.getColumnName(Request.Columns.CREATED_AT)));
