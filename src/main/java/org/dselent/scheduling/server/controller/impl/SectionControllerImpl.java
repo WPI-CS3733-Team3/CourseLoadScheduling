@@ -38,7 +38,7 @@ public class SectionControllerImpl implements SectionController
 	 * @return A ResponseEntity for the response object(s) and the status code
 	 * @throws Exception 
 	 */
-	public ResponseEntity<String> add(@RequestBody Map<String, String> request) throws Exception 
+	public ResponseEntity<String> addSection(@RequestBody Map<String, String> request) throws Exception 
 	{
 		// Print is for testing purposes
 		System.out.println("controller reached");
@@ -75,7 +75,7 @@ public class SectionControllerImpl implements SectionController
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
-	public ResponseEntity<String> edit(@RequestBody Map<String, String> request) throws Exception
+	public ResponseEntity<String> editSection(@RequestBody Map<String, String> request) throws Exception
 	{
 		// Print is for testing purposes
 		System.out.println("controller reached");
@@ -112,7 +112,7 @@ public class SectionControllerImpl implements SectionController
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
-	public ResponseEntity<String> remove(@RequestBody Map<String, String> request) throws Exception
+	public ResponseEntity<String> removeSection(@RequestBody Map<String, String> request) throws Exception
 	{
 		// Print is for testing purposes
 		System.out.println("controller reached");

@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface SectionController
 {    
     @RequestMapping(method=RequestMethod.POST, value=Add.REQUEST_NAME)
-	public ResponseEntity<String> add(@RequestBody Map<String, String> request) throws Exception;
+	public ResponseEntity<String> addSection(@RequestBody Map<String, String> request) throws Exception;
     
     @RequestMapping(method=RequestMethod.POST, value=Edit.REQUEST_NAME)
-	public ResponseEntity<String> edit(@RequestBody Map<String, String> request) throws Exception;
+	public ResponseEntity<String> editSection(@RequestBody Map<String, String> request) throws Exception;
     
     @RequestMapping(method=RequestMethod.POST, value=Remove.REQUEST_NAME)
-   	public ResponseEntity<String> remove(@RequestBody Map<String, String> request) throws Exception;   
+   	public ResponseEntity<String> removeSection(@RequestBody Map<String, String> request) throws Exception;   
 }

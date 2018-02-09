@@ -23,7 +23,7 @@ public class Add
 	
 	public static enum HeaderKey
 	{
-		
+		USER_ID;
 	}
 	
 	public static enum ParameterKey
