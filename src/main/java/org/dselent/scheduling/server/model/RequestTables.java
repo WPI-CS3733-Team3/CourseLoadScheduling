@@ -10,7 +10,7 @@ import java.util.Map;
 public class RequestTables extends Model{
 	// table name
 	public static final String TABLE_NAME = "request_tables";
-		
+
 	// column names
 	public static enum Columns
 	{
@@ -24,20 +24,20 @@ public class RequestTables extends Model{
 		REQUEST_OTHER_MESSAGE,
 		REQUEST_STATUS
 	}
-	
+
 	// enum list
 	private static final List<Columns> COLUMN_LIST = new ArrayList<>();
-	
+
 	// type mapping
 	private static final Map<Columns, JDBCType> COLUMN_TYPE_MAP = new HashMap<>();
-	
+
 	static
 	{
 		for(Columns key : Columns.values())
 		{
 			COLUMN_LIST.add(key);
 		}
-		
+
 		COLUMN_TYPE_MAP.put(Columns.REQUESTS_ID, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.REQUESTS_USER_ID, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.TERMS_NAME, JDBCType.VARCHAR);
@@ -48,9 +48,9 @@ public class RequestTables extends Model{
 		COLUMN_TYPE_MAP.put(Columns.REQUEST_OTHER_MESSAGE, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.REQUEST_STATUS, JDBCType.VARCHAR);
 	};
-	
+
 	// attributes
-	
+
 	private Integer requestsId;
 	private Integer requestsUserId;
 	private String termsName;
@@ -62,30 +62,30 @@ public class RequestTables extends Model{
 	private String requestStatus;
 
 	// methods
-	
+
 	public static JDBCType getColumnType(Columns column)
 	{
 		return COLUMN_TYPE_MAP.get(column);
 	}
-	
+
 	public static String getColumnName(Columns column)
 	{
 		return column.toString().toLowerCase();
 	}
-	
+
 	public static List<String> getColumnNameList()
 	{
 		List<String> columnNameList = new ArrayList<>();
-		
+
 		for(Columns column : COLUMN_LIST)
 		{
 			columnNameList.add(getColumnName(column));
 		}
-		
+
 		return columnNameList;
 	}
 
-	
+
 	//getters and setters
 	public Integer getRequestsId() {
 		return requestsId;
@@ -261,9 +261,9 @@ public class RequestTables extends Model{
 				+ ", coursesNumber=" + coursesNumber + ", requestOtherMessage=" + requestOtherMessage
 				+ ", requestStatus=" + requestStatus + "]";
 	}
-	
-	
-	
+
+
+
 
 
 }

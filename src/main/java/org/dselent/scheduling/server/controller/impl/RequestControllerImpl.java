@@ -33,7 +33,7 @@ public class RequestControllerImpl implements RequestController {
 	private RequestService requestService;
 
 	@Override
-	public ResponseEntity<String> viewAll(@RequestBody Map<String, String> request) throws Exception {
+	public ResponseEntity<String> delete(@RequestBody Map<String, String> request) throws Exception {
 
 		// Print is for testing purposes
 		System.out.println("controller reached");
@@ -41,8 +41,11 @@ public class RequestControllerImpl implements RequestController {
 		// add any objects that need to be returned to the success list
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
-		
-		requestService.viewAllRequests();
+
+		//Delete functions
+		Integer requestId = Integer.parseInt(request.get(Delete.getBodyName(Delete.BodyKey.REQUEST_ID)));
+
+		requestService.deleteRequest(requestId);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -58,8 +61,9 @@ public class RequestControllerImpl implements RequestController {
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 
-		//Review functions
+		//This is the id of the row that the request to be reviewed exists on
 		Integer requestId = Integer.parseInt(request.get(Review.getBodyName(Review.BodyKey.REQUEST_ID)));
+		//This is the id of the approved or denied request, after the client has made their decision
 		Integer requestStatusId = Integer.parseInt(request.get(Review.getBodyName(Review.BodyKey.REQUEST_STATUS_ID)));
 
 		requestService.reviewRequest(requestId, requestStatusId);
@@ -104,7 +108,7 @@ public class RequestControllerImpl implements RequestController {
 	}
 
 	@Override
-	public ResponseEntity<String> delete(@RequestBody Map<String, String> request) throws Exception {
+	public ResponseEntity<String> viewAll(@RequestBody Map<String, String> request) throws Exception {
 
 		// Print is for testing purposes
 		System.out.println("controller reached");
@@ -112,11 +116,8 @@ public class RequestControllerImpl implements RequestController {
 		// add any objects that need to be returned to the success list
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
-
-		//Delete functions
-		Integer requestId = Integer.parseInt(request.get(Delete.getBodyName(Delete.BodyKey.REQUEST_ID)));
-
-		requestService.deleteRequest(requestId);
+		
+		requestService.viewAllRequests();
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);

@@ -4,7 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.dselent.scheduling.server.dto.RequestDto;
-import org.dselent.scheduling.server.model.Requests;
+import org.dselent.scheduling.server.model.RequestTables;
+import org.dselent.scheduling.server.model.Request;
 
 
 
@@ -17,9 +18,9 @@ public interface RequestService {
 	 * @return A list of rows affected for each insert operation
 	 * @throws SQLException
 	 */
-	public List<Integer> viewAllRequests() throws SQLException;
-	public List<Integer> reviewRequest(Integer requestId, Integer requestStatusId) throws SQLException;
+	public List<RequestTables> viewAllRequests() throws SQLException;
+	public Request reviewRequest(Integer requestId, Integer reviewedStatusId) throws SQLException;
 	public List<Integer> submitRequest(RequestDto submitRequestDto) throws SQLException;
-	public Requests deleteRequest(Integer id);
-	public List<Integer> viewOwnRequest(Integer userId) throws SQLException;
+	public List<Integer> deleteRequest(Integer id) throws SQLException;
+	public List<RequestTables> viewOwnRequest(Integer userId) throws SQLException;
 }
