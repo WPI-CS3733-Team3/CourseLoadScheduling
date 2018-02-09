@@ -20,30 +20,30 @@ public class SectionServiceImpl implements SectionService
 {
 	@Autowired
 	private SectionsDao sectionsDao;
-	
-    public SectionServiceImpl()
-    {
-    	//
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see org.dselent.scheduling.server.service.UserService#registerUser(org.dselent.scheduling.server.dto.RegisterUserDto)
-     */
-    @Transactional
-    @Override
+
+	public SectionServiceImpl()
+	{
+		//
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.dselent.scheduling.server.service.UserService#registerUser(org.dselent.scheduling.server.dto.RegisterUserDto)
+	 */
+	@Transactional
+	@Override
 	public List<Integer> addSection(AddSectionDto dto) throws SQLException
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
-		
+
 		// TODO validate business constraints
-			// ^^students should do this^^
-			// password strength requirements
-			// email requirements
-			// null values
-			// etc...
+		// ^^students should do this^^
+		// password strength requirements
+		// email requirements
+		// null values
+		// etc...
 		//No constraints for section requests (I think?)
-		
+
 		Sections sections = new Sections();
 		sections.setName(dto.getName());
 		sections.setCrn(dto.getCrn());
@@ -52,42 +52,42 @@ public class SectionServiceImpl implements SectionService
 		sections.setDaysID(dto.getDaysID());
 		sections.setCoursesID(dto.getCoursesID());
 		sections.setStartID(dto.getStartID());
-    	sections.setEndID(dto.getEndID());
-    	
-    	List<String> sectionInsertColumnNameList = new ArrayList<>();
-    	List<String> sectionKeyHolderColumnNameList = new ArrayList<>();
-    	
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.NAME));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.CRN));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.TERMS_ID));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.SECTION_TYPE_ID));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.DAYS_ID));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.COURSES_ID));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.START_ID));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.END_ID));
-    	
-    	sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.ID));
-    	sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.CREATED_AT));
-    	sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.UPDATED_AT));
-    	sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.DELETED));
-    	
-		
-    	rowsAffectedList.add(sectionsDao.insert(sections, sectionInsertColumnNameList, sectionKeyHolderColumnNameList));
+		sections.setEndID(dto.getEndID());
+
+		List<String> sectionInsertColumnNameList = new ArrayList<>();
+		List<String> sectionKeyHolderColumnNameList = new ArrayList<>();
+
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.NAME));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.CRN));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.TERMS_ID));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.SECTION_TYPE_ID));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.DAYS_ID));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.COURSES_ID));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.START_ID));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.END_ID));
+
+		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.ID));
+		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.CREATED_AT));
+		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.UPDATED_AT));
+		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.DELETED));
+
+
+		rowsAffectedList.add(sectionsDao.insert(sections, sectionInsertColumnNameList, sectionKeyHolderColumnNameList));
 
 		return rowsAffectedList;
 	}
-    
-    public List<Integer> editSection(EditSectionDto dto) throws SQLException
+
+	public List<Integer> editSection(EditSectionDto dto) throws SQLException
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
-		
+
 		// TODO validate business constraints
-			// ^^students should do this^^
-			// password strength requirements
-			// email requirements
-			// null values
-			// etc...
-		
+		// ^^students should do this^^
+		// password strength requirements
+		// email requirements
+		// null values
+		// etc...
+
 		Sections sections = new Sections();
 		Faculty faculty = new Faculty(); //Unsure about this part???
 		sections.setName(dto.getName());
@@ -97,31 +97,31 @@ public class SectionServiceImpl implements SectionService
 		sections.setDaysID(dto.getDaysID());
 		sections.setCoursesID(dto.getCoursesID());
 		sections.setStartID(dto.getStartID());
-    	sections.setEndID(dto.getEndID());
-    	
-    	List<String> sectionInsertColumnNameList = new ArrayList<>();
-    	List<String> sectionKeyHolderColumnNameList = new ArrayList<>();
-    	
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.NAME));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.CRN));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.TERMS_ID));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.SECTION_TYPE_ID));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.DAYS_ID));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.COURSES_ID));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.START_ID));
-    	sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.END_ID));
-    	
-    	sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.ID));
-    	sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.CREATED_AT));
-    	sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.UPDATED_AT));
-    	sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.DELETED));
-    	
-		
-    	rowsAffectedList.add(sectionsDao.insert(sections, sectionInsertColumnNameList, sectionKeyHolderColumnNameList));
+		sections.setEndID(dto.getEndID());
+
+		List<String> sectionInsertColumnNameList = new ArrayList<>();
+		List<String> sectionKeyHolderColumnNameList = new ArrayList<>();
+
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.NAME));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.CRN));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.TERMS_ID));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.SECTION_TYPE_ID));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.DAYS_ID));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.COURSES_ID));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.START_ID));
+		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.END_ID));
+
+		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.ID));
+		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.CREATED_AT));
+		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.UPDATED_AT));
+		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.DELETED));
+
+
+		rowsAffectedList.add(sectionsDao.insert(sections, sectionInsertColumnNameList, sectionKeyHolderColumnNameList));
 
 		return rowsAffectedList;
 	}
-	
+
 	//
 
 	@Override

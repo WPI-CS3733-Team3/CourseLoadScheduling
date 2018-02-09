@@ -70,7 +70,7 @@ public class RequestDto {
 	public static Builder builder() {
 		return new Builder();
 	}
-	
+
 	private final Integer coursesId;
 	private final Integer endId;
 	private final String message;

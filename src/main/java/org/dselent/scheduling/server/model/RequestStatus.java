@@ -6,11 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**Table that holds all the possible user statuses
+ * 0 for Approved
+ * 1 for Denied
+ * 2 for Pending
+ * New requests initially have status 2 for Pending
+ * @author Frank
+ *
+ */
 public class RequestStatus extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "requestStatus";
+	public static final String TABLE_NAME = "request_status";
 		
 	// column names
 	public static enum Columns
