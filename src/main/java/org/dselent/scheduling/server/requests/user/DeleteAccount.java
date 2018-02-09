@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author dselent
  *
  */
-public class EditAccount
+public class DeleteAccount
 {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "edit";
+	public static final String REQUEST_NAME = "delete";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
@@ -33,9 +33,7 @@ public class EditAccount
 	
 	public static enum BodyKey
 	{
-		FIRST_NAME,
-		LAST_NAME,
-		PASSWORD;
+		ID_TO_DELETE;
 	}
 	
 
@@ -63,7 +61,7 @@ public class EditAccount
 		
 	};
 	
-	private EditAccount()
+	private DeleteAccount()
 	{
 		
 	};
