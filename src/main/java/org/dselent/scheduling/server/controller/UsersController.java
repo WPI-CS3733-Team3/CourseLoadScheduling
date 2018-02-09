@@ -13,10 +13,16 @@ public interface UsersController
 {
     
 	@RequestMapping(method=RequestMethod.POST, value=CreateAccount.REQUEST_NAME)
-	public ResponseEntity<String> createGroup3User(@RequestBody Map<String, String> request) throws Exception;
+	public ResponseEntity<String> createAccount(@RequestBody Map<String, String> request) throws Exception;
+	
+	@RequestMapping(method=RequestMethod.POST, value=EditAccount.REQUEST_NAME)
+	public ResponseEntity<String> editAccount(@RequestBody Map<String, String> request) throws Exception;
     
     @RequestMapping(method=RequestMethod.POST, value=Login.REQUEST_NAME)
     public ResponseEntity<String> login(@RequestBody Map<String, String> request) throws Exception;
+    
+    @RequestMapping(method=RequestMethod.POST, value=Promote.REQUEST_NAME)
+    public ResponseEntity<String> promote(@RequestBody Map<String, String> request) throws Exception;
 }
 
 	

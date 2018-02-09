@@ -42,6 +42,7 @@ public class SectionServiceImpl implements SectionService
 			// email requirements
 			// null values
 			// etc...
+		//No constraints for section requests (I think?)
 		
 		Sections sections = new Sections();
 		sections.setName(dto.getName());

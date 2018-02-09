@@ -23,16 +23,16 @@ public class RegisterUserDto
 	private RegisterUserDto(Builder builder)
 	{
 		// can add defaults if null for other places where the builder pattern is used
-		
+
 		this.userName = builder.userName;
 		this.firstName = builder.firstName;
 		this.lastName = builder.lastName;
 		this.email = builder.email;
 		this.password = builder.password;
-		
+
 		// making claim that none of these can be null
 		// add other state checks here as necessary
-		
+
 		if(this.userName == null)
 		{
 			throw new IllegalStateException("userName cannot be null");
@@ -54,7 +54,7 @@ public class RegisterUserDto
 			throw new IllegalStateException("password cannot be null");
 		}
 	}
-	
+
 	public String getUserName()
 	{
 		return userName;

@@ -5,41 +5,41 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dselent.scheduling.server.model.Requests;
+import org.dselent.scheduling.server.model.Request;
 
-public class RequestsExtractor extends Extractor<List<Requests>>
+public class RequestsExtractor extends Extractor<List<Request>>
 {
 	@Override
-	public List<Requests> extractData(ResultSet rs) throws SQLException
+	public List<Request> extractData(ResultSet rs) throws SQLException
 	{
-		List<Requests> resultList = new ArrayList<>();
+		List<Request> resultList = new ArrayList<>();
 
 		while(rs.next())
 		{
-			Requests result = new Requests();
+			Request result = new Request();
 				
-			result.setId(rs.getInt(Requests.getColumnName(Requests.Columns.ID)));
+			result.setId(rs.getInt(Request.getColumnName(Request.Columns.ID)));
 			
 			if(rs.wasNull())
 			{
 				result.setId(null);
 			}
 			
-			result.setUsersID(rs.getInt(Requests.getColumnName(Requests.Columns.USERS_ID)));
+			result.setUsersID(rs.getInt(Request.getColumnName(Request.Columns.USERS_ID)));
 			if(rs.wasNull())
 			{
 				result.setUsersID(null);
 			}
 			
-			result.setRequestStatusID(rs.getInt(Requests.getColumnName(Requests.Columns.REQUEST_STATUS_ID)));
+			result.setRequestStatusID(rs.getInt(Request.getColumnName(Request.Columns.REQUEST_STATUS_ID)));
 			if(rs.wasNull())
 			{
 				result.setRequestStatusID(null);
 			}
 			
-			result.setCreatedAt(rs.getTimestamp(Requests.getColumnName(Requests.Columns.CREATED_AT)));
-			result.setUpdatedAt(rs.getTimestamp(Requests.getColumnName(Requests.Columns.UPDATED_AT)));
-			result.setDeleted(rs.getBoolean(Requests.getColumnName(Requests.Columns.DELETED)));
+			result.setCreatedAt(rs.getTimestamp(Request.getColumnName(Request.Columns.CREATED_AT)));
+			result.setUpdatedAt(rs.getTimestamp(Request.getColumnName(Request.Columns.UPDATED_AT)));
+			result.setDeleted(rs.getBoolean(Request.getColumnName(Request.Columns.DELETED)));
 			if(rs.wasNull())
 			{
 				result.setDeleted(null);

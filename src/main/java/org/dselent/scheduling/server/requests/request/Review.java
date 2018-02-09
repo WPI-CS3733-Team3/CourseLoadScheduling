@@ -1,4 +1,4 @@
-package org.dselent.scheduling.server.requests.section;
+package org.dselent.scheduling.server.requests.request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,23 +7,22 @@ import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Defines information for the register request including the keys for the
+ * Defines information for the update request including the keys for the
  * header, parameters, and body and the request type (RequestMethod).
  * 
- * @author dselent
+ * @author dselent, modified by fcampanelli
  *
  */
-public class Remove
-{
+public class Review {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "remove";
+	public static final String REQUEST_NAME = "review";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
 
 	public static enum HeaderKey
 	{
-		USER_ID;
+
 	}
 
 	public static enum ParameterKey
@@ -33,7 +32,8 @@ public class Remove
 
 	public static enum BodyKey
 	{
-		SECTION_ID;
+		REQUEST_ID,
+		REQUEST_STATUS_ID,
 	}
 
 
@@ -61,7 +61,7 @@ public class Remove
 
 	};
 
-	private Remove()
+	private Review()
 	{
 
 	};

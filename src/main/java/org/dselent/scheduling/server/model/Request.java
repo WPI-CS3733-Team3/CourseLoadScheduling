@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Requests extends Model
+public class Request extends Model
 {
 	// table name
 	public static final String TABLE_NAME = "requests";
-		
+
 	// column names
 	public static enum Columns
 	{
@@ -24,20 +24,20 @@ public class Requests extends Model
 		UPDATED_AT,
 		DELETED
 	}
-	
+
 	// enum list
 	private static final List<Columns> COLUMN_LIST = new ArrayList<>();
-	
+
 	// type mapping
 	private static final Map<Columns, JDBCType> COLUMN_TYPE_MAP = new HashMap<>();
-	
+
 	static
 	{
 		for(Columns key : Columns.values())
 		{
 			COLUMN_LIST.add(key);
 		}
-		
+
 		COLUMN_TYPE_MAP.put(Columns.ID, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.USERS_ID, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.REQUEST_STATUS_ID, JDBCType.INTEGER);
@@ -45,40 +45,40 @@ public class Requests extends Model
 		COLUMN_TYPE_MAP.put(Columns.UPDATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
 		COLUMN_TYPE_MAP.put(Columns.DELETED, JDBCType.BOOLEAN);
 	};
-	
+
 	// attributes
-	
+
 	private Integer id;
-	private Integer usersID;
-	private Integer requestStatusID;
+	private Integer userId;
+	private Integer statusId;
 	private Instant createdAt;
 	private Instant updatedAt;
 	private Boolean deleted;
-	
+
 	// methods
-		
+
 	public static JDBCType getColumnType(Columns column)
 	{
 		return COLUMN_TYPE_MAP.get(column);
 	}
-	
+
 	public static String getColumnName(Columns column)
 	{
 		return column.toString().toLowerCase();
 	}
-	
+
 	public static List<String> getColumnNameList()
 	{
 		List<String> columnNameList = new ArrayList<>();
-		
+
 		for(Columns column : COLUMN_LIST)
 		{
 			columnNameList.add(getColumnName(column));
 		}
-		
+
 		return columnNameList;
 	}
-	
+
 	//
 	public Integer getId() {
 		return id;
@@ -88,20 +88,21 @@ public class Requests extends Model
 		this.id = id;
 	}
 
-	public Integer getUsersID() {
-		return usersID;
+
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUsersID(Integer usersID) {
-		this.usersID = usersID;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public Integer getRequestStatusID() {
-		return requestStatusID;
+	public Integer getStatusId() {
+		return statusId;
 	}
 
-	public void setRequestStatusID(Integer requestStatusID) {
-		this.requestStatusID = requestStatusID;
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
 	}
 
 	public Boolean getDeleted() {
@@ -121,7 +122,7 @@ public class Requests extends Model
 	{
 		this.createdAt = createdAt;
 	}
-	
+
 	public void setCreatedAt(Timestamp createdAt)
 	{
 		if(createdAt != null)
@@ -139,7 +140,7 @@ public class Requests extends Model
 	{
 		this.updatedAt = updatedAt;
 	}
-	
+
 	public void setUpdatedAt(Timestamp updatedAt)
 	{
 		if(updatedAt != null)
@@ -155,9 +156,9 @@ public class Requests extends Model
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
 		result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((requestStatusID == null) ? 0 : requestStatusID.hashCode());
+		result = prime * result + ((statusId == null) ? 0 : statusId.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-		result = prime * result + ((usersID == null) ? 0 : usersID.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -169,7 +170,7 @@ public class Requests extends Model
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Requests other = (Requests) obj;
+		Request other = (Request) obj;
 		if (createdAt == null) {
 			if (other.createdAt != null)
 				return false;
@@ -185,27 +186,41 @@ public class Requests extends Model
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (requestStatusID == null) {
-			if (other.requestStatusID != null)
+		if (statusId == null) {
+			if (other.statusId != null)
 				return false;
-		} else if (!requestStatusID.equals(other.requestStatusID))
+		} else if (!statusId.equals(other.statusId))
 			return false;
 		if (updatedAt == null) {
 			if (other.updatedAt != null)
 				return false;
 		} else if (!updatedAt.equals(other.updatedAt))
 			return false;
-		if (usersID == null) {
-			if (other.usersID != null)
+		if (userId == null) {
+			if (other.userId != null)
 				return false;
-		} else if (!usersID.equals(other.usersID))
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Requests [id=" + id + ", usersID=" + usersID + ", requestStatusID=" + requestStatusID + ", createdAt="
-				+ createdAt + ", updatedAt=" + updatedAt + ", deleted=" + deleted + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Request [id=");
+		builder.append(id);
+		builder.append(", userID=");
+		builder.append(userId);
+		builder.append(", requestStatusID=");
+		builder.append(statusId);
+		builder.append(", createdAt=");
+		builder.append(createdAt);
+		builder.append(", updatedAt=");
+		builder.append(updatedAt);
+		builder.append(", deleted=");
+		builder.append(deleted);
+		builder.append("]");
+		return builder.toString();
 	}
+
 }
