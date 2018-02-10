@@ -26,6 +26,7 @@ public class Edit {
 		
 		public static enum BodyKey
 		{
+			COURSE_ID,
 			COURSE_NAME,
 			COURSE_NUMBER,
 			FREQUENCY;

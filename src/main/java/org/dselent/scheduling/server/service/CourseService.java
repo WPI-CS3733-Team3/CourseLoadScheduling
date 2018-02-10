@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.dselent.scheduling.server.model.CourseInfo;
+import org.dselent.scheduling.server.model.Courses;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,7 +13,7 @@ public interface CourseService {
 	public List<Integer> create(String courseName, String courseNumber, int frequency) throws SQLException;
     
 	//edits a course
-    public List<Integer> edit(String courseName, String courseNumber, int frequency) throws SQLException;
+    public Courses edit(int courseId, String courseName, String courseNumber, int frequencyId) throws SQLException;
    
     //remove a course, returns id of deleted course
     public Integer removeCourse(Integer id) throws SQLException;

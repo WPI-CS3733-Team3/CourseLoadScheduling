@@ -53,12 +53,13 @@ public class CourseControllerImpl implements CourseController{
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
+		Integer courseId  = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.COURSE_ID)));
 		String courseName = request.get(Edit.getBodyName(Edit.BodyKey.COURSE_NAME));
 		String courseNumber = request.get(Edit.getBodyName(Edit.BodyKey.COURSE_NUMBER));
 		Integer frequency = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.FREQUENCY)));
 		
 		//build response
-		courseService.edit(courseName, courseNumber, frequency);
+		success.add(courseService.edit(courseId, courseName, courseNumber, frequency));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
