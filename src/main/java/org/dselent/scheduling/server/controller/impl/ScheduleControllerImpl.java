@@ -96,7 +96,7 @@ public class ScheduleControllerImpl implements ScheduleController {
 		Integer sectionId = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.SECTIONS_ID)));
 		Integer facultyId = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.FACULTY_ID)));
 		
-		//build repsponse
+		//build response
 		success.add(schedulingService.addClassSchedule(sectionId, facultyId));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
