@@ -10,6 +10,8 @@ import org.dselent.scheduling.server.dto.EditSectionDto;
 import org.dselent.scheduling.server.model.Sections;
 import org.dselent.scheduling.server.model.Faculty;
 import org.dselent.scheduling.server.service.SectionService;
+import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
+import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -125,10 +127,19 @@ public class SectionServiceImpl implements SectionService
 	//
 
 	@Override
-	public Sections removeSection(Integer id)
+	public Integer removeSection(Integer id) throws SQLException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		QueryTerm removeSection = new QueryTerm();
+        
+		removeSection.setColumnName(Sections.getColumnName(Sections.Columns.ID));
+		removeSection.setComparisonOperator(ComparisonOperator.EQUAL);
+		removeSection.setLogicalOperator(null);
+		removeSection.setValue(id);
+		        
+		List<QueryTerm> qtList = new ArrayList<QueryTerm>();
+		qtList.add(removeSection);
+		        
+		return sectionsDao.delete(qtList);
 	}   
 
 }

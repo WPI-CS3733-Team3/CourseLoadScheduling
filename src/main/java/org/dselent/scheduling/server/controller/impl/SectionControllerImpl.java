@@ -106,7 +106,7 @@ public class SectionControllerImpl implements SectionController
 				.withEndID(editEndID)
 				.build();
 
-		sectionService.editSection(editSectionDto);
+		success.add(sectionService.editSection(editSectionDto));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
