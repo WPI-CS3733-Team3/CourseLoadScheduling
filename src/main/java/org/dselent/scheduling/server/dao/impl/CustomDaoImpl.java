@@ -29,32 +29,32 @@ public class CustomDaoImpl implements CustomDao
 {
 	@Autowired
 	protected NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
+
 	// can make custom models and extractors as needed or reuse existing ones if applicable
-	
+
 	@Override
 	public List<User> getAllUsersWithRole(int roleId)
 	{
 		UsersExtractor extractor = new UsersExtractor();
 		String queryTemplate = new String(QueryPathConstants.USERS_WITH_ROLE_QUERY);
-	    MapSqlParameterSource parameters = new MapSqlParameterSource();
-	    parameters.addValue("roleId", roleId);
-	    List<User> usersWithRoleList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
-	    return usersWithRoleList;
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("roleId", roleId);
+		List<User> usersWithRoleList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		return usersWithRoleList;
 	}
-	
-	
+
+
 	//Gets the information pertaining to every course
 	@Override
 	public List<CourseInfo> getCourseInfo(){
 		CourseInfoExtractor extractor = new CourseInfoExtractor();
 		String queryTemplate = new String(QueryPathConstants.COURSE_INFO_QUERY);
-		
+
 		//No parameters for this, since it returns all requests, so do not actually fill parameters
 		List<CourseInfo> courseList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
 		return courseList;
 	}
-	
+
 	//Gets the information pertaining to one course, specified by courseId
 	@Override
 	public List<CourseInfo> getCourseInfoOne(int courseId){
@@ -65,8 +65,8 @@ public class CustomDaoImpl implements CustomDao
 		List<CourseInfo> courseList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
 		return courseList;
 	}
-	
-		
+
+
 	//Gets info about all requests, combining the tables together
 	@Override
 	public List<RequestTables> getAllRequestsInfo(){
@@ -77,7 +77,7 @@ public class CustomDaoImpl implements CustomDao
 		List<RequestTables> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
 		return fullRequestTablesList;
 	}
-	
+
 	//Gets info about all requests made by a specific user, specified by userId
 	@Override
 	public List<RequestTables> getOneUserRequestsInfo(int userId){
@@ -88,7 +88,7 @@ public class CustomDaoImpl implements CustomDao
 		List<RequestTables> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
 		return fullRequestTablesList;
 	}
-	
+
 	//Gets info about all sections
 	@Override
 	public List<SectionsInfo> getSectionsInfo(){
@@ -99,7 +99,7 @@ public class CustomDaoImpl implements CustomDao
 		List<SectionsInfo> sectionsList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
 		return sectionsList;
 	}
-	
+
 	//Gets info about all sections being taught be one faculty member, specified by facultyId
 	@Override
 	public List<SectionsInfo> getOneFacultySectionsInfo(int facultyId){
@@ -130,7 +130,7 @@ public class CustomDaoImpl implements CustomDao
 		List<AccountInfo> acctList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
 		return acctList;
 	}
-	
+
 	//Gets the names of all faculty who teach a course specified by courseId
 	public List<CourseFaculty> getCourseFaculty(int courseId){
 		CourseFacultyExtractor extractor = new CourseFacultyExtractor();
@@ -140,7 +140,7 @@ public class CustomDaoImpl implements CustomDao
 		List<CourseFaculty> facultyList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
 		return facultyList;
 	}
-	
+
 	//Gets the info of all deleted accounts
 	public List<AccountInfo> getDeletedAccountInfo(){
 		AccountInfoExtractor extractor = new AccountInfoExtractor();
@@ -150,8 +150,8 @@ public class CustomDaoImpl implements CustomDao
 		List<AccountInfo> deletedAcctList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
 		return deletedAcctList;
 	}
-	
-	
+
+
 	//Gets info about all sections in the schedule by term
 	public List<SectionsInfo> getSectionsInfo(int termId){
 		SectionsInfoExtractor extractor = new SectionsInfoExtractor();
@@ -161,7 +161,7 @@ public class CustomDaoImpl implements CustomDao
 		List<SectionsInfo> sectionsList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
 		return sectionsList;
 	}
-			
+
 	//Gets info about all sections being taught be one faculty member in a certain term, specified by facultyId and termId
 	public List<SectionsInfo> getOneFacultySectionsInfo(int facultyId, int termId){
 		SectionsInfoExtractor extractor = new SectionsInfoExtractor();
@@ -172,6 +172,6 @@ public class CustomDaoImpl implements CustomDao
 		List<SectionsInfo> sectionsList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
 		return sectionsList;
 	}
-	
-	
+
+
 }

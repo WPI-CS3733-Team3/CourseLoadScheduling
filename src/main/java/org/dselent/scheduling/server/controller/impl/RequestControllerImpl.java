@@ -116,8 +116,8 @@ public class RequestControllerImpl implements RequestController {
 		// add any objects that need to be returned to the success list
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
-		
-		requestService.viewAllRequests();
+
+		success.add(requestService.viewAllRequests());
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -136,8 +136,8 @@ public class RequestControllerImpl implements RequestController {
 		//View own functions
 		Integer userId = Integer.parseInt(request.get(ViewOwn.getHeaderName(ViewOwn.HeaderKey.USER_ID)));
 
-		requestService.viewOwnRequest(userId);
-		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+		success.add(requestService.viewOwnRequest(userId));
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success.get(0));
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
