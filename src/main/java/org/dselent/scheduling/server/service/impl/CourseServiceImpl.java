@@ -5,8 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.dao.CoursesDao;
+import org.dselent.scheduling.server.dao.CustomDao;
+import org.dselent.scheduling.server.model.CourseInfo;
 import org.dselent.scheduling.server.model.Courses;
+import org.dselent.scheduling.server.model.Schedule;
+import org.dselent.scheduling.server.model.SectionsInfo;
 import org.dselent.scheduling.server.service.CourseService;
+import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
+import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.keygen.KeyGenerators;
@@ -20,6 +26,9 @@ public class CourseServiceImpl implements CourseService
 {
 	@Autowired
 	private CoursesDao coursesDao;
+	
+	@Autowired
+	private CustomDao customDao;
 
 	public CourseServiceImpl()
 	{
@@ -98,4 +107,43 @@ public class CourseServiceImpl implements CourseService
 		return null;
 	}   
 
+	
+	@Transactional
+	@Override
+	public Integer removeCourse(Integer coursesId) throws SQLException
+	{
+		if(coursesId == null) {
+			return null;
+		}
+		
+		//specify the scheduleId to be removed and builds the queryTerm for it
+    	QueryTerm deleteTerms = new QueryTerm();
+    	
+    	deleteTerms.setColumnName(Courses.getColumnName(Courses.Columns.ID));
+    	deleteTerms.setComparisonOperator(ComparisonOperator.EQUAL);
+    	deleteTerms.setLogicalOperator(null);
+    	deleteTerms.setValue(coursesId);
+    	
+    	List<QueryTerm> qtList = new ArrayList<QueryTerm>();
+    	qtList.add(deleteTerms);
+    	
+    	return coursesDao.delete(qtList);
+	}  
+	
+	//view all courses
+    public List<CourseInfo> viewAllCourse(){
+    	return customDao.getCourseInfo();
+    }
+	
+	
+    //views one course based on id
+    public List<CourseInfo> viewOneCourse(Integer id) {
+    	if(id == null) {
+    		return null;
+    	}
+    	
+    	return customDao.getCourseInfoOne(id);
+    	
+    }
+    
 }
