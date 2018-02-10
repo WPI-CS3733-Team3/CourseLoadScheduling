@@ -13,7 +13,7 @@ import javax.annotation.Generated;
 public class EditSectionDto
 {
 	private final String name;
-	private final Integer facultyID;
+	private final Integer id;
 	private final Integer termID;
 	private final Integer sectionTypeID;
 	private final Integer daysID;
@@ -28,7 +28,7 @@ public class EditSectionDto
 		// can add defaults if null for other places where the builder pattern is used
 		
 		this.name = builder.name;
-		this.facultyID = builder.facultyID;
+		this.id = builder.id;
 		this.termID = builder.termID;
 		this.sectionTypeID = builder.sectionTypeID;
 		this.daysID = builder.daysID;
@@ -43,9 +43,9 @@ public class EditSectionDto
 		{
 			throw new IllegalStateException("name cannot be null");
 		}
-		else if(this.facultyID == null)
+		else if(this.id == null)
 		{
-			throw new IllegalStateException("facultyID cannot be null");
+			throw new IllegalStateException("id cannot be null");
 		}
 		else if(this.termID == null)
 		{
@@ -77,10 +77,10 @@ public class EditSectionDto
 	{
 		return name;
 	}
-
-	public Integer getFacultyID()
+	
+	public Integer getId()
 	{
-		return facultyID;
+		return id;
 	}
 
 	public Integer getTermID()
@@ -113,9 +113,9 @@ public class EditSectionDto
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((coursesID == null) ? 0 : coursesID.hashCode());
-		result = prime * result + ((facultyID == null) ? 0 : facultyID.hashCode());
 		result = prime * result + ((daysID == null) ? 0 : daysID.hashCode());
 		result = prime * result + ((endID == null) ? 0 : endID.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((sectionTypeID == null) ? 0 : sectionTypeID.hashCode());
 		result = prime * result + ((startID == null) ? 0 : startID.hashCode());
@@ -137,11 +137,6 @@ public class EditSectionDto
 				return false;
 		} else if (!coursesID.equals(other.coursesID))
 			return false;
-		if (facultyID == null) {
-			if (other.facultyID != null)
-				return false;
-		} else if (!facultyID.equals(other.facultyID))
-			return false;
 		if (daysID == null) {
 			if (other.daysID != null)
 				return false;
@@ -151,6 +146,11 @@ public class EditSectionDto
 			if (other.endID != null)
 				return false;
 		} else if (!endID.equals(other.endID))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -181,8 +181,8 @@ public class EditSectionDto
 		StringBuilder builder = new StringBuilder();
 		builder.append("AddSectionDto [name=");
 		builder.append(name);
-		builder.append(", facultyID=");
-		builder.append(facultyID);
+		builder.append(", id=");
+		builder.append(id);
 		builder.append(", termID=");
 		builder.append(termID);
 		builder.append(", sectionTypeID=");
@@ -216,7 +216,7 @@ public class EditSectionDto
 	public static final class Builder
 	{
 		private String name;
-		private Integer facultyID;
+		private Integer id;
 		private Integer termID;
 		private Integer sectionTypeID;
 		private Integer daysID;
@@ -233,10 +233,10 @@ public class EditSectionDto
 			this.name = name;
 			return this;
 		}
-
-		public Builder withFacultyID(Integer facultyID)
+		
+		public Builder withId(Integer id)
 		{
-			this.facultyID = facultyID;
+			this.id = id;
 			return this;
 		}
 

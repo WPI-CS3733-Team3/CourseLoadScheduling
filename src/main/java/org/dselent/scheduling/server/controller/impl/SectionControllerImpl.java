@@ -86,7 +86,7 @@ public class SectionControllerImpl implements SectionController
 
 		//Edit functions
 		String editName = request.get(Edit.getBodyName(Edit.BodyKey.NAME));
-		Integer facultyID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.FACULTY_ID)));
+		Integer editID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.ID)));
 		Integer editTermID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.TERMS_ID)));
 		Integer editSectionTypeID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.SECTION_TYPE_ID)));
 		Integer editDaysID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.DAYS_ID)));
@@ -97,7 +97,7 @@ public class SectionControllerImpl implements SectionController
 		//Edit DTO
 		EditSectionDto.Builder builder = EditSectionDto.builder();
 		EditSectionDto editSectionDto = builder.withName(editName)
-				.withFacultyID(facultyID)
+				.withId(editID)
 				.withTermID(editTermID)
 				.withSectionTypeID(editSectionTypeID)
 				.withDaysID(editDaysID)

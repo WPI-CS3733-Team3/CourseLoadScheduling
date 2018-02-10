@@ -34,13 +34,13 @@ public class Edit
 	public static enum BodyKey
 	{
 		NAME,
+		ID,
 		TERMS_ID,
 		SECTION_TYPE_ID,
 		DAYS_ID,
 		COURSES_ID,
 		START_ID,
-		END_ID,
-		FACULTY_ID;
+		END_ID;
 	}
 
 

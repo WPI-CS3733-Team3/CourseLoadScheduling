@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.dselent.scheduling.server.dto.AddSectionDto;
 import org.dselent.scheduling.server.dto.EditSectionDto;
+import org.dselent.scheduling.server.model.Sections;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,6 +27,6 @@ public interface SectionService
 	 * @throws SQLException
 	 */
 	public List<Integer> addSection(AddSectionDto addSectionDto) throws SQLException;
-	public List<Integer> editSection(EditSectionDto editSectionDto) throws SQLException;
+	public Sections editSection(EditSectionDto editSectionDto) throws SQLException;
     public Integer removeSection(Integer id) throws SQLException;
 }

@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.dselent.scheduling.server.model.CourseInfo;
-import org.dselent.scheduling.server.model.Courses;
 import org.springframework.stereotype.Service;
 
 @Service

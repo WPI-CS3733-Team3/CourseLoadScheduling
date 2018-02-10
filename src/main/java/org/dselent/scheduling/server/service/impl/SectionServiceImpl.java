@@ -8,7 +8,6 @@ import org.dselent.scheduling.server.dao.SectionsDao;
 import org.dselent.scheduling.server.dto.AddSectionDto;
 import org.dselent.scheduling.server.dto.EditSectionDto;
 import org.dselent.scheduling.server.model.Sections;
-import org.dselent.scheduling.server.model.Faculty;
 import org.dselent.scheduling.server.service.SectionService;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
@@ -79,49 +78,31 @@ public class SectionServiceImpl implements SectionService
 		return rowsAffectedList;
 	}
 
-	public List<Integer> editSection(EditSectionDto dto) throws SQLException
-	{
-		List<Integer> rowsAffectedList = new ArrayList<>();
+	@Transactional
+    @Override
+    public Sections editSection(EditSectionDto dto) throws SQLException{
+    	//update course section info--query term stays the same for each change.
+    	QueryTerm qt1 = new QueryTerm();
+    	
+    	qt1.setColumnName(Sections.getColumnName(Sections.Columns.ID));
+    	qt1.setComparisonOperator(ComparisonOperator.EQUAL);
+    	qt1.setLogicalOperator(null);
+    	qt1.setValue(sectionsDao.findById(dto.getId()));
+    	
+    	List<QueryTerm> qtList = new ArrayList<QueryTerm>();
+    	qtList.add(qt1);
 
-		// TODO validate business constraints
-		// ^^students should do this^^
-		// password strength requirements
-		// email requirements
-		// null values
-		// etc...
-
-		Sections sections = new Sections();
-		Faculty faculty = new Faculty(); //Unsure about this part???
-		sections.setName(dto.getName());
-		faculty.setId(dto.getFacultyID()); //<-- here too
-		sections.setTermsID(dto.getTermID());
-		sections.setSectionTypeID(dto.getSectionTypeID());
-		sections.setDaysID(dto.getDaysID());
-		sections.setCoursesID(dto.getCoursesID());
-		sections.setStartID(dto.getStartID());
-		sections.setEndID(dto.getEndID());
-
-		List<String> sectionInsertColumnNameList = new ArrayList<>();
-		List<String> sectionKeyHolderColumnNameList = new ArrayList<>();
-
-		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.NAME));
-		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.CRN));
-		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.TERMS_ID));
-		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.SECTION_TYPE_ID));
-		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.DAYS_ID));
-		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.COURSES_ID));
-		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.START_ID));
-		sectionInsertColumnNameList.add(Sections.getColumnName(Sections.Columns.END_ID));
-
-		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.ID));
-		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.CREATED_AT));
-		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.UPDATED_AT));
-		sectionKeyHolderColumnNameList.add(Sections.getColumnName(Sections.Columns.DELETED));
-
-
-		rowsAffectedList.add(sectionsDao.insert(sections, sectionInsertColumnNameList, sectionKeyHolderColumnNameList));
-
-		return rowsAffectedList;
+    	//queries to update the rows.
+    	sectionsDao.update(Sections.getColumnName(Sections.Columns.NAME), dto.getName(), qtList);
+    	sectionsDao.update(Sections.getColumnName(Sections.Columns.TERMS_ID), dto.getTermID(), qtList);
+    	sectionsDao.update(Sections.getColumnName(Sections.Columns.SECTION_TYPE_ID), dto.getSectionTypeID(), qtList);
+    	sectionsDao.update(Sections.getColumnName(Sections.Columns.DAYS_ID), dto.getDaysID(), qtList);
+    	sectionsDao.update(Sections.getColumnName(Sections.Columns.COURSES_ID), dto.getCoursesID(), qtList);
+    	sectionsDao.update(Sections.getColumnName(Sections.Columns.START_ID), dto.getStartID(), qtList);
+    	sectionsDao.update(Sections.getColumnName(Sections.Columns.END_ID), dto.getEndID(), qtList);
+    	
+    	//return the new section information
+    	return sectionsDao.findById(dto.getId());
 	}
 
 	//
