@@ -8,8 +8,6 @@ import org.dselent.scheduling.server.dao.CoursesDao;
 import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.model.CourseInfo;
 import org.dselent.scheduling.server.model.Courses;
-import org.dselent.scheduling.server.model.Schedule;
-import org.dselent.scheduling.server.model.SectionsInfo;
 import org.dselent.scheduling.server.service.CourseService;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
@@ -66,6 +64,8 @@ public class CourseServiceImpl implements CourseService
 		return rowsAffectedList;
 	}
 	
+	@Transactional
+	@Override
 	public List<Integer> edit(String courseName, String courseNumber, int frequency) throws SQLException
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
@@ -98,15 +98,6 @@ public class CourseServiceImpl implements CourseService
 		return rowsAffectedList;
 	}
 
-	//
-
-	@Override
-	public ExampleUser loginUser(String userName, String password)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}   
-
 	
 	@Transactional
 	@Override
@@ -131,19 +122,19 @@ public class CourseServiceImpl implements CourseService
 	}  
 	
 	//view all courses
+	@Override
     public List<CourseInfo> viewAllCourse(){
     	return customDao.getCourseInfo();
     }
 	
 	
     //views one course based on id
+	@Override
     public List<CourseInfo> viewOneCourse(Integer id) {
     	if(id == null) {
     		return null;
     	}
-    	
     	return customDao.getCourseInfoOne(id);
-    	
     }
     
 }
