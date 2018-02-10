@@ -8,8 +8,6 @@ import org.dselent.scheduling.server.dao.CoursesDao;
 import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.model.CourseInfo;
 import org.dselent.scheduling.server.model.Courses;
-import org.dselent.scheduling.server.model.Schedule;
-import org.dselent.scheduling.server.model.SectionsInfo;
 import org.dselent.scheduling.server.service.CourseService;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
@@ -66,46 +64,28 @@ public class CourseServiceImpl implements CourseService
 		return rowsAffectedList;
 	}
 	
-	public List<Integer> edit(String courseName, String courseNumber, int frequency) throws SQLException
-	{
-		List<Integer> rowsAffectedList = new ArrayList<>();
-
-		// TODO validate business constraints
-		// ^^students should do this^^
-		// password strength requirements
-		// email requirements
-		// null values
-		// etc...
-
-		Courses course = new Courses();
-		course.setTitle(courseName);
-		course.setNumber(courseNumber);
-		course.setFrequencyID(frequency);
-
-		List<String> courseInsertColumnNameList = new ArrayList<>();
-		List<String> courseKeyHolderColumnNameList = new ArrayList<>();
-
-		courseInsertColumnNameList.add(Courses.getColumnName(Courses.Columns.TITLE));
-		courseInsertColumnNameList.add(Courses.getColumnName(Courses.Columns.NUMBER));
-		courseInsertColumnNameList.add(Courses.getColumnName(Courses.Columns.FREQUENCY_ID));
-
-		courseKeyHolderColumnNameList.add(Courses.getColumnName(Courses.Columns.ID));
-		courseKeyHolderColumnNameList.add(Courses.getColumnName(Courses.Columns.CREATED_AT));
-		courseKeyHolderColumnNameList.add(Courses.getColumnName(Courses.Columns.UPDATED_AT));
-
-		rowsAffectedList.add(coursesDao.insert(course, courseInsertColumnNameList, courseKeyHolderColumnNameList));
-
-		return rowsAffectedList;
-	}
-
-	//
-
+	@Transactional
 	@Override
-	public ExampleUser loginUser(String userName, String password)
+	public Courses edit(int courseId, String courseName, String courseNumber, int frequencyId) throws SQLException
 	{
-		// TODO Auto-generated method stub
-		return null;
-	}   
+
+		QueryTerm qt1 = new QueryTerm();
+    	
+    	qt1.setColumnName(Courses.getColumnName(Courses.Columns.ID));
+    	qt1.setComparisonOperator(ComparisonOperator.EQUAL);
+    	qt1.setLogicalOperator(null);
+    	qt1.setValue(courseId);
+    	
+    	List<QueryTerm> qtList = new ArrayList<QueryTerm>();
+    	qtList.add(qt1);
+
+    	//queries to update the rows.
+    	coursesDao.update(Courses.getColumnName(Courses.Columns.TITLE), courseName, qtList);
+    	coursesDao.update(Courses.getColumnName(Courses.Columns.NUMBER), courseNumber, qtList);
+    	coursesDao.update(Courses.getColumnName(Courses.Columns.FREQUENCY_ID), frequencyId, qtList);
+		
+		return coursesDao.findById(courseId);
+	}
 
 	
 	@Transactional
@@ -131,19 +111,19 @@ public class CourseServiceImpl implements CourseService
 	}  
 	
 	//view all courses
+	@Override
     public List<CourseInfo> viewAllCourse(){
     	return customDao.getCourseInfo();
     }
 	
 	
     //views one course based on id
+	@Override
     public List<CourseInfo> viewOneCourse(Integer id) {
     	if(id == null) {
     		return null;
     	}
-    	
     	return customDao.getCourseInfoOne(id);
-    	
     }
     
 }

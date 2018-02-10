@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.dselent.scheduling.server.controller.CourseController;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
 import org.dselent.scheduling.server.requests.course.Create;
 import org.dselent.scheduling.server.requests.course.Edit;
 import org.dselent.scheduling.server.requests.course.RemoveCourse;
-import org.dselent.scheduling.server.requests.course.ViewAllCourse;
 import org.dselent.scheduling.server.requests.course.ViewOneCourse;
-import org.dselent.scheduling.server.requests.schedule.Add;
 import org.dselent.scheduling.server.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-public class CourseControllerImpl {
+public class CourseControllerImpl implements CourseController{
 	
 	@Autowired
     private CourseService courseService;
@@ -35,10 +34,10 @@ public class CourseControllerImpl {
 		
 		String courseName = request.get(Create.getBodyName(Create.BodyKey.COURSE_NAME));
 		String courseNumber = request.get(Create.getBodyName(Create.BodyKey.COURSE_NUMBER));
-		String frequency = request.get(Create.getBodyName(Create.BodyKey.FREQUENCY));
+		Integer frequency = Integer.parseInt(request.get(Create.getBodyName(Create.BodyKey.FREQUENCY)));
 		
 		//build response
-		courseService.createCourse(courseName, courseNumber, frequency);
+		courseService.create(courseName, courseNumber, frequency);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -54,12 +53,13 @@ public class CourseControllerImpl {
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String courseName = request.get(Create.getBodyName(Create.BodyKey.COURSE_NAME));
-		String courseNumber = request.get(Create.getBodyName(Create.BodyKey.COURSE_NUMBER));
-		String frequency = request.get(Create.getBodyName(Create.BodyKey.FREQUENCY));
+		Integer courseId  = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.COURSE_ID)));
+		String courseName = request.get(Edit.getBodyName(Edit.BodyKey.COURSE_NAME));
+		String courseNumber = request.get(Edit.getBodyName(Edit.BodyKey.COURSE_NUMBER));
+		Integer frequency = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.FREQUENCY)));
 		
 		//build response
-		courseService.editCourse(courseName, courseNumber, frequency);
+		success.add(courseService.edit(courseId, courseName, courseNumber, frequency));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -75,7 +75,7 @@ public class CourseControllerImpl {
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String courseId = request.get(ViewOneCourse.getBodyName(ViewOneCourse.BodyKey.COURSE_ID));
+		Integer courseId = Integer.parseInt(request.get(ViewOneCourse.getBodyName(ViewOneCourse.BodyKey.COURSE_ID)));
 		
 		//build response
 		success.add(courseService.viewOneCourse(courseId));
@@ -94,7 +94,7 @@ public class CourseControllerImpl {
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String courseId = request.get(ViewOneCourse.getBodyName(ViewOneCourse.BodyKey.COURSE_ID));
+		Integer courseId = Integer.parseInt(request.get(RemoveCourse.getBodyName(RemoveCourse.BodyKey.COURSE_ID)));
 		
 		//build response
 		courseService.removeCourse(courseId);
@@ -115,7 +115,7 @@ public class CourseControllerImpl {
 		List<Object> success = new ArrayList<Object>();
 		
 		//build response
-		courseService.viewAllCourses();
+		courseService.viewAllCourse();
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);

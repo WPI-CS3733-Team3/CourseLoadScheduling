@@ -12,7 +12,7 @@ public interface CourseService {
 	public List<Integer> create(String courseName, String courseNumber, int frequency) throws SQLException;
     
 	//edits a course
-    public List<Integer> edit(String courseName, String courseNumber, int frequency) throws SQLException;
+    public Courses edit(int courseId, String courseName, String courseNumber, int frequencyId) throws SQLException;
    
     //remove a course, returns id of deleted course
     public Integer removeCourse(Integer id) throws SQLException;
