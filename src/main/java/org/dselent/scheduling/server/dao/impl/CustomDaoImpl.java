@@ -51,8 +51,8 @@ public class CustomDaoImpl implements CustomDao
 		String queryTemplate = new String(QueryPathConstants.COURSE_INFO_QUERY);
 		
 		//No parameters for this, since it returns all requests, so do not actually fill parameters
-		List<CourseInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
-		return fullRequestTablesList;
+		List<CourseInfo> courseList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
+		return courseList;
 	}
 	
 	//Gets the information pertaining to one course, specified by courseId
@@ -62,8 +62,8 @@ public class CustomDaoImpl implements CustomDao
 		String queryTemplate = new String(QueryPathConstants.COURSE_INFO_ONE_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("courseId", courseId);
-		List<CourseInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
-		return fullRequestTablesList;
+		List<CourseInfo> courseList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		return courseList;
 	}
 	
 		
@@ -96,8 +96,8 @@ public class CustomDaoImpl implements CustomDao
 		String queryTemplate = new String(QueryPathConstants.SECTIONS_INFO_QUERY);
 
 		//No parameters for this, since it returns all requests, so do not actually fill parameters
-		List<SectionsInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
-		return fullRequestTablesList;
+		List<SectionsInfo> sectionsList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
+		return sectionsList;
 	}
 	
 	//Gets info about all sections being taught be one faculty member, specified by facultyId
@@ -107,8 +107,8 @@ public class CustomDaoImpl implements CustomDao
 		String queryTemplate = new String(QueryPathConstants.SECTIONS_ONE_FACULTY_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("facultyId", facultyId);
-		List<SectionsInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
-		return fullRequestTablesList;
+		List<SectionsInfo> sectionsList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		return sectionsList;
 	}
 
 	//Gets all sections belonging to a course, specified by courseId
@@ -117,8 +117,8 @@ public class CustomDaoImpl implements CustomDao
 		String queryTemplate = new String(QueryPathConstants.COURSE_SECTIONS_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("courseId", courseId);
-		List<CourseSections> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
-		return fullRequestTablesList;
+		List<CourseSections> sectionsList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		return sectionsList;
 	}
 
 	//Gets all current faculty accounts, with their names, emails, faculty type and account type
@@ -127,8 +127,8 @@ public class CustomDaoImpl implements CustomDao
 		String queryTemplate = new String(QueryPathConstants.ACCOUNT_INFO_QUERY);
 
 		//no parameters need to be added
-		List<AccountInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
-		return fullRequestTablesList;
+		List<AccountInfo> acctList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
+		return acctList;
 	}
 	
 	//Gets the names of all faculty who teach a course specified by courseId
@@ -137,8 +137,8 @@ public class CustomDaoImpl implements CustomDao
 		String queryTemplate = new String(QueryPathConstants.COURSE_FACULTY_QUERY);
 
 		//no parameters need to be added
-		List<CourseFaculty> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
-		return fullRequestTablesList;
+		List<CourseFaculty> facultyList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
+		return facultyList;
 	}
 	
 	//Gets the info of all deleted accounts
@@ -147,9 +147,30 @@ public class CustomDaoImpl implements CustomDao
 		String queryTemplate = new String(QueryPathConstants.DELETED_ACCOUNT_INFO_QUERY);
 
 		//no parameters need to be added
-		List<AccountInfo> fullRequestTablesList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
-		return fullRequestTablesList;
-		
+		List<AccountInfo> deletedAcctList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
+		return deletedAcctList;
+	}
+	
+	
+	//Gets info about all sections in the schedule by term
+	public List<SectionsInfo> getSectionsInfo(int termId){
+		SectionsInfoExtractor extractor = new SectionsInfoExtractor();
+		String queryTemplate = new String(QueryPathConstants.SECTIONS_INFO_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("termsId", termId);
+		List<SectionsInfo> sectionsList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		return sectionsList;
+	}
+			
+	//Gets info about all sections being taught be one faculty member in a certain term, specified by facultyId and termId
+	public List<SectionsInfo> getOneFacultySectionsInfo(int facultyId, int termId){
+		SectionsInfoExtractor extractor = new SectionsInfoExtractor();
+		String queryTemplate = new String(QueryPathConstants.SECTIONS_INFO_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("facultyId", facultyId);
+		parameters.addValue("termsId", termId);
+		List<SectionsInfo> sectionsList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
+		return sectionsList;
 	}
 	
 	

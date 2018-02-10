@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.dselent.scheduling.server.controller.UsersController;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
-import org.dselent.scheduling.server.requests.user.CreateAccount;
+import org.dselent.scheduling.server.requests.user.*;
 import org.dselent.scheduling.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,8 @@ public class UsersControllerImpl implements UsersController
 	 * @return A ResponseEntity for the response object(s) and the status code
 	 * @throws Exception 
 	 */
-	public ResponseEntity<String> createGroup3User(@RequestBody Map<String, String> request) throws Exception 
+	@Override
+	public ResponseEntity<String> createAccount(@RequestBody Map<String, String> request) throws Exception 
     {
     	// Print is for testing purposes
 		System.out.println("controller reached");
@@ -52,6 +53,7 @@ public class UsersControllerImpl implements UsersController
 		return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 	
+	@Override
 	public ResponseEntity<String> login(@RequestBody Map<String, String> request) throws Exception 
     {
     	// Print is for testing purposes
@@ -61,14 +63,83 @@ public class UsersControllerImpl implements UsersController
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String email = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.EMAIL));
-		String password = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.PASSWORD));
+		String email = request.get(Login.getBodyName(Login.BodyKey.EMAIL));
+		String password = request.get(Login.getBodyName(Login.BodyKey.PASSWORD));
 
 		userService.login(email, password);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
     }
+	
+	@Override
+	public ResponseEntity<String> promote(@RequestBody Map<String, String> request) throws Exception
+	{
+		// Print is for testing purposes
+		System.out.println("controller reached");
+    	
+		// add any objects that need to be returned to the success list
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		
+		String email = request.get(Promote.getBodyName(Promote.BodyKey.EMAIL));
+
+		userService.promote(email);
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> editAccount(Map<String, String> request) throws Exception 
+	{
+		System.out.println("controller reached");
+		// add any objects that need to be returned to the success list
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		int id = Integer.parseInt(request.get(EditAccount.getHeaderName(EditAccount.HeaderKey.ID)));
+		String firstName = request.get(EditAccount.getBodyName(EditAccount.BodyKey.FIRST_NAME));
+		String lastName = request.get(EditAccount.getBodyName(EditAccount.BodyKey.LAST_NAME));
+		String password = request.get(EditAccount.getBodyName(EditAccount.BodyKey.PASSWORD));
+
+		userService.editUser(id, firstName, lastName, password);
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<String> deleteAccount(Map<String, String> request) throws Exception 
+	{
+		// Print is for testing purposes
+		System.out.println("controller reached");
+		// add any objects that need to be returned to the success list
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		int id = Integer.parseInt(request.get(DeleteAccount.getHeaderName(DeleteAccount.HeaderKey.ID)));
+		int idToDelete = Integer.parseInt(request.get(DeleteAccount.getBodyName(DeleteAccount.BodyKey.ID_TO_DELETE)));
+		
+		userService.deleteUser(id, idToDelete);
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> viewRoster(@RequestBody Map<String, String> request) throws Exception
+	{
+		// Print is for testing purposes
+		System.out.println("controller reached");
+    	
+		// add any objects that need to be returned to the success list
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+
+		success.add(userService.viewRoster());
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
 }
 
 	

@@ -11,24 +11,85 @@ import javax.annotation.Generated;
  *
  */
 public class RequestDto {
-	
-	private final Integer usersId;
+
+	/**
+	 * Builder to build {@link RequestDto}.
+	 */
+	@Generated("SparkTools")
+	public static final class Builder {
+		private Integer coursesId;
+		private Integer endId;
+		private String message;
+		private Integer startId;
+		private Integer statusId;
+		private Integer termsId;
+		private Integer userId;
+
+		private Builder() {
+		}
+
+		public RequestDto build() {
+			return new RequestDto(this);
+		}
+
+		public Builder withCoursesId(Integer coursesId) {
+			this.coursesId = coursesId;
+			return this;
+		}
+
+		public Builder withEndId(Integer endId) {
+			this.endId = endId;
+			return this;
+		}
+
+		public Builder withMessage(String message) {
+			this.message = message;
+			return this;
+		}
+
+		public Builder withStartId(Integer startId) {
+			this.startId = startId;
+			return this;
+		}
+
+		public Builder withTermsId(Integer termsId) {
+			this.termsId = termsId;
+			return this;
+		}
+
+		public Builder withUsersId(Integer userId) {
+			this.userId = userId;
+			return this;
+		}
+	}
+	/**
+	 * Creates builder to build {@link RequestDto}.
+	 * @return created builder
+	 */
+	@Generated("SparkTools")
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	private final Integer coursesId;
-	private final Integer startId;
 	private final Integer endId;
-	private final Integer termsId;
 	private final String message;
+	private final Integer startId;
+	private final Integer statusId;
+	private final Integer termsId;
+	private final Integer userId;
 
 	@Generated("SparkTools")
 	private RequestDto(Builder builder) {
-		this.usersId = builder.usersId;
+		this.userId = builder.userId;
 		this.coursesId = builder.coursesId;
 		this.startId = builder.startId;
 		this.endId = builder.endId;
 		this.termsId = builder.termsId;
+		this.statusId = builder.statusId;
 		this.message = builder.message;
-		
-		if(this.usersId == null)
+
+		if(this.userId == null)
 		{
 			throw new IllegalStateException("usersId cannot be null");
 		}
@@ -52,43 +113,6 @@ public class RequestDto {
 		{
 			throw new IllegalStateException("message cannot be null");
 		}
-	}
-
-	public Integer getUsersId() {
-		return usersId;
-	}
-	
-	public Integer getCoursesId() {
-		return coursesId;
-	}
-	
-	public Integer getStartId() {
-		return startId;
-	}
-	
-	public Integer getEndId() {
-		return endId;
-	}
-	
-	public Integer getTermsId() {
-		return termsId;
-	}
-	
-	public String getMessage() {
-		return message;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((coursesId == null) ? 0 : coursesId.hashCode());
-		result = prime * result + ((endId == null) ? 0 : endId.hashCode());
-		result = prime * result + ((message == null) ? 0 : message.hashCode());
-		result = prime * result + ((startId == null) ? 0 : startId.hashCode());
-		result = prime * result + ((termsId == null) ? 0 : termsId.hashCode());
-		result = prime * result + ((usersId == null) ? 0 : usersId.hashCode());
-		return result;
 	}
 
 	@Override
@@ -131,6 +155,13 @@ public class RequestDto {
 		} else if (!startId.equals(other.startId)) {
 			return false;
 		}
+		if (statusId == null) {
+			if (other.statusId != null) {
+				return false;
+			}
+		} else if (!statusId.equals(other.statusId)) {
+			return false;
+		}
 		if (termsId == null) {
 			if (other.termsId != null) {
 				return false;
@@ -138,93 +169,79 @@ public class RequestDto {
 		} else if (!termsId.equals(other.termsId)) {
 			return false;
 		}
-		if (usersId == null) {
-			if (other.usersId != null) {
+		if (userId == null) {
+			if (other.userId != null) {
 				return false;
 			}
-		} else if (!usersId.equals(other.usersId)) {
+		} else if (!userId.equals(other.userId)) {
 			return false;
 		}
 		return true;
 	}
 
+	public Integer getCoursesId() {
+		return coursesId;
+	}
+
+	public Integer getEndId() {
+		return endId;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+
+	public Integer getStartId() {
+		return startId;
+	}
+
+	public Integer getTermsId() {
+		return termsId;
+	}
+
+	public Integer getStatusId() {
+		return statusId;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((coursesId == null) ? 0 : coursesId.hashCode());
+		result = prime * result + ((endId == null) ? 0 : endId.hashCode());
+		result = prime * result + ((message == null) ? 0 : message.hashCode());
+		result = prime * result + ((startId == null) ? 0 : startId.hashCode());
+		result = prime * result + ((statusId == null) ? 0 : statusId.hashCode());
+		result = prime * result + ((termsId == null) ? 0 : termsId.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("SubmitRequestDto [usersId=");
-		builder.append(usersId);
-		builder.append(", coursesId=");
-		builder.append(coursesId);
-		builder.append(", startId=");
-		builder.append(startId);
-		builder.append(", endId=");
-		builder.append(endId);
-		builder.append(", termsId=");
-		builder.append(termsId);
-		builder.append(", message=");
-		builder.append(message);
-		builder.append("]");
-		return builder.toString();
+		StringBuilder builder2 = new StringBuilder();
+		builder2.append("RequestDto [userId=");
+		builder2.append(userId);
+		builder2.append(", coursesId=");
+		builder2.append(coursesId);
+		builder2.append(", startId=");
+		builder2.append(startId);
+		builder2.append(", endId=");
+		builder2.append(endId);
+		builder2.append(", termsId=");
+		builder2.append(termsId);
+		builder2.append(", statusId=");
+		builder2.append(statusId);
+		builder2.append(", message=");
+		builder2.append(message);
+		builder2.append("]");
+		return builder2.toString();
 	}
 
-	/**
-	 * Creates builder to build {@link RequestDto}.
-	 * @return created builder
-	 */
-	@Generated("SparkTools")
-	public static Builder builder() {
-		return new Builder();
-	}
 
-	/**
-	 * Builder to build {@link RequestDto}.
-	 */
-	@Generated("SparkTools")
-	public static final class Builder {
-		private Integer usersId;
-		private Integer coursesId;
-		private Integer startId;
-		private Integer endId;
-		private Integer termsId;
-		private String message;
-
-		private Builder() {
-		}
-
-		public Builder withUsersId(Integer usersId) {
-			this.usersId = usersId;
-			return this;
-		}
-
-		public Builder withCoursesId(Integer coursesId) {
-			this.coursesId = coursesId;
-			return this;
-		}
-
-		public Builder withStartId(Integer startId) {
-			this.startId = startId;
-			return this;
-		}
-
-		public Builder withEndId(Integer endId) {
-			this.endId = endId;
-			return this;
-		}
-
-		public Builder withTermsId(Integer termsId) {
-			this.termsId = termsId;
-			return this;
-		}
-
-		public Builder withMessage(String message) {
-			this.message = message;
-			return this;
-		}
-
-		public RequestDto build() {
-			return new RequestDto(this);
-		}
-	}
-	
-	
 }

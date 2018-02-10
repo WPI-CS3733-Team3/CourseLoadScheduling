@@ -1,4 +1,4 @@
-package org.dselent.scheduling.server.requests.schedule;
+package org.dselent.scheduling.server.requests.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,16 +6,24 @@ import java.util.List;
 import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public class ViewAll {
+/**
+ * Defines information for the register request including the keys for the
+ * header, parameters, and body and the request type (RequestMethod).
+ * 
+ * @author dselent
+ *
+ */
+public class DeleteAccount
+{
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "view/all";
+	public static final String REQUEST_NAME = "delete";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
 	
 	public static enum HeaderKey
 	{
-		USERS_ID;
+		ID;
 	}
 	
 	public static enum ParameterKey
@@ -25,7 +33,7 @@ public class ViewAll {
 	
 	public static enum BodyKey
 	{
-		TERMS_ID;
+		ID_TO_DELETE;
 	}
 	
 
@@ -53,16 +61,18 @@ public class ViewAll {
 		
 	};
 	
-	private ViewAll()
+	private DeleteAccount()
 	{
 		
 	};
 	
-	public static String getHeaderName(HeaderKey key){
+	public static String getHeaderName(HeaderKey key)
+	{
 		return RequestParameterConverter.convertKeyName(key);
 	}
 		
-	public static List<String> getHeaderNameList(){
+	public static List<String> getHeaderNameList()
+	{
 		List<String> headerNameList = new ArrayList<>();
 		
 		for(HeaderKey key : HEADER_KEY_LIST)
@@ -73,11 +83,13 @@ public class ViewAll {
 		return headerNameList;
 	}
 	
-	public static String getParameterName(ParameterKey key){
+	public static String getParameterName(ParameterKey key)
+	{
 		return RequestParameterConverter.convertKeyName(key);
 	}
 	
-	public static List<String> getParameterNameList(){
+	public static List<String> getParameterNameList()
+	{
 		List<String> parameterNameList = new ArrayList<>();
 		
 		for(ParameterKey key : PARAMETER_KEY_LIST)
@@ -88,11 +100,13 @@ public class ViewAll {
 		return parameterNameList;
 	}
 	
-	public static String getBodyName(BodyKey key){
+	public static String getBodyName(BodyKey key)
+	{
 		return RequestParameterConverter.convertKeyName(key);
 	}
 	
-	public static List<String> getBodyNameList(){
+	public static List<String> getBodyNameList()
+	{
 		List<String> bodyNameList = new ArrayList<>();
 		
 		for(BodyKey key : BODY_KEY_LIST)

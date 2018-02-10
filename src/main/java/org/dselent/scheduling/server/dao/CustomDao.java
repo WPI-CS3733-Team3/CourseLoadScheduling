@@ -23,7 +23,7 @@ public interface CustomDao
 {
 	// custom queries here
 	
-	public List<User> getAllUsersWithRole(int roleId);//**example, delete this one once finished!**
+	public List<User> getAllUsersWithRole(int roleId);//**example**
 	
 	//Gets the information pertaining to every course
 	public List<CourseInfo> getCourseInfo();
@@ -54,6 +54,12 @@ public interface CustomDao
 	
 	//Gets the info of all deleted accounts
 	public List<AccountInfo> getDeletedAccountInfo();
+	
+	//Gets info about all sections in the schedule by term
+	public List<SectionsInfo> getSectionsInfo(int termId);
+		
+	//Gets info about all sections being taught be one faculty member in a certain term, specified by facultyId and termId
+	public List<SectionsInfo> getOneFacultySectionsInfo(int facultyId, int termId);
 	
 	
 }

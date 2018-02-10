@@ -20,6 +20,15 @@ public interface UsersController
     
     @RequestMapping(method=RequestMethod.POST, value=Login.REQUEST_NAME)
     public ResponseEntity<String> login(@RequestBody Map<String, String> request) throws Exception;
+    
+    @RequestMapping(method=RequestMethod.POST, value=Promote.REQUEST_NAME)
+    public ResponseEntity<String> promote(@RequestBody Map<String, String> request) throws Exception;
+
+	@RequestMapping(method=RequestMethod.POST, value=DeleteAccount.REQUEST_NAME)
+	public ResponseEntity<String> deleteAccount(@RequestBody Map<String, String> request) throws Exception;
+    
+    @RequestMapping(method=RequestMethod.POST, value=ViewRoster.REQUEST_NAME)
+    public ResponseEntity<String> viewRoster(@RequestBody Map<String, String> request) throws Exception;
 }
 
 	
