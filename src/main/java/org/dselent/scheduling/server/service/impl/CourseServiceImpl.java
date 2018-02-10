@@ -8,9 +8,6 @@ import org.dselent.scheduling.server.dao.CoursesDao;
 import org.dselent.scheduling.server.model.Courses;
 import org.dselent.scheduling.server.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.keygen.KeyGenerators;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +25,7 @@ public class CourseServiceImpl implements CourseService
 
 	@Transactional
 	@Override
-	public List<Integer> createCourse(RegisterUserDto dto) throws SQLException
+	public List<Integer> create(String courseName, String courseNumber, int frequency) throws SQLException
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
 
@@ -40,51 +37,54 @@ public class CourseServiceImpl implements CourseService
 		// etc...
 
 		Courses course = new Courses();
-		course.setUserName(dto.getUserName());
-		course.setFirstName(dto.getFirstName());
-		course.setLastName(dto.getLastName());
-		course.setEmail(dto.getEmail());
-		course.setEncryptedPassword(encryptedPassword);
-		course.setSalt(salt);
-		course.setUserStateId(1);
+		course.setTitle(courseName);
+		course.setNumber(courseNumber);
+		course.setFrequencyID(frequency);
 
-		List<String> userInsertColumnNameList = new ArrayList<>();
-		List<String> userKeyHolderColumnNameList = new ArrayList<>();
+		List<String> courseInsertColumnNameList = new ArrayList<>();
+		List<String> courseKeyHolderColumnNameList = new ArrayList<>();
 
-		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.USER_NAME));
-		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.FIRST_NAME));
-		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.LAST_NAME));
-		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.EMAIL));
-		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.ENCRYPTED_PASSWORD));
-		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.SALT));
-		userInsertColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.USER_STATE_ID));
+		courseInsertColumnNameList.add(Courses.getColumnName(Courses.Columns.TITLE));
+		courseInsertColumnNameList.add(Courses.getColumnName(Courses.Columns.NUMBER));
+		courseInsertColumnNameList.add(Courses.getColumnName(Courses.Columns.FREQUENCY_ID));
 
-		userKeyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.ID));
-		userKeyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.CREATED_AT));
-		userKeyHolderColumnNameList.add(ExampleUser.getColumnName(ExampleUser.Columns.UPDATED_AT));
+		courseKeyHolderColumnNameList.add(Courses.getColumnName(Courses.Columns.ID));
+		courseKeyHolderColumnNameList.add(Courses.getColumnName(Courses.Columns.CREATED_AT));
+		courseKeyHolderColumnNameList.add(Courses.getColumnName(Courses.Columns.UPDATED_AT));
 
-		rowsAffectedList.add(usersDao.insert(user, userInsertColumnNameList, userKeyHolderColumnNameList));
+		rowsAffectedList.add(coursesDao.insert(course, courseInsertColumnNameList, courseKeyHolderColumnNameList));
 
-		//
+		return rowsAffectedList;
+	}
+	
+	public List<Integer> edit(String courseName, String courseNumber, int frequency) throws SQLException
+	{
+		List<Integer> rowsAffectedList = new ArrayList<>();
 
-		// for now, assume users can only register with default role id
-		// may change in the future
+		// TODO validate business constraints
+		// ^^students should do this^^
+		// password strength requirements
+		// email requirements
+		// null values
+		// etc...
 
-		ExampleUsersRolesLink usersRolesLink = new ExampleUsersRolesLink();
-		usersRolesLink.setUserId(user.getId());
-		usersRolesLink.setRoleId(1); // hard coded as regular user
+		Courses course = new Courses();
+		course.setTitle(courseName);
+		course.setNumber(courseNumber);
+		course.setFrequencyID(frequency);
 
-		List<String> usersRolesLinksInsertColumnNameList = new ArrayList<>();
-		List<String> usersRolesLinksKeyHolderColumnNameList = new ArrayList<>();
+		List<String> courseInsertColumnNameList = new ArrayList<>();
+		List<String> courseKeyHolderColumnNameList = new ArrayList<>();
 
-		usersRolesLinksInsertColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.USER_ID));
-		usersRolesLinksInsertColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ROLE_ID));
+		courseInsertColumnNameList.add(Courses.getColumnName(Courses.Columns.TITLE));
+		courseInsertColumnNameList.add(Courses.getColumnName(Courses.Columns.NUMBER));
+		courseInsertColumnNameList.add(Courses.getColumnName(Courses.Columns.FREQUENCY_ID));
 
-		usersRolesLinksKeyHolderColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.ID));
-		usersRolesLinksKeyHolderColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.CREATED_AT));
-		usersRolesLinksKeyHolderColumnNameList.add(ExampleUsersRolesLink.getColumnName(ExampleUsersRolesLink.Columns.DELETED));
+		courseKeyHolderColumnNameList.add(Courses.getColumnName(Courses.Columns.ID));
+		courseKeyHolderColumnNameList.add(Courses.getColumnName(Courses.Columns.CREATED_AT));
+		courseKeyHolderColumnNameList.add(Courses.getColumnName(Courses.Columns.UPDATED_AT));
 
-		rowsAffectedList.add(usersRolesLinksDao.insert(usersRolesLink, usersRolesLinksInsertColumnNameList, usersRolesLinksKeyHolderColumnNameList));
+		rowsAffectedList.add(coursesDao.insert(course, courseInsertColumnNameList, courseKeyHolderColumnNameList));
 
 		return rowsAffectedList;
 	}
