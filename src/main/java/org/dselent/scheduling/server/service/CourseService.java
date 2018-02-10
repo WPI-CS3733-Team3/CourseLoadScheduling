@@ -3,13 +3,23 @@ package org.dselent.scheduling.server.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.dselent.scheduling.server.model.Courses;
 import org.springframework.stereotype.Service;
 
-
-public class CourseService {
-    public List<Integer> create(String courseName, String courseNumber, int frequency) throws SQLException;
-    public List<Integer> edit(EditCourseDto editCourseDto) throws SQLException;
-   public Course removeCourse(Integer id);
-   public viewAllCourse(Integer id);
-       public viewOneCourse(Integer id);
+@Service
+public interface CourseService {
+   //creates a course
+	public List<Integer> create(String courseName, String courseNumber, int frequency) throws SQLException;
+    
+	//edits a course
+    public List<Integer> edit(String courseName, String courseNumber, int frequency) throws SQLException;
+   
+    //remove a course, returns id of deleted course
+    public Integer removeCourse(Integer id);
+  
+    //view all courses
+    public List<Courses> viewAllCourse();
+       
+    //views one course based on id
+    public Courses viewOneCourse(Integer id);
 }
