@@ -30,6 +30,10 @@ Note: UsersDaoTest needs to be connected to in_class_example in the [application
 Our custom tests need the course_load_scheduler database
 - [x] Program the data access layer
 - [x] Generate class diagram
+[Creation script][CreationScript] and [Population script][PopulationScript]
+
+[CreationScript]: src/main/resources/sql/Inactive/creationScript.ddl
+[PopulationScript]: src/main/resources/sql/Inactive/populationScript.ddl
 
 Assignment 4
 ------------
