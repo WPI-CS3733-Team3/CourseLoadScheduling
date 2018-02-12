@@ -68,7 +68,7 @@ public class CourseControllerImpl implements CourseController{
     
 
 	@Override
-	public ResponseEntity<String> ViewOneCourse(@RequestBody Map<String, String> request) throws Exception{
+	public ResponseEntity<String> viewOneCourse(@RequestBody Map<String, String> request) throws Exception{
 		// Print is for testing purposes
 		System.out.println("controller reached");
     	
@@ -87,7 +87,7 @@ public class CourseControllerImpl implements CourseController{
     
 
 	@Override
-	public ResponseEntity<String> RemoveCourse(@RequestBody Map<String, String> request) throws Exception{
+	public ResponseEntity<String> removeCourse(@RequestBody Map<String, String> request) throws Exception{
 		// Print is for testing purposes
 		System.out.println("controller reached");
     	
@@ -107,7 +107,7 @@ public class CourseControllerImpl implements CourseController{
     
 
 	@Override
-	public ResponseEntity<String> ViewAllCourse(@RequestBody Map<String, String> request) throws Exception{
+	public ResponseEntity<String> viewAllCourse(@RequestBody Map<String, String> request) throws Exception{
 		// Print is for testing purposes
 		System.out.println("controller reached");
     	
