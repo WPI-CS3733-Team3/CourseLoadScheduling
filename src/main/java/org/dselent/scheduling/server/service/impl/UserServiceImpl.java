@@ -12,6 +12,7 @@ import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.service.UserService;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
+import org.dselent.scheduling.server.sqlutils.LogicalOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -124,7 +125,7 @@ public class UserServiceImpl implements UserService
 		qt2.setColumnName(Faculty.getColumnName(Faculty.Columns.ID));
 		qt2.setComparisonOperator(ComparisonOperator.EQUAL);
 		qt2.setValue(currentUser.getFacultyId());
-		qt2.setLogicalOperator(null);
+		qt2.setLogicalOperator(LogicalOperator.AND);
 		queryTermList.add(qt2);
 
 		List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
