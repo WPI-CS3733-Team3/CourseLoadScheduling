@@ -95,6 +95,7 @@ public class RequestControllerImpl implements RequestController {
 		RequestDto.Builder builder = RequestDto.builder();
 		RequestDto requestDto = builder.withUsersId(userId)
 				.withCoursesId(coursesID)
+				.withStatusId(2) // hard coded 2 here for pending
 				.withStartId(startID)
 				.withEndId(endID)
 				.withTermsId(termsID)

@@ -11,7 +11,7 @@ import java.util.Map;
 public class RequestTime extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "requestTime";
+	public static final String TABLE_NAME = "request_time";
 		
 	// column names
 	public static enum Columns

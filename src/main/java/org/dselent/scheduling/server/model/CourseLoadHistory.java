@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class CourseLoadHistory extends Model{
 	// table name
-	public static final String TABLE_NAME = "courseLoadHistory";
+	public static final String TABLE_NAME = "course_load_history";
 		
 	// column names
 	public static enum Columns

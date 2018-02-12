@@ -51,6 +51,11 @@ public class RequestDto {
 			this.startId = startId;
 			return this;
 		}
+		
+		public Builder withStatusId(Integer statusId) {
+			this.statusId = statusId;
+			return this;
+		}
 
 		public Builder withTermsId(Integer termsId) {
 			this.termsId = termsId;
@@ -104,6 +109,10 @@ public class RequestDto {
 		else if(this.endId == null)
 		{
 			throw new IllegalStateException("endId cannot be null");
+		}
+		else if(this.statusId == null)
+		{
+			throw new IllegalStateException("statusId cannot be null");
 		}
 		else if(this.termsId == null)
 		{

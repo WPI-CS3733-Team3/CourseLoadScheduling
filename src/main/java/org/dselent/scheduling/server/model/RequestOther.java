@@ -11,7 +11,7 @@ import java.util.Map;
 public class RequestOther extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "requestOther";
+	public static final String TABLE_NAME = "request_other";
 		
 	// column names
 	public static enum Columns

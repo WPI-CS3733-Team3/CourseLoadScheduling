@@ -11,7 +11,7 @@ import java.util.Map;
 public class RequestCourse extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "requestCourse";
+	public static final String TABLE_NAME = "request_course";
 		
 	// column names
 	public static enum Columns

@@ -22,6 +22,7 @@ import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -82,6 +83,7 @@ public class RequestServiceImpl implements RequestService {
 	 * ~~~~We have have to do some querying to get the actual row IDs for the pre-populated tables~~~~
 	 */
 	@Override
+	@Transactional
 	public List<Integer> submitRequest(RequestDto submitRequestDto) throws SQLException {
 
 		List<Integer> rowsAffectedList = new ArrayList<Integer>();
@@ -116,7 +118,7 @@ public class RequestServiceImpl implements RequestService {
 		requestCourseKeyHolderColumnNameList.add(RequestCourse.getColumnName(RequestCourse.Columns.CREATED_AT));
 		requestCourseKeyHolderColumnNameList.add(RequestCourse.getColumnName(RequestCourse.Columns.UPDATED_AT));
 		requestCourseKeyHolderColumnNameList.add(RequestCourse.getColumnName(RequestCourse.Columns.DELETED));
-		rowsAffectedList.add(requestCourseDao.insert(requestCourse, requestInsertColumnNameList, requestKeyHolderColumnNameList));
+		rowsAffectedList.add(requestCourseDao.insert(requestCourse, requestCourseInsertColumnNameList, requestKeyHolderColumnNameList));
 
 		//Extract RequestOther table data and insert
 		RequestOther requestOther = new RequestOther();
