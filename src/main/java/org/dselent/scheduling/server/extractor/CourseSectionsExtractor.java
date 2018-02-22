@@ -66,6 +66,7 @@ public class CourseSectionsExtractor extends Extractor<List<CourseSections>>{
 				result.setEndTime(null);
 			}
 			
+			resultList.add(result);
 		}
 		
 		return resultList;

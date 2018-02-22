@@ -34,7 +34,10 @@ public class ScheduleControllerImpl implements ScheduleController {
 		List<Object> success = new ArrayList<Object>();
 		
 		//draw information form the request parameter
-		Integer termsId = Integer.parseInt(request.get(ViewAll.getBodyName(ViewAll.BodyKey.TERMS_ID)));
+		Integer termsId = null;
+		if (request.get(ViewOne.getBodyName(ViewOne.BodyKey.TERMS_ID)) != null) {
+			termsId = Integer.parseInt(request.get(ViewOne.getBodyName(ViewOne.BodyKey.TERMS_ID)));
+		}
 		
 		//create response and return it
 		success.add(schedulingService.viewAllSchedule(termsId));
@@ -47,14 +50,23 @@ public class ScheduleControllerImpl implements ScheduleController {
     @Override
 	public ResponseEntity<String> view(@RequestBody Map<String, String> request) throws Exception{
 		// Print is for testing purposes
-		System.out.println("controller (schedule/viewOne) reached");
+		System.out.println("controller (schedule/view/one) reached");
     	
 		// add any objects that need to be returned to the success list
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		Integer termsId = Integer.parseInt(request.get(ViewOne.getBodyName(ViewOne.BodyKey.TERMS_ID)));
-		Integer facultyId = Integer.parseInt(request.get(ViewOne.getBodyName(ViewOne.BodyKey.FACULTY_ID)));
+		System.out.println(request.get(ViewOne.getBodyName(ViewOne.BodyKey.TERMS_ID)));
+		System.out.println(request.get(ViewOne.getBodyName(ViewOne.BodyKey.FACULTY_ID)));
+		Integer termsId = null;
+		if (request.get(ViewOne.getBodyName(ViewOne.BodyKey.TERMS_ID)) != null) {
+			termsId = Integer.parseInt(request.get(ViewOne.getBodyName(ViewOne.BodyKey.TERMS_ID)));
+		}
+		
+		Integer facultyId = null;
+		if(request.get(ViewOne.getBodyName(ViewOne.BodyKey.FACULTY_ID)) != null) {
+			facultyId = Integer.parseInt(request.get(ViewOne.getBodyName(ViewOne.BodyKey.FACULTY_ID)));
+		}
 		
 		success.add(schedulingService.viewOneSchedule(termsId, facultyId));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
@@ -92,6 +104,9 @@ public class ScheduleControllerImpl implements ScheduleController {
 		// add any objects that need to be returned to the success list
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
+		
+		System.out.println(request.get(Add.getBodyName(Add.BodyKey.SECTIONS_ID)));
+		System.out.println(request.get(Add.getBodyName(Add.BodyKey.FACULTY_ID)));
 		
 		Integer sectionId = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.SECTIONS_ID)));
 		Integer facultyId = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.FACULTY_ID)));

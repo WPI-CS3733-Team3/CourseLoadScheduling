@@ -42,6 +42,8 @@ public class CourseFacultyExtractor extends Extractor<List<CourseFaculty>>{
 				result.setFacultyLastName(null);
 			}
 			
+			
+			resultList.add(result);
 		}
 		
 		return resultList;

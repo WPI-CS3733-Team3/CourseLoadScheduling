@@ -25,5 +25,5 @@ LEFT JOIN end_time ON end_time.id =  sections.end_id
 LEFT JOIN faculty ON schedule.faculty_id = faculty.id
 LEFT JOIN course_load ON course_load.faculty_id =  faculty.id
 LEFT JOIN course_load_type ON course_load.course_load_type_id = course_load_type.id
-WHERE schedule.faculty_id = :facultyId AND sections.terms_id = :terms_id
+WHERE schedule.faculty_id = :facultyId AND sections.terms_id = :termsId
 ORDER BY courses_title DESC;

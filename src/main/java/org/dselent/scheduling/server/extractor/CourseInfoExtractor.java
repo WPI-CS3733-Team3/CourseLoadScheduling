@@ -48,6 +48,7 @@ public class CourseInfoExtractor extends Extractor<List<CourseInfo>>{
 				result.setFrequency(null);
 			}
 			
+			resultList.add(result);
 		}	
 		
 		return resultList;

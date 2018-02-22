@@ -48,6 +48,7 @@ public class AccountInfoExtractor extends Extractor<List<AccountInfo>>{
 				result.setAccountType(null);
 			}
 			
+			resultList.add(result);
 		}
 		
 		return resultList;

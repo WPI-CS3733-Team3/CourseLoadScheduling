@@ -23,5 +23,5 @@ LEFT JOIN courses ON courses.id =  sections.courses_id
 LEFT JOIN start_time ON start_time.id =  sections.start_id
 LEFT JOIN end_time ON end_time.id =  sections.end_id
 LEFT JOIN faculty ON schedule.faculty_id = faculty.id
-WHERE sections.terms_id = :terms_id
+WHERE sections.terms_id = :termsId
 ORDER BY courses_title DESC;
