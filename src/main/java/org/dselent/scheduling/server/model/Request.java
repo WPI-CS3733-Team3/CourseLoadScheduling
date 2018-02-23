@@ -49,7 +49,7 @@ public class Request extends Model
 	// attributes
 
 	private Integer id;
-	private Integer userId;
+	private Integer usersId;
 	private Integer statusId;
 	private Instant createdAt;
 	private Instant updatedAt;
@@ -90,11 +90,11 @@ public class Request extends Model
 
 
 	public Integer getUserId() {
-		return userId;
+		return usersId;
 	}
 
 	public void setUserId(Integer userId) {
-		this.userId = userId;
+		this.usersId = userId;
 	}
 
 	public Integer getStatusId() {
@@ -158,7 +158,7 @@ public class Request extends Model
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((statusId == null) ? 0 : statusId.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((usersId == null) ? 0 : usersId.hashCode());
 		return result;
 	}
 
@@ -196,10 +196,10 @@ public class Request extends Model
 				return false;
 		} else if (!updatedAt.equals(other.updatedAt))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
+		if (usersId == null) {
+			if (other.usersId != null)
 				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!usersId.equals(other.usersId))
 			return false;
 		return true;
 	}
@@ -210,7 +210,7 @@ public class Request extends Model
 		builder.append("Request [id=");
 		builder.append(id);
 		builder.append(", userID=");
-		builder.append(userId);
+		builder.append(usersId);
 		builder.append(", requestStatusID=");
 		builder.append(statusId);
 		builder.append(", createdAt=");

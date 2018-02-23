@@ -22,7 +22,7 @@ public class ViewOwn {
 
 	public static enum HeaderKey
 	{
-		USER_ID
+		USERS_ID
 	}
 
 	public static enum ParameterKey

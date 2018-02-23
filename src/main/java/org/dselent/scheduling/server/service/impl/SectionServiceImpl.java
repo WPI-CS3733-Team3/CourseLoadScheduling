@@ -87,7 +87,7 @@ public class SectionServiceImpl implements SectionService
     	qt1.setColumnName(Sections.getColumnName(Sections.Columns.ID));
     	qt1.setComparisonOperator(ComparisonOperator.EQUAL);
     	qt1.setLogicalOperator(null);
-    	qt1.setValue(sectionsDao.findById(dto.getId()));
+    	qt1.setValue(dto.getId());
     	
     	List<QueryTerm> qtList = new ArrayList<QueryTerm>();
     	qtList.add(qt1);

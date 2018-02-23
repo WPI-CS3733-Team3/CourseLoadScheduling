@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
  * Controller for handling requests related to course load requests such as submitting or reviewing.
@@ -74,7 +75,7 @@ public class RequestControllerImpl implements RequestController {
 	}
 
 	@Override
-	public ResponseEntity<String> submit(@RequestBody Map<String, String> request) throws Exception {
+	public ResponseEntity<String> submit(@RequestBody Map<String, String> request, @RequestHeader Map<String, String> header) throws Exception {
 
 		// Print is for testing purposes
 		System.out.println("controller reached");
@@ -84,7 +85,7 @@ public class RequestControllerImpl implements RequestController {
 		List<Object> success = new ArrayList<Object>();
 
 		//Submit functions
-		Integer userId = Integer.parseInt(request.get(Submit.getBodyName(Submit.BodyKey.USER_ID)));
+		Integer userId = Integer.parseInt(request.get(Submit.getHeaderName(Submit.HeaderKey.USERS_ID)));//how to get properly from header??
 		Integer coursesID = Integer.parseInt(request.get(Submit.getBodyName(Submit.BodyKey.COURSES_ID)));
 		Integer startID = Integer.parseInt(request.get(Submit.getBodyName(Submit.BodyKey.START_ID)));
 		Integer endID = Integer.parseInt(request.get(Submit.getBodyName(Submit.BodyKey.END_ID)));
@@ -95,7 +96,7 @@ public class RequestControllerImpl implements RequestController {
 		RequestDto.Builder builder = RequestDto.builder();
 		RequestDto requestDto = builder.withUsersId(userId)
 				.withCoursesId(coursesID)
-				.withStatusId(2) // hard coded 2 here for pending
+				.withStatusId(3) // hard coded 3 here for "pending" status
 				.withStartId(startID)
 				.withEndId(endID)
 				.withTermsId(termsID)
@@ -125,8 +126,7 @@ public class RequestControllerImpl implements RequestController {
 	}
 
 	@Override
-	public ResponseEntity<String> viewOwn(@RequestBody Map<String, String> request) throws Exception {
-
+	public ResponseEntity<String> viewOwn(@RequestBody Map<String, String> request, @RequestHeader Map<String, String> header) throws Exception {
 		// Print is for testing purposes
 		System.out.println("controller reached");
 
@@ -135,9 +135,9 @@ public class RequestControllerImpl implements RequestController {
 		List<Object> success = new ArrayList<Object>();
 
 		//View own functions
-		Integer userId = Integer.parseInt(request.get(ViewOwn.getHeaderName(ViewOwn.HeaderKey.USER_ID)));
+		Integer usersId = Integer.parseInt(request.get(ViewOwn.getHeaderName(ViewOwn.HeaderKey.USERS_ID)));//how to get properly form header?
 
-		success.add(requestService.viewOwnRequest(userId));
+		success.add(requestService.viewOwnRequest(usersId));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success.get(0));
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);

@@ -32,7 +32,7 @@ public class CourseServiceImpl implements CourseService
 
 	@Transactional
 	@Override
-	public List<Integer> create(String courseName, String courseNumber, int frequency) throws SQLException
+	public Integer create(String courseName, String courseNumber, int frequency) throws SQLException
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class CourseServiceImpl implements CourseService
 
 		rowsAffectedList.add(coursesDao.insert(course, courseInsertColumnNameList, courseKeyHolderColumnNameList));
 
-		return rowsAffectedList;
+		return course.getId();//rowsAffectedList;
 	}
 	
 	@Transactional
