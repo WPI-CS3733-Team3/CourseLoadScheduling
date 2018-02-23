@@ -91,7 +91,7 @@ public class RequestServiceImpl implements RequestService {
 		//Extract Requests table data and insert
 		Request request = new Request();
 		request.setUserId(submitRequestDto.getUserId());
-		request.setStatusId(submitRequestDto.getStatusId()); //Will always be status 2 (pending) for new requests until their are reviewed
+		request.setStatusId(submitRequestDto.getStatusId()); //Will always be status 3 (pending) for new requests until their are reviewed
 		request.setDeleted(false);
 		List<String> requestInsertColumnNameList = new ArrayList<>();
 		List<String> requestKeyHolderColumnNameList = new ArrayList<>();
@@ -108,7 +108,7 @@ public class RequestServiceImpl implements RequestService {
 		RequestCourse requestCourse = new RequestCourse();
 		requestCourse.setCoursesID(submitRequestDto.getCoursesId());
 		//Get request being submitted row ID
-		requestCourse.setRequestsID(request.getId());//rowsAffectedList.get(0));//*******************ROWS AFFECTED MAY NOT WORK LIKE THIS????? Inser may return # of rows affected...
+		requestCourse.setRequestsID(request.getId());//rowsAffectedList.get(0));
 		requestCourse.setDeleted(false);
 		List<String> requestCourseInsertColumnNameList = new ArrayList<>();
 		List<String> requestCourseKeyHolderColumnNameList = new ArrayList<>();
@@ -213,6 +213,7 @@ public class RequestServiceImpl implements RequestService {
 		queryTermList.add(qt);
 		
 		System.out.println(id);
+		System.out.println(queryTermList.toString());
 		rowsAffectedList.add(requestsDao.delete(queryTermList));
 		return rowsAffectedList;
 	}

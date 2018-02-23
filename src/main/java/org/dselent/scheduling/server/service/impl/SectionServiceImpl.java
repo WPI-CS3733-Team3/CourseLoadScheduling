@@ -110,6 +110,8 @@ public class SectionServiceImpl implements SectionService
 	@Override
 	public Integer removeSection(Integer id) throws SQLException
 	{
+		//Cascade removing schedule stuff here********************************
+		
 		QueryTerm removeSection = new QueryTerm();
         
 		removeSection.setColumnName(Sections.getColumnName(Sections.Columns.ID));

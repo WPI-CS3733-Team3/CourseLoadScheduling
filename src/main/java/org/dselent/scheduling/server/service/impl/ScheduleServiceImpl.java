@@ -107,11 +107,9 @@ public class ScheduleServiceImpl implements ScheduleService {
    		scheduleKeyHolderColNameList.add(Schedule.getColumnName(Schedule.Columns.UPDATED_AT));
    		scheduleKeyHolderColNameList.add(Schedule.getColumnName(Schedule.Columns.DELETED));
 
-   		int numRowsAffected = scheduleDao.insert(schedule, scheduleInsertColNameList, scheduleKeyHolderColNameList);
-   		//schedule.setId(id);
-   		//System.out.println(Schedule.getColumnName(Schedule.Columns.SECTIONS_ID));
-   		
-    	return numRowsAffected;
+   		scheduleDao.insert(schedule, scheduleInsertColNameList, scheduleKeyHolderColNameList);
+
+    	return schedule.getId();//or just schedule?
     }
     
     //changes information about a class

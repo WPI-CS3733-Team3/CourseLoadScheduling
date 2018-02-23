@@ -200,12 +200,17 @@ public class UserServiceImpl implements UserService
 		User user = usersDao.select(userSelectColumnNameList, userQueryTermList, userOrderByList).get(0);
 
 		String saltedPassword = password + user.getPasswordSalt();
-		PasswordEncoder passwordEncorder = new BCryptPasswordEncoder();
-		String encryptedPassword = passwordEncorder.encode(saltedPassword);
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		//String encryptedPassword = passwordEncoder.encode(saltedPassword);
 		String expectedPassword = user.getEncryptedPassword();
-		System.out.println("Expected: "+ expectedPassword + "\nEncrypted: "+ encryptedPassword + "\n what was given: " + password + "\n, and salt:" + user.getPasswordSalt());
+		
+		boolean success = passwordEncoder.matches(saltedPassword, expectedPassword);
+		
+		
+		//System.out.println("Expected: "+ expectedPassword + "\nEncrypted: "+ encryptedPassword + "\n what was given: " + password +
+		//"\n and salt:" + user.getPasswordSalt() + "\n Success: " + success);
 
-		return encryptedPassword == expectedPassword ? user : null;
+		return success ? user : null;
 	} 
 
 	@Override
