@@ -1,6 +1,5 @@
 package org.dselent.scheduling.server.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.dao.CustomDao;
@@ -11,18 +10,14 @@ import org.dselent.scheduling.server.extractor.CourseSectionsExtractor;
 import org.dselent.scheduling.server.extractor.AccountInfoExtractor;
 import org.dselent.scheduling.server.extractor.CourseFacultyExtractor;
 import org.dselent.scheduling.server.extractor.UsersExtractor;
-import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.miscellaneous.QueryPathConstants;
 import org.dselent.scheduling.server.model.CourseInfo;
 import org.dselent.scheduling.server.model.RequestTables;
 import org.dselent.scheduling.server.model.SectionsInfo;
 import org.dselent.scheduling.server.model.CourseSections;
-import org.dselent.scheduling.server.model.Faculty;
 import org.dselent.scheduling.server.model.AccountInfo;
 import org.dselent.scheduling.server.model.CourseFaculty;
 import org.dselent.scheduling.server.model.User;
-import org.dselent.scheduling.server.sqlutils.ColumnOrder;
-import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
