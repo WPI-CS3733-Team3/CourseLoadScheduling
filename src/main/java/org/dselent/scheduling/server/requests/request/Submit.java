@@ -22,7 +22,7 @@ public class Submit {
 
 	public static enum HeaderKey
 	{
-
+		USERS_ID
 	}
 
 	public static enum ParameterKey
@@ -32,7 +32,6 @@ public class Submit {
 
 	public static enum BodyKey
 	{
-		USER_ID,
 		COURSES_ID,
 		START_ID,
 		END_ID,

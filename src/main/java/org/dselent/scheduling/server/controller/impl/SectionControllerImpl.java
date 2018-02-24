@@ -85,6 +85,9 @@ public class SectionControllerImpl implements SectionController
 		List<Object> success = new ArrayList<Object>();
 
 		//Edit functions
+		
+		System.out.println(Edit.getBodyName(Edit.BodyKey.ID) + ", term id: " + Edit.getBodyName(Edit.BodyKey.TERMS_ID));
+		
 		String editName = request.get(Edit.getBodyName(Edit.BodyKey.NAME));
 		Integer editID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.ID)));
 		Integer editTermID = Integer.parseInt(request.get(Edit.getBodyName(Edit.BodyKey.TERMS_ID)));

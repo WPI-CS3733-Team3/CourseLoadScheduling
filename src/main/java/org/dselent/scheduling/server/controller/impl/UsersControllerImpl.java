@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.dselent.scheduling.server.controller.UsersController;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
+import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.requests.user.*;
 import org.dselent.scheduling.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,9 @@ public class UsersControllerImpl implements UsersController
 		
 		String email = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.EMAIL));
 		String password = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.PASSWORD));
+		String accountType = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.ACCOUNT_TYPE));
 
-		userService.createUser(email, password);
+		success.add(userService.createUser(email, password, accountType));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -66,7 +68,9 @@ public class UsersControllerImpl implements UsersController
 		String email = request.get(Login.getBodyName(Login.BodyKey.EMAIL));
 		String password = request.get(Login.getBodyName(Login.BodyKey.PASSWORD));
 
-		userService.login(email, password);
+		User user = userService.login(email, password); 
+		success.add(user);
+		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);

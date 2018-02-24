@@ -20,12 +20,13 @@ public interface UserService
 	/**
 	 * Registers a user into the system
 	 * Performs an insert into the users table and users_roles_links table as a transaction
+	 * @param facultyType 
 	 * 
 	 * @param registerUserDto DTO container information for the insertions
 	 * @return A list of rows affected for each insert operation
 	 * @throws SQLException
 	 */
-	public List<Integer> createUser(String email, String password) throws SQLException;
+	public User createUser(String email, String password, String accountType) throws SQLException;
     public User login(String email, String password) throws SQLException;
 	public List<Integer> editUser(int id, String fname, String lname, String pass) throws SQLException;
 	public List<Integer> deleteUser(int id, int idToDelete) throws SQLException;

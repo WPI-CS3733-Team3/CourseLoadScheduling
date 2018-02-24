@@ -84,6 +84,7 @@ public class SectionsInfoExtractor extends Extractor<List<SectionsInfo>>{
 				result.setFacultyLastName(null);
 			}
 			
+			resultList.add(result);
 		}	
 		
 		return resultList;

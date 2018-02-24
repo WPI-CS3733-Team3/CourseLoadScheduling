@@ -1,5 +1,6 @@
 package org.dselent.scheduling.server.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.dao.CustomDao;
@@ -10,14 +11,18 @@ import org.dselent.scheduling.server.extractor.CourseSectionsExtractor;
 import org.dselent.scheduling.server.extractor.AccountInfoExtractor;
 import org.dselent.scheduling.server.extractor.CourseFacultyExtractor;
 import org.dselent.scheduling.server.extractor.UsersExtractor;
+import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.miscellaneous.QueryPathConstants;
 import org.dselent.scheduling.server.model.CourseInfo;
 import org.dselent.scheduling.server.model.RequestTables;
 import org.dselent.scheduling.server.model.SectionsInfo;
 import org.dselent.scheduling.server.model.CourseSections;
+import org.dselent.scheduling.server.model.Faculty;
 import org.dselent.scheduling.server.model.AccountInfo;
 import org.dselent.scheduling.server.model.CourseFaculty;
 import org.dselent.scheduling.server.model.User;
+import org.dselent.scheduling.server.sqlutils.ColumnOrder;
+import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -95,7 +100,7 @@ public class CustomDaoImpl implements CustomDao
 		SectionsInfoExtractor extractor = new SectionsInfoExtractor();
 		String queryTemplate = new String(QueryPathConstants.SECTIONS_INFO_QUERY);
 
-		//No parameters for this, since it returns all requests, so do not actually fill parameters
+		//No parameters for this, since it returns all sections, so do not actually fill parameters
 		List<SectionsInfo> sectionsList = namedParameterJdbcTemplate.query(queryTemplate, extractor);
 		return sectionsList;
 	}
@@ -155,7 +160,7 @@ public class CustomDaoImpl implements CustomDao
 	//Gets info about all sections in the schedule by term
 	public List<SectionsInfo> getSectionsInfo(int termId){
 		SectionsInfoExtractor extractor = new SectionsInfoExtractor();
-		String queryTemplate = new String(QueryPathConstants.SECTIONS_INFO_QUERY);
+		String queryTemplate = new String(QueryPathConstants.SECTIONS_INFO_TERMS_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("termsId", termId);
 		List<SectionsInfo> sectionsList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
@@ -165,7 +170,7 @@ public class CustomDaoImpl implements CustomDao
 	//Gets info about all sections being taught be one faculty member in a certain term, specified by facultyId and termId
 	public List<SectionsInfo> getOneFacultySectionsInfo(int facultyId, int termId){
 		SectionsInfoExtractor extractor = new SectionsInfoExtractor();
-		String queryTemplate = new String(QueryPathConstants.SECTIONS_INFO_QUERY);
+		String queryTemplate = new String(QueryPathConstants.SECTIONS_ONE_FACULTY_TERMS_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("facultyId", facultyId);
 		parameters.addValue("termsId", termId);

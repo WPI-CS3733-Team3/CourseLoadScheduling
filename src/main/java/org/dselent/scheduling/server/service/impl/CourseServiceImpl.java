@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.dselent.scheduling.server.dao.CoursesDao;
 import org.dselent.scheduling.server.dao.CustomDao;
+import org.dselent.scheduling.server.dao.SectionsDao;
 import org.dselent.scheduling.server.model.CourseInfo;
 import org.dselent.scheduling.server.model.Courses;
+import org.dselent.scheduling.server.model.Sections;
 import org.dselent.scheduling.server.service.CourseService;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
@@ -23,6 +25,9 @@ public class CourseServiceImpl implements CourseService
 	private CoursesDao coursesDao;
 	
 	@Autowired
+	private SectionsDao sectionsDao;
+	
+	@Autowired
 	private CustomDao customDao;
 
 	public CourseServiceImpl()
@@ -32,7 +37,7 @@ public class CourseServiceImpl implements CourseService
 
 	@Transactional
 	@Override
-	public List<Integer> create(String courseName, String courseNumber, int frequency) throws SQLException
+	public Integer create(String courseName, String courseNumber, int frequency) throws SQLException
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
 
@@ -61,7 +66,7 @@ public class CourseServiceImpl implements CourseService
 
 		rowsAffectedList.add(coursesDao.insert(course, courseInsertColumnNameList, courseKeyHolderColumnNameList));
 
-		return rowsAffectedList;
+		return course.getId();//rowsAffectedList;
 	}
 	
 	@Transactional
@@ -96,6 +101,21 @@ public class CourseServiceImpl implements CourseService
 			return null;
 		}
 		
+		//maybe cascade removing schedule stuff here??*******************************
+		
+		//deletes all sections  for the course
+		QueryTerm deleteTermsCascade = new QueryTerm();
+    	
+    	deleteTermsCascade.setColumnName(Sections.getColumnName(Sections.Columns.COURSES_ID));
+    	deleteTermsCascade.setComparisonOperator(ComparisonOperator.EQUAL);
+    	deleteTermsCascade.setLogicalOperator(null);
+    	deleteTermsCascade.setValue(coursesId);
+    	
+    	List<QueryTerm> qtListCas = new ArrayList<QueryTerm>();
+    	qtListCas.add(deleteTermsCascade);
+    	
+    	sectionsDao.delete(qtListCas);
+    	
 		//specify the scheduleId to be removed and builds the queryTerm for it
     	QueryTerm deleteTerms = new QueryTerm();
     	

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CourseService {
    //creates a course
-	public List<Integer> create(String courseName, String courseNumber, int frequency) throws SQLException;
+	public Integer create(String courseName, String courseNumber, int frequency) throws SQLException;
     
 	//edits a course
     public Courses edit(int courseId, String courseName, String courseNumber, int frequencyId) throws SQLException;

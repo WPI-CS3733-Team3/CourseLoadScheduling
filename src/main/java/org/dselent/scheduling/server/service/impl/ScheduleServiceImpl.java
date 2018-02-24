@@ -53,6 +53,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     public List<SectionsInfo> viewOneSchedule(Integer termsId, Integer facultyId) throws SQLException{
     	//if no faculty attached, return an empty list, since there shouldn't be any classes anyway
     	if(facultyId == null) {
+    		System.out.println("Faculty Not specified.");
     		return new ArrayList<SectionsInfo>();
     	}
     	
@@ -106,7 +107,9 @@ public class ScheduleServiceImpl implements ScheduleService {
    		scheduleKeyHolderColNameList.add(Schedule.getColumnName(Schedule.Columns.UPDATED_AT));
    		scheduleKeyHolderColNameList.add(Schedule.getColumnName(Schedule.Columns.DELETED));
 
-    	return scheduleDao.insert(schedule, scheduleInsertColNameList, scheduleKeyHolderColNameList);
+   		scheduleDao.insert(schedule, scheduleInsertColNameList, scheduleKeyHolderColNameList);
+
+    	return schedule.getId();//or just schedule?
     }
     
     //changes information about a class

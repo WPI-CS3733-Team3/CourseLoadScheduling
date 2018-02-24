@@ -38,7 +38,7 @@ public class CourseControllerImpl implements CourseController{
 		Integer frequency = Integer.parseInt(request.get(Create.getBodyName(Create.BodyKey.FREQUENCY)));
 		
 		//build response
-		courseService.create(courseName, courseNumber, frequency);
+		success.add(courseService.create(courseName, courseNumber, frequency));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -116,7 +116,7 @@ public class CourseControllerImpl implements CourseController{
 		List<Object> success = new ArrayList<Object>();
 		
 		//build response
-		courseService.viewAllCourse();
+		success.add(courseService.viewAllCourse());
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);

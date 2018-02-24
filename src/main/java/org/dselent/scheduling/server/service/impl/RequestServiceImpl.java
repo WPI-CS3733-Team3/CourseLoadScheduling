@@ -91,7 +91,7 @@ public class RequestServiceImpl implements RequestService {
 		//Extract Requests table data and insert
 		Request request = new Request();
 		request.setUserId(submitRequestDto.getUserId());
-		request.setStatusId(submitRequestDto.getStatusId()); //Will always be status 2 (pending) for new requests until their are reviewed
+		request.setStatusId(submitRequestDto.getStatusId()); //Will always be status 3 (pending) for new requests until their are reviewed
 		request.setDeleted(false);
 		List<String> requestInsertColumnNameList = new ArrayList<>();
 		List<String> requestKeyHolderColumnNameList = new ArrayList<>();
@@ -108,7 +108,7 @@ public class RequestServiceImpl implements RequestService {
 		RequestCourse requestCourse = new RequestCourse();
 		requestCourse.setCoursesID(submitRequestDto.getCoursesId());
 		//Get request being submitted row ID
-		requestCourse.setRequestsID(rowsAffectedList.get(0));
+		requestCourse.setRequestsID(request.getId());//rowsAffectedList.get(0));
 		requestCourse.setDeleted(false);
 		List<String> requestCourseInsertColumnNameList = new ArrayList<>();
 		List<String> requestCourseKeyHolderColumnNameList = new ArrayList<>();
@@ -118,13 +118,13 @@ public class RequestServiceImpl implements RequestService {
 		requestCourseKeyHolderColumnNameList.add(RequestCourse.getColumnName(RequestCourse.Columns.CREATED_AT));
 		requestCourseKeyHolderColumnNameList.add(RequestCourse.getColumnName(RequestCourse.Columns.UPDATED_AT));
 		requestCourseKeyHolderColumnNameList.add(RequestCourse.getColumnName(RequestCourse.Columns.DELETED));
-		rowsAffectedList.add(requestCourseDao.insert(requestCourse, requestCourseInsertColumnNameList, requestKeyHolderColumnNameList));
+		rowsAffectedList.add(requestCourseDao.insert(requestCourse, requestCourseInsertColumnNameList, requestCourseKeyHolderColumnNameList));
 
 		//Extract RequestOther table data and insert
 		RequestOther requestOther = new RequestOther();
 		requestOther.setMessage(submitRequestDto.getMessage());
 		//Get request being submitted row ID
-		requestOther.setRequestsID(rowsAffectedList.get(0));
+		requestOther.setRequestsID(request.getId());//rowsAffectedList.get(0));
 		requestOther.setDeleted(false);
 		List<String> requestOtherInsertColumnNameList = new ArrayList<>();
 		List<String> requestOtherKeyHolderColumnNameList = new ArrayList<>();
@@ -134,13 +134,13 @@ public class RequestServiceImpl implements RequestService {
 		requestOtherKeyHolderColumnNameList.add(RequestOther.getColumnName(RequestOther.Columns.CREATED_AT));
 		requestOtherKeyHolderColumnNameList.add(RequestOther.getColumnName(RequestOther.Columns.UPDATED_AT));
 		requestOtherKeyHolderColumnNameList.add(RequestOther.getColumnName(RequestOther.Columns.DELETED));
-		rowsAffectedList.add(requestOtherDao.insert(requestOther, requestInsertColumnNameList, requestKeyHolderColumnNameList));
+		rowsAffectedList.add(requestOtherDao.insert(requestOther, requestOtherInsertColumnNameList, requestOtherKeyHolderColumnNameList));
 
 		//Extract RequestTerm table data and insert		
 		RequestTerm requestTerm = new RequestTerm();
 		requestTerm.setTermsID(submitRequestDto.getTermsId());
 		//Get request being submitted row ID
-		requestTerm.setRequestsID(rowsAffectedList.get(0));
+		requestTerm.setRequestsID(request.getId());//rowsAffectedList.get(0));
 		requestTerm.setDeleted(false);
 		List<String> requestTermInsertColumnNameList = new ArrayList<>();
 		List<String> requestTermKeyHolderColumnNameList = new ArrayList<>();
@@ -150,14 +150,14 @@ public class RequestServiceImpl implements RequestService {
 		requestTermKeyHolderColumnNameList.add(RequestTerm.getColumnName(RequestTerm.Columns.CREATED_AT));
 		requestTermKeyHolderColumnNameList.add(RequestTerm.getColumnName(RequestTerm.Columns.UPDATED_AT));
 		requestTermKeyHolderColumnNameList.add(RequestTerm.getColumnName(RequestTerm.Columns.DELETED));
-		rowsAffectedList.add(requestTermDao.insert(requestTerm, requestInsertColumnNameList, requestKeyHolderColumnNameList));
+		rowsAffectedList.add(requestTermDao.insert(requestTerm, requestTermInsertColumnNameList, requestTermKeyHolderColumnNameList));
 
 		//Extract RequestTerm table data and insert
 		RequestTime requestTime = new RequestTime();
 		requestTime.setStartID(submitRequestDto.getStartId());
 		requestTime.setEndID(submitRequestDto.getEndId());
 		//Get request being submitted row ID
-		requestTime.setRequestsID(rowsAffectedList.get(0));
+		requestTime.setRequestsID(request.getId());//rowsAffectedList.get(0));
 		requestTime.setDeleted(false);
 		List<String> requestTimeInsertColumnNameList = new ArrayList<>();
 		List<String> requestTimeKeyHolderColumnNameList = new ArrayList<>();
@@ -168,17 +168,42 @@ public class RequestServiceImpl implements RequestService {
 		requestTimeKeyHolderColumnNameList.add(RequestTime.getColumnName(RequestTime.Columns.CREATED_AT));
 		requestTimeKeyHolderColumnNameList.add(RequestTime.getColumnName(RequestTime.Columns.UPDATED_AT));
 		requestTimeKeyHolderColumnNameList.add(RequestTime.getColumnName(RequestTime.Columns.DELETED));
-		rowsAffectedList.add(requestTimeDao.insert(requestTime, requestInsertColumnNameList, requestKeyHolderColumnNameList));
+		rowsAffectedList.add(requestTimeDao.insert(requestTime, requestTimeInsertColumnNameList, requestTimeKeyHolderColumnNameList));
 
 		return rowsAffectedList;
 
 	}
 
+	@Transactional
 	@Override
 	public List<Integer> deleteRequest(Integer id) throws SQLException {
 
 		List<Integer> rowsAffectedList = new ArrayList<>();
 
+		//remove all request parts that reference this request
+		//course request
+		List<QueryTerm> queryTermListCascade = new ArrayList<>();
+		QueryTerm qtC = new QueryTerm();
+		qtC.setColumnName(RequestCourse.getColumnName(RequestCourse.Columns.REQUESTS_ID));
+		qtC.setComparisonOperator(ComparisonOperator.EQUAL);
+		qtC.setValue(id);
+		qtC.setLogicalOperator(null);
+		queryTermListCascade.add(qtC);
+		rowsAffectedList.add(requestCourseDao.delete(queryTermListCascade));
+		
+		//term request
+		qtC.setColumnName(RequestTerm.getColumnName(RequestTerm.Columns.REQUESTS_ID));
+		rowsAffectedList.add(requestTermDao.delete(queryTermListCascade));
+		
+		//time request
+		qtC.setColumnName(RequestTime.getColumnName(RequestTime.Columns.REQUESTS_ID));
+		rowsAffectedList.add(requestTimeDao.delete(queryTermListCascade));		
+		
+		//other request
+		qtC.setColumnName(RequestOther.getColumnName(RequestOther.Columns.REQUESTS_ID));
+		rowsAffectedList.add(requestOtherDao.delete(queryTermListCascade));	
+		
+		//now get rid of the request
 		List<QueryTerm> queryTermList = new ArrayList<>();
 		QueryTerm qt = new QueryTerm();
 		qt.setColumnName(Request.getColumnName(Request.Columns.ID));
@@ -186,6 +211,9 @@ public class RequestServiceImpl implements RequestService {
 		qt.setValue(id);
 		qt.setLogicalOperator(null);
 		queryTermList.add(qt);
+		
+		System.out.println(id);
+		System.out.println(queryTermList.toString());
 		rowsAffectedList.add(requestsDao.delete(queryTermList));
 		return rowsAffectedList;
 	}

@@ -4,15 +4,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dselent.scheduling.server.dao.AccountTypeDao;
 import org.dselent.scheduling.server.dao.FacultyDao;
 import org.dselent.scheduling.server.dao.UsersDao;
 import org.dselent.scheduling.server.miscellaneous.Pair;
+import org.dselent.scheduling.server.model.AccountType;
 import org.dselent.scheduling.server.model.Faculty;
 import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.service.UserService;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
-import org.dselent.scheduling.server.sqlutils.LogicalOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,15 +31,18 @@ public class UserServiceImpl implements UserService
 
 	@Autowired
 	private FacultyDao facultyDao;
+	
+	@Autowired
+	private AccountTypeDao accountTypeDao;
 
 	public UserServiceImpl()
 	{
-		//
+		
 	}
 
 	@Transactional
 	@Override
-	public List<Integer> createUser(String email, String password) throws SQLException
+	public User createUser(String email, String password, String accountType) throws SQLException
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
 
@@ -48,33 +52,52 @@ public class UserServiceImpl implements UserService
 		// email requirements
 		// null values
 		// etc...
-		List<String> selectColumnNameList = Faculty.getColumnNameList();
+		
+		//Get faculty with the same email
+		List<String> facultySelectColumnNameList = Faculty.getColumnNameList();
 
-		List<QueryTerm> queryTermList = new ArrayList<>();
-		QueryTerm qt = new QueryTerm();
-		qt.setColumnName(Faculty.getColumnName(Faculty.Columns.EMAIL));
-		qt.setComparisonOperator(ComparisonOperator.EQUAL);
-		qt.setValue(email);
-		qt.setLogicalOperator(null);
-		queryTermList.add(qt);
+		List<QueryTerm> facultyQueryTermList = new ArrayList<>();
+		QueryTerm fqt = new QueryTerm();
+		fqt.setColumnName(Faculty.getColumnName(Faculty.Columns.EMAIL));
+		fqt.setComparisonOperator(ComparisonOperator.EQUAL);
+		fqt.setValue(email);
+		fqt.setLogicalOperator(null);
+		facultyQueryTermList.add(fqt);
 
 		List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
 		Pair<String, ColumnOrder> p = new Pair<String, ColumnOrder>(Faculty.getColumnName(Faculty.Columns.ID), ColumnOrder.ASC);
 		orderByList.add(p);
 
-		System.out.println(selectColumnNameList);
-		System.out.println(queryTermList);
+		System.out.println(facultySelectColumnNameList);
+		System.out.println(facultyQueryTermList);
 		System.out.println(orderByList);
-		List<Faculty> facultyList = facultyDao.select(selectColumnNameList, queryTermList, orderByList);
+		List<Faculty> facultyList = facultyDao.select(facultySelectColumnNameList, facultyQueryTermList, orderByList);
 		System.out.println(facultyList);
 
+		//Get account type row with the same account type
+		List<String> accountTypeSelectColumnNameList = AccountType.getColumnNameList();
+
+		List<QueryTerm> accountTypeQueryTermList = new ArrayList<>();
+		QueryTerm acqt = new QueryTerm();
+		acqt.setColumnName(AccountType.getColumnName(AccountType.Columns.ACCOUNT_TYPE));
+		acqt.setComparisonOperator(ComparisonOperator.EQUAL);
+		acqt.setValue(accountType);
+		acqt.setLogicalOperator(null);
+		accountTypeQueryTermList.add(acqt);
+		
+		List<Pair<String, ColumnOrder>> accountTypeOrderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> p2 = new Pair<String, ColumnOrder>(AccountType.getColumnName(AccountType.Columns.ID), ColumnOrder.ASC);
+		accountTypeOrderByList.add(p2);
+		
+		List<AccountType> accountTypeList = accountTypeDao.select(accountTypeSelectColumnNameList, accountTypeQueryTermList, accountTypeOrderByList);
+		
 		String salt = KeyGenerators.string().generateKey();
 		String saltedPassword = password + salt;
 		PasswordEncoder passwordEncorder = new BCryptPasswordEncoder();
 		String encryptedPassword = passwordEncorder.encode(saltedPassword);
 
 		User user = new User();
-		user.setAccountTypeId(1);
+		user.setAccountTypeId(accountTypeList.get(0).getId());
 		user.setFacultyId(facultyList.get(0).getId());
 		user.setEncryptedPassword(encryptedPassword);
 		user.setPasswordSalt(salt);
@@ -94,7 +117,7 @@ public class UserServiceImpl implements UserService
 
 		rowsAffectedList.add(usersDao.insert(user, userInsertColumnNameList, userKeyHolderColumnNameList));
 
-		return rowsAffectedList;
+		return user;
 	}
 
 
@@ -114,6 +137,7 @@ public class UserServiceImpl implements UserService
 		User currentUser = usersDao.findById(id);
 		List<String> selectColumnNameList = Faculty.getColumnNameList();
 
+		//query term for users table
 		List<QueryTerm> queryTermList = new ArrayList<>();
 		QueryTerm qt = new QueryTerm();
 		qt.setColumnName(User.getColumnName(User.Columns.ID));
@@ -121,12 +145,15 @@ public class UserServiceImpl implements UserService
 		qt.setValue(id);
 		qt.setLogicalOperator(null);
 		queryTermList.add(qt);
+		
+		//query term for faculty table
+		List<QueryTerm> queryTermList2 = new ArrayList<>();
 		QueryTerm qt2 = new QueryTerm();
 		qt2.setColumnName(Faculty.getColumnName(Faculty.Columns.ID));
 		qt2.setComparisonOperator(ComparisonOperator.EQUAL);
 		qt2.setValue(currentUser.getFacultyId());
-		qt2.setLogicalOperator(LogicalOperator.AND);
-		queryTermList.add(qt2);
+		qt2.setLogicalOperator(null);//LogicalOperator.AND);
+		queryTermList2.add(qt2);
 
 		List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
 		Pair<String, ColumnOrder> p = new Pair<String, ColumnOrder>(Faculty.getColumnName(Faculty.Columns.ID), ColumnOrder.ASC);
@@ -142,17 +169,17 @@ public class UserServiceImpl implements UserService
 		String saltedPassword = password + salt;
 		PasswordEncoder passwordEncorder = new BCryptPasswordEncoder();
 		String encryptedPassword = passwordEncorder.encode(saltedPassword);
-
+/*
 		User user = new User();
 		user.setAccountTypeId(1);
 		user.setEncryptedPassword(encryptedPassword);
-		user.setPasswordSalt(salt);
+		user.setPasswordSalt(salt);*/
 
 
 		rowsAffectedList.add(usersDao.update(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD), encryptedPassword, queryTermList));
 		rowsAffectedList.add(usersDao.update(User.getColumnName(User.Columns.PASSWORD_SALT), salt, queryTermList));
-		rowsAffectedList.add(facultyDao.update(Faculty.getColumnName(Faculty.Columns.FIRST_NAME), fname, queryTermList));
-		rowsAffectedList.add(facultyDao.update(Faculty.getColumnName(Faculty.Columns.LAST_NAME), lname, queryTermList));
+		rowsAffectedList.add(facultyDao.update(Faculty.getColumnName(Faculty.Columns.FIRST_NAME), fname, queryTermList2));
+		rowsAffectedList.add(facultyDao.update(Faculty.getColumnName(Faculty.Columns.LAST_NAME), lname, queryTermList2));
 
 
 
@@ -196,11 +223,17 @@ public class UserServiceImpl implements UserService
 		User user = usersDao.select(userSelectColumnNameList, userQueryTermList, userOrderByList).get(0);
 
 		String saltedPassword = password + user.getPasswordSalt();
-		PasswordEncoder passwordEncorder = new BCryptPasswordEncoder();
-		String encryptedPassword = passwordEncorder.encode(saltedPassword);
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		//String encryptedPassword = passwordEncoder.encode(saltedPassword);
 		String expectedPassword = user.getEncryptedPassword();
+		
+		boolean success = passwordEncoder.matches(saltedPassword, expectedPassword);
+		
+		
+		//System.out.println("Expected: "+ expectedPassword + "\nEncrypted: "+ encryptedPassword + "\n what was given: " + password +
+		//"\n and salt:" + user.getPasswordSalt() + "\n Success: " + success);
 
-		return encryptedPassword == expectedPassword ? user : null;
+		return success ? user : null;
 	} 
 
 	@Override
