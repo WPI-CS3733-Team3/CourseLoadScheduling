@@ -47,8 +47,9 @@ public class UsersControllerImpl implements UsersController
 		
 		String email = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.EMAIL));
 		String password = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.PASSWORD));
+		String accountType = request.get(CreateAccount.getBodyName(CreateAccount.BodyKey.ACCOUNT_TYPE));
 
-		userService.createUser(email, password);
+		success.add(userService.createUser(email, password, accountType));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
