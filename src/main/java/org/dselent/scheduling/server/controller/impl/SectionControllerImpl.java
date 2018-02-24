@@ -11,6 +11,7 @@ import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
 import org.dselent.scheduling.server.requests.section.Add;
 import org.dselent.scheduling.server.requests.section.Edit;
 import org.dselent.scheduling.server.requests.section.Remove;
+import org.dselent.scheduling.server.requests.section.View;
 import org.dselent.scheduling.server.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,7 @@ public class SectionControllerImpl implements SectionController
 	 * @return A ResponseEntity for the response object(s) and the status code
 	 * @throws Exception 
 	 */
+	@Override
 	public ResponseEntity<String> addSection(@RequestBody Map<String, String> request) throws Exception 
 	{
 		// Print is for testing purposes
@@ -75,6 +77,7 @@ public class SectionControllerImpl implements SectionController
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
+	@Override
 	public ResponseEntity<String> editSection(@RequestBody Map<String, String> request) throws Exception
 	{
 		// Print is for testing purposes
@@ -115,6 +118,7 @@ public class SectionControllerImpl implements SectionController
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
+	@Override
 	public ResponseEntity<String> removeSection(@RequestBody Map<String, String> request) throws Exception
 	{
 		// Print is for testing purposes
@@ -132,5 +136,26 @@ public class SectionControllerImpl implements SectionController
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
+	
+	@Override
+	public ResponseEntity<String> viewSection(@RequestBody Map<String, String> request) throws Exception
+	{
+		// Print is for testing purposes
+		System.out.println("controller (section/view) reached");
 
+		// add any objects that need to be returned to the success list
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+
+		//Get the sections if a courseId was passed in
+		if( request.get(View.getBodyName(View.BodyKey.COURSE_ID)) != null) {		
+			Integer courseId = Integer.parseInt(request.get(View.getBodyName(View.BodyKey.COURSE_ID)));
+			success.add(sectionService.viewSection(courseId));
+		}
+		
+		//send response
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
 }

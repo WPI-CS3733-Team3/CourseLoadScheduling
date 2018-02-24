@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.dao.SectionsDao;
 import org.dselent.scheduling.server.dto.AddSectionDto;
 import org.dselent.scheduling.server.dto.EditSectionDto;
+import org.dselent.scheduling.server.model.CourseSections;
 import org.dselent.scheduling.server.model.Sections;
+import org.dselent.scheduling.server.model.SectionsInfo;
 import org.dselent.scheduling.server.service.SectionService;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
@@ -22,6 +25,10 @@ public class SectionServiceImpl implements SectionService
 	@Autowired
 	private SectionsDao sectionsDao;
 
+	@Autowired
+	private CustomDao customDao;
+	
+	
 	public SectionServiceImpl()
 	{
 		//
@@ -110,7 +117,7 @@ public class SectionServiceImpl implements SectionService
 	@Override
 	public Integer removeSection(Integer id) throws SQLException
 	{
-		//Cascade removing schedule stuff here********************************
+		//Cascade removing schedule stuff here?********************************
 		
 		QueryTerm removeSection = new QueryTerm();
         
@@ -123,6 +130,16 @@ public class SectionServiceImpl implements SectionService
 		qtList.add(removeSection);
 		        
 		return sectionsDao.delete(qtList);
-	}   
+	}  
+	
+	
+	@Override
+	public List<CourseSections> viewSection(Integer courseId) throws SQLException{
+		if(courseId == null) {
+    		return null;
+    	}
+    	return customDao.getSectionsForCourse(courseId);
+	}
+	
 
 }
