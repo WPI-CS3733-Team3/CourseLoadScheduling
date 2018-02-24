@@ -244,7 +244,7 @@ DECLARE
 BEGIN
  EXECUTE format('SELECT * FROM %I WHERE id=%s AND deleted IS TRUE', quote_ident(TG_TABLE_NAME), OLD.id) INTO old_row;
  EXECUTE format('UPDATE %I SET deleted=TRUE WHERE id=%s', quote_ident(TG_TABLE_NAME), OLD.id);
- RETURN old_row;
+ RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
