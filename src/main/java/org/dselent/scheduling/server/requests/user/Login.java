@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class Login
 {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "login";
+	public static final String REQUEST_NAME = "user/login";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
