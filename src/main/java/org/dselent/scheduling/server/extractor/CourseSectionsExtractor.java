@@ -102,6 +102,12 @@ public class CourseSectionsExtractor extends Extractor<List<CourseSections>>{
 				result.setCoursesId(null);
 			}
 			
+			result.setTermsId(rs.getInt(CourseSections.getColumnName(CourseSections.Columns.TERMS_ID)));
+			if(rs.wasNull())
+			{
+				result.setTermsId(null);
+			}
+			
 			resultList.add(result);
 		}
 		

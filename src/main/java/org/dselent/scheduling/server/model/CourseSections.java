@@ -27,7 +27,8 @@ public class CourseSections {
 			DAYS_ID,
 			START_TIME_ID,
 			END_TIME_ID,
-			COURSES_ID		
+			COURSES_ID,
+			TERMS_ID
 		}
 		
 		// enum list
@@ -56,6 +57,7 @@ public class CourseSections {
 			COLUMN_TYPE_MAP.put(Columns.START_TIME_ID, JDBCType.INTEGER);
 			COLUMN_TYPE_MAP.put(Columns.END_TIME_ID, JDBCType.INTEGER);
 			COLUMN_TYPE_MAP.put(Columns.COURSES_ID, JDBCType.INTEGER);
+			COLUMN_TYPE_MAP.put(Columns.TERMS_ID, JDBCType.INTEGER);
 		};
 		
 		// attributes
@@ -73,6 +75,7 @@ public class CourseSections {
 		private Integer startTimeId;
 		private Integer endTimeId;
 		private Integer coursesId;
+		private Integer termsId;
 		
 		// methods
 		public static JDBCType getColumnType(Columns column)
@@ -99,6 +102,14 @@ public class CourseSections {
 
 		
 		//getters and setters
+		public Integer getTermsId() {
+			return termsId;
+		}
+
+		public void setTermsId(Integer termsId) {
+			this.termsId = termsId;
+		}
+		
 		public Integer getSectionId() {
 			return sectionId;
 		}
@@ -228,6 +239,7 @@ public class CourseSections {
 			result = prime * result + ((sectionsName == null) ? 0 : sectionsName.hashCode());
 			result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
 			result = prime * result + ((startTimeId == null) ? 0 : startTimeId.hashCode());
+			result = prime * result + ((termsId == null) ? 0 : termsId.hashCode());
 			result = prime * result + ((termsName == null) ? 0 : termsName.hashCode());
 			return result;
 		}
@@ -335,6 +347,13 @@ public class CourseSections {
 			} else if (!startTimeId.equals(other.startTimeId)) {
 				return false;
 			}
+			if (termsId == null) {
+				if (other.termsId != null) {
+					return false;
+				}
+			} else if (!termsId.equals(other.termsId)) {
+				return false;
+			}
 			if (termsName == null) {
 				if (other.termsName != null) {
 					return false;
@@ -351,7 +370,7 @@ public class CourseSections {
 					+ sectionsName + ", days=" + days + ", coursesNumber=" + coursesNumber + ", coursesTitle="
 					+ coursesTitle + ", startTime=" + startTime + ", endTime=" + endTime + ", sectionId=" + sectionId
 					+ ", sectionTypeId=" + sectionTypeId + ", daysId=" + daysId + ", startTimeId=" + startTimeId
-					+ ", endTimeId=" + endTimeId + ", coursesId=" + coursesId + "]";
+					+ ", endTimeId=" + endTimeId + ", coursesId=" + coursesId + ", termsId=" + termsId + "]";
 		}
 		
 }
