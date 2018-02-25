@@ -1,17 +1,14 @@
-package org.dselent.scheduling.server.requests.times;
+package org.dselent.scheduling.server.requests.mapping;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
-import org.dselent.scheduling.server.requests.schedule.ViewOne.BodyKey;
-import org.dselent.scheduling.server.requests.schedule.ViewOne.HeaderKey;
-import org.dselent.scheduling.server.requests.schedule.ViewOne.ParameterKey;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public class GetStartTimes {
+public class GetTerms {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;              
-	public static final String REQUEST_NAME = "view/start";                             
+	public static final String REQUEST_NAME = "terms";                             
 	private static final List<HeaderKey> HEADER_KEY_LIST;                             
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;                       
 	private static final List<BodyKey> BODY_KEY_LIST;                                 
@@ -30,9 +27,7 @@ public class GetStartTimes {
 	{                                                                                 
 		
 	}                                                                                 
-	                                                                                  
-	                                                                                  
-	                                                                                  
+	                                                                                     
 	static                                                                            
 	{                                                                                 
 		HEADER_KEY_LIST = new ArrayList<HeaderKey>();                                 
@@ -56,7 +51,7 @@ public class GetStartTimes {
 		                                                                              
 	};                                                                                
 	                                                                                  
-	private GetStartTimes()                                                                 
+	private GetTerms()                                                                 
 	{                                                                                 
 		                                                                              
 	};    
@@ -105,5 +100,4 @@ public class GetStartTimes {
 		                                                         
 		return bodyNameList;                                     
 	} 
-	
 }
