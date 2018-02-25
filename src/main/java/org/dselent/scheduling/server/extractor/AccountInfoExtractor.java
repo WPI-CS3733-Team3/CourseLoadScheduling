@@ -48,6 +48,12 @@ public class AccountInfoExtractor extends Extractor<List<AccountInfo>>{
 				result.setAccountType(null);
 			}
 			
+			result.setFacultyId(rs.getInt(AccountInfo.getColumnName(AccountInfo.Columns.FACULTY_ID)));
+			if(rs.wasNull())
+			{
+				result.setAccountType(null);
+			}
+			
 			resultList.add(result);
 		}
 		

@@ -18,10 +18,10 @@ public class CourseInfoExtractor extends Extractor<List<CourseInfo>>{
 		{
 			CourseInfo result = new CourseInfo();
 		
-			result.setTermsName(rs.getString(CourseInfo.getColumnName(CourseInfo.Columns.TERMS_NAME)));
+			result.setCoursesId(rs.getInt(CourseInfo.getColumnName(CourseInfo.Columns.COURSES_ID)));
 			if(rs.wasNull())
 			{
-				result.setTermsName(null);
+				result.setCoursesId(null);
 			}
 			
 			result.setCoursesNumber(rs.getString(CourseInfo.getColumnName(CourseInfo.Columns.COURSES_NUMBER)));
@@ -36,10 +36,10 @@ public class CourseInfoExtractor extends Extractor<List<CourseInfo>>{
 				result.setCoursesTitle(null);
 			}
 			
-			result.setSectionsName(rs.getString(CourseInfo.getColumnName(CourseInfo.Columns.SECTIONS_NAME)));
+			result.setFrequencyId(rs.getInt(CourseInfo.getColumnName(CourseInfo.Columns.FREQUENCY_ID)));
 			if(rs.wasNull())
 			{
-				result.setSectionsName(null);
+				result.setFrequencyId(null);
 			}
 			
 			result.setFrequency(rs.getString(CourseInfo.getColumnName(CourseInfo.Columns.FREQUENCY)));

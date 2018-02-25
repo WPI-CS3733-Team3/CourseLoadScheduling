@@ -4,16 +4,24 @@
 --and joins information about the sections from other tables (days, course, etc.)
 
 
-SELECT terms.name AS terms_name,
+SELECT sections.id AS section_id,
+sections.terms_id AS terms_id,
+sections.section_type_id AS section_type_id,
+sections.days_id AS days_id,
+sections.start_time_id AS start_time_id,
+sections.end_time_id AS end_time_id,
+sections.course_id AS course_id,
+terms.name AS terms_name,
 section_type.type AS section_type,
 days.day AS days,
 courses.number AS courses_number,
 courses.title AS courses_title,
 start_time.time AS start_time,
 end_time.time AS end_time,
+sections.name AS sections_name,
 faculty.first_name AS faculty_first_name,
 faculty.last_name AS faculty_last_name,
-sections.name AS sections_name
+sections.faculty_id AS faculty_id
 FROM schedule
 LEFT JOIN sections ON schedule.sections_id = sections.id
 LEFT JOIN terms ON terms.id =  sections.terms_id

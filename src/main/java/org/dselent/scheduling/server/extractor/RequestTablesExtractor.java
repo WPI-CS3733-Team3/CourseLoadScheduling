@@ -71,6 +71,47 @@ public class RequestTablesExtractor extends Extractor<List<RequestTables>>{
 				result.setRequestStatus(null);
 			}	
 			
+			result.setFacultyFirstName(rs.getString(RequestTables.getColumnName(RequestTables.Columns.FACULTY_FIRST_NAME)));
+			if(rs.wasNull())
+			{
+				result.setFacultyFirstName(null);
+			}	
+			
+			result.setFacultyLastName(rs.getString(RequestTables.getColumnName(RequestTables.Columns.FACULTY_LAST_NAME)));
+			if(rs.wasNull())
+			{
+				result.setFacultyLastName(null);
+			}	
+			
+			result.setTermsId(rs.getInt(RequestTables.getColumnName(RequestTables.Columns.TERMS_ID)));
+			if(rs.wasNull())
+			{
+				result.setTermsId(null);
+			}	
+			
+			result.setStartTimeId(rs.getInt(RequestTables.getColumnName(RequestTables.Columns.START_TIME_ID)));
+			if(rs.wasNull())
+			{
+				result.setStartTimeId(null);
+			}	
+			
+			result.setEndTimeId(rs.getInt(RequestTables.getColumnName(RequestTables.Columns.END_TIME_ID)));
+			if(rs.wasNull())
+			{
+				result.setEndTimeId(null);
+			}	
+			
+			result.setCoursesId(rs.getInt(RequestTables.getColumnName(RequestTables.Columns.COURSES_ID)));
+			if(rs.wasNull())
+			{
+				result.setCoursesId(null);
+			}	
+			
+			result.setRequestStatusId(rs.getInt(RequestTables.getColumnName(RequestTables.Columns.REQUEST_STATUS_ID)));
+			if(rs.wasNull())
+			{
+				result.setRequestStatusId(null);
+			}
 			
 			resultList.add(result);
 		}

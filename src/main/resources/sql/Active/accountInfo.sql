@@ -6,6 +6,7 @@
 SELECT faculty.first_name AS faculty_first_name,
 faculty.last_name AS faculty_last_name,
 faculty.email AS faculty_email,
+faculty.id AS faculty_id,
 faculty_type.type AS faculty_type,
 account_type.account_type AS account_type
 FROM users

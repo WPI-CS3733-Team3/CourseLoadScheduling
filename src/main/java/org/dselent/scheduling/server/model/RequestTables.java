@@ -22,7 +22,14 @@ public class RequestTables extends Model{
 		COURSES_TITLE,
 		COURSES_NUMBER,
 		REQUEST_OTHER_MESSAGE,
-		REQUEST_STATUS
+		REQUEST_STATUS,
+		FACULTY_FIRST_NAME,
+		FACULTY_LAST_NAME,
+		TERMS_ID,
+		START_TIME_ID,
+		END_TIME_ID,
+		COURSES_ID,
+		REQUEST_STATUS_ID
 	}
 
 	// enum list
@@ -47,6 +54,13 @@ public class RequestTables extends Model{
 		COLUMN_TYPE_MAP.put(Columns.COURSES_NUMBER, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.REQUEST_OTHER_MESSAGE, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.REQUEST_STATUS, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.FACULTY_FIRST_NAME, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.FACULTY_LAST_NAME, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.TERMS_ID, JDBCType.INTEGER);
+		COLUMN_TYPE_MAP.put(Columns.START_TIME_ID, JDBCType.INTEGER);
+		COLUMN_TYPE_MAP.put(Columns.END_TIME_ID, JDBCType.INTEGER);
+		COLUMN_TYPE_MAP.put(Columns.COURSES_ID, JDBCType.INTEGER);
+		COLUMN_TYPE_MAP.put(Columns.REQUEST_STATUS_ID, JDBCType.INTEGER);
 	};
 
 	// attributes
@@ -60,9 +74,15 @@ public class RequestTables extends Model{
 	private String coursesNumber;
 	private String requestOtherMessage;
 	private String requestStatus;
+	private String facultyFirstName;
+	private String facultyLastName;
+	private Integer termsId;
+	private Integer startTimeId;
+	private Integer endTimeId;
+	private Integer coursesId;
+	private Integer requestStatusId;
 
 	// methods
-
 	public static JDBCType getColumnType(Columns column)
 	{
 		return COLUMN_TYPE_MAP.get(column);
@@ -87,10 +107,67 @@ public class RequestTables extends Model{
 
 
 	//getters and setters
+	
+	public String getFacultyFirstName() {
+		return facultyFirstName;
+	}
+
+	public void setFacultyFirstName(String facultyFirstName) {
+		this.facultyFirstName = facultyFirstName;
+	}
+
+	public String getFacultyLastName() {
+		return facultyLastName;
+	}
+
+	public void setFacultyLastName(String facultyLastName) {
+		this.facultyLastName = facultyLastName;
+	}
+
+	public Integer getTermsId() {
+		return termsId;
+	}
+
+	public void setTermsId(Integer termsId) {
+		this.termsId = termsId;
+	}
+
+	public Integer getStartTimeId() {
+		return startTimeId;
+	}
+
+	public void setStartTimeId(Integer startTimeId) {
+		this.startTimeId = startTimeId;
+	}
+
+	public Integer getEndTimeId() {
+		return endTimeId;
+	}
+
+	public void setEndTimeId(Integer endTimeId) {
+		this.endTimeId = endTimeId;
+	}
+
+	public Integer getCoursesId() {
+		return coursesId;
+	}
+
+	public void setCoursesId(Integer coursesId) {
+		this.coursesId = coursesId;
+	}
+
+	public Integer getRequestStatusId() {
+		return requestStatusId;
+	}
+
+	public void setRequestStatusId(Integer requestStatusId) {
+		this.requestStatusId = requestStatusId;
+	}
+
 	public Integer getRequestsId() {
 		return requestsId;
 	}
-
+	
 	public void setRequestsId(Integer requestsId) {
 		this.requestsId = requestsId;
 	}
@@ -163,14 +240,21 @@ public class RequestTables extends Model{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((coursesId == null) ? 0 : coursesId.hashCode());
 		result = prime * result + ((coursesNumber == null) ? 0 : coursesNumber.hashCode());
 		result = prime * result + ((coursesTitle == null) ? 0 : coursesTitle.hashCode());
 		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
+		result = prime * result + ((endTimeId == null) ? 0 : endTimeId.hashCode());
+		result = prime * result + ((facultyFirstName == null) ? 0 : facultyFirstName.hashCode());
+		result = prime * result + ((facultyLastName == null) ? 0 : facultyLastName.hashCode());
 		result = prime * result + ((requestOtherMessage == null) ? 0 : requestOtherMessage.hashCode());
 		result = prime * result + ((requestStatus == null) ? 0 : requestStatus.hashCode());
+		result = prime * result + ((requestStatusId == null) ? 0 : requestStatusId.hashCode());
 		result = prime * result + ((requestsId == null) ? 0 : requestsId.hashCode());
 		result = prime * result + ((requestsUserId == null) ? 0 : requestsUserId.hashCode());
 		result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
+		result = prime * result + ((startTimeId == null) ? 0 : startTimeId.hashCode());
+		result = prime * result + ((termsId == null) ? 0 : termsId.hashCode());
 		result = prime * result + ((termsName == null) ? 0 : termsName.hashCode());
 		return result;
 	}
@@ -187,6 +271,13 @@ public class RequestTables extends Model{
 			return false;
 		}
 		RequestTables other = (RequestTables) obj;
+		if (coursesId == null) {
+			if (other.coursesId != null) {
+				return false;
+			}
+		} else if (!coursesId.equals(other.coursesId)) {
+			return false;
+		}
 		if (coursesNumber == null) {
 			if (other.coursesNumber != null) {
 				return false;
@@ -208,6 +299,27 @@ public class RequestTables extends Model{
 		} else if (!endTime.equals(other.endTime)) {
 			return false;
 		}
+		if (endTimeId == null) {
+			if (other.endTimeId != null) {
+				return false;
+			}
+		} else if (!endTimeId.equals(other.endTimeId)) {
+			return false;
+		}
+		if (facultyFirstName == null) {
+			if (other.facultyFirstName != null) {
+				return false;
+			}
+		} else if (!facultyFirstName.equals(other.facultyFirstName)) {
+			return false;
+		}
+		if (facultyLastName == null) {
+			if (other.facultyLastName != null) {
+				return false;
+			}
+		} else if (!facultyLastName.equals(other.facultyLastName)) {
+			return false;
+		}
 		if (requestOtherMessage == null) {
 			if (other.requestOtherMessage != null) {
 				return false;
@@ -220,6 +332,13 @@ public class RequestTables extends Model{
 				return false;
 			}
 		} else if (!requestStatus.equals(other.requestStatus)) {
+			return false;
+		}
+		if (requestStatusId == null) {
+			if (other.requestStatusId != null) {
+				return false;
+			}
+		} else if (!requestStatusId.equals(other.requestStatusId)) {
 			return false;
 		}
 		if (requestsId == null) {
@@ -243,6 +362,20 @@ public class RequestTables extends Model{
 		} else if (!startTime.equals(other.startTime)) {
 			return false;
 		}
+		if (startTimeId == null) {
+			if (other.startTimeId != null) {
+				return false;
+			}
+		} else if (!startTimeId.equals(other.startTimeId)) {
+			return false;
+		}
+		if (termsId == null) {
+			if (other.termsId != null) {
+				return false;
+			}
+		} else if (!termsId.equals(other.termsId)) {
+			return false;
+		}
 		if (termsName == null) {
 			if (other.termsName != null) {
 				return false;
@@ -253,17 +386,14 @@ public class RequestTables extends Model{
 		return true;
 	}
 
-	//tosString
 	@Override
 	public String toString() {
 		return "RequestTables [requestsId=" + requestsId + ", requestsUserId=" + requestsUserId + ", termsName="
 				+ termsName + ", startTime=" + startTime + ", endTime=" + endTime + ", coursesTitle=" + coursesTitle
 				+ ", coursesNumber=" + coursesNumber + ", requestOtherMessage=" + requestOtherMessage
-				+ ", requestStatus=" + requestStatus + "]";
+				+ ", requestStatus=" + requestStatus + ", facultyFirstName=" + facultyFirstName + ", facultyLastName="
+				+ facultyLastName + ", termsId=" + termsId + ", startTimeId=" + startTimeId + ", endTimeId=" + endTimeId
+				+ ", coursesId=" + coursesId + ", requestStatusId=" + requestStatusId + "]";
 	}
-
-
-
-
 
 }

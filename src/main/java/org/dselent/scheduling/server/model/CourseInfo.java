@@ -15,9 +15,9 @@ public class CourseInfo {
 		{
 			COURSES_TITLE,
 			COURSES_NUMBER,
-			TERMS_NAME,
 			FREQUENCY,
-			SECTIONS_NAME
+			FREQUENCY_ID,
+			COURSES_ID
 		}
 		
 		// enum list
@@ -32,19 +32,19 @@ public class CourseInfo {
 			{
 				COLUMN_LIST.add(key);
 			}
-			COLUMN_TYPE_MAP.put(Columns.TERMS_NAME, JDBCType.VARCHAR);
+			COLUMN_TYPE_MAP.put(Columns.COURSES_ID, JDBCType.INTEGER);
 			COLUMN_TYPE_MAP.put(Columns.COURSES_NUMBER, JDBCType.VARCHAR);
 			COLUMN_TYPE_MAP.put(Columns.COURSES_TITLE, JDBCType.VARCHAR);
-			COLUMN_TYPE_MAP.put(Columns.SECTIONS_NAME, JDBCType.VARCHAR);
+			COLUMN_TYPE_MAP.put(Columns.FREQUENCY_ID, JDBCType.INTEGER);
 			COLUMN_TYPE_MAP.put(Columns.FREQUENCY, JDBCType.VARCHAR);
 
 		};
 		
 		// attributes
-		private String termsName;
+		private Integer coursesId;
 		private String coursesNumber;
 		private String coursesTitle;
-		private String sectionsName;
+		private Integer frequencyId;
 		private String frequency;
 
 		// methods
@@ -73,12 +73,21 @@ public class CourseInfo {
 
 		
 		//getters and setters
-		public String getTermsName() {
-			return termsName;
+
+		public Integer getCoursesId() {
+			return coursesId;
 		}
 
-		public void setTermsName(String termsName) {
-			this.termsName = termsName;
+		public void setCoursesId(Integer coursesId) {
+			this.coursesId = coursesId;
+		}
+
+		public Integer getFrequencyId() {
+			return frequencyId;
+		}
+
+		public void setFrequencyId(Integer frequencyId) {
+			this.frequencyId = frequencyId;
 		}
 
 		public String getCoursesNumber() {
@@ -97,14 +106,6 @@ public class CourseInfo {
 			this.coursesTitle = coursesTitle;
 		}
 
-		public String getSectionsName() {
-			return sectionsName;
-		}
-
-		public void setSectionsName(String sectionsName) {
-			this.sectionsName = sectionsName;
-		}
-
 		public String getFrequency() {
 			return frequency;
 		}
@@ -114,16 +115,15 @@ public class CourseInfo {
 		}
 
 		
-		//Auto-generated hashCode and equals
 		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
+			result = prime * result + ((coursesId == null) ? 0 : coursesId.hashCode());
 			result = prime * result + ((coursesNumber == null) ? 0 : coursesNumber.hashCode());
 			result = prime * result + ((coursesTitle == null) ? 0 : coursesTitle.hashCode());
 			result = prime * result + ((frequency == null) ? 0 : frequency.hashCode());
-			result = prime * result + ((sectionsName == null) ? 0 : sectionsName.hashCode());
-			result = prime * result + ((termsName == null) ? 0 : termsName.hashCode());
+			result = prime * result + ((frequencyId == null) ? 0 : frequencyId.hashCode());
 			return result;
 		}
 
@@ -139,6 +139,13 @@ public class CourseInfo {
 				return false;
 			}
 			CourseInfo other = (CourseInfo) obj;
+			if (coursesId == null) {
+				if (other.coursesId != null) {
+					return false;
+				}
+			} else if (!coursesId.equals(other.coursesId)) {
+				return false;
+			}
 			if (coursesNumber == null) {
 				if (other.coursesNumber != null) {
 					return false;
@@ -160,34 +167,21 @@ public class CourseInfo {
 			} else if (!frequency.equals(other.frequency)) {
 				return false;
 			}
-			if (sectionsName == null) {
-				if (other.sectionsName != null) {
+			if (frequencyId == null) {
+				if (other.frequencyId != null) {
 					return false;
 				}
-			} else if (!sectionsName.equals(other.sectionsName)) {
-				return false;
-			}
-			if (termsName == null) {
-				if (other.termsName != null) {
-					return false;
-				}
-			} else if (!termsName.equals(other.termsName)) {
+			} else if (!frequencyId.equals(other.frequencyId)) {
 				return false;
 			}
 			return true;
 		}
 
 		
-		//toString
 		@Override
 		public String toString() {
-			return "CourseInfo [termsName=" + termsName + ", coursesNumber=" + coursesNumber + ", coursesTitle="
-					+ coursesTitle + ", sectionsName=" + sectionsName + ", frequency=" + frequency + "]";
+			return "CourseInfo [coursesId=" + coursesId + ", coursesNumber=" + coursesNumber + ", coursesTitle="
+					+ coursesTitle + ", frequencyId=" + frequencyId + ", frequency=" + frequency + "]";
 		}
-		
-		
-		
-		
-		
-		
+	
 }

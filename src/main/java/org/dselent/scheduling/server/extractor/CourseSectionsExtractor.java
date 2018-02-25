@@ -66,6 +66,42 @@ public class CourseSectionsExtractor extends Extractor<List<CourseSections>>{
 				result.setEndTime(null);
 			}
 			
+			result.setSectionId(rs.getInt(CourseSections.getColumnName(CourseSections.Columns.SECTION_ID)));
+			if(rs.wasNull())
+			{
+				result.setSectionId(null);
+			}
+			
+			result.setSectionTypeId(rs.getInt(CourseSections.getColumnName(CourseSections.Columns.SECTION_TYPE_ID)));
+			if(rs.wasNull())
+			{
+				result.setSectionTypeId(null);
+			}
+			
+			result.setDaysId(rs.getInt(CourseSections.getColumnName(CourseSections.Columns.DAYS_ID)));
+			if(rs.wasNull())
+			{
+				result.setDaysId(null);
+			}
+			
+			result.setStartTimeId(rs.getInt(CourseSections.getColumnName(CourseSections.Columns.START_TIME_ID)));
+			if(rs.wasNull())
+			{
+				result.setStartTimeId(null);
+			}
+			
+			result.setEndTimeId(rs.getInt(CourseSections.getColumnName(CourseSections.Columns.END_TIME_ID)));
+			if(rs.wasNull())
+			{
+				result.setEndTimeId(null);
+			}
+			
+			result.setCoursesId(rs.getInt(CourseSections.getColumnName(CourseSections.Columns.COURSES_ID)));
+			if(rs.wasNull())
+			{
+				result.setCoursesId(null);
+			}
+			
 			resultList.add(result);
 		}
 		

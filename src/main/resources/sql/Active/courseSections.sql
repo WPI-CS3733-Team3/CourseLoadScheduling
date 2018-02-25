@@ -4,14 +4,21 @@
 --the courseId variable, as well as information about the sections,
 --such as days and section type.
 
-SELECT terms.name AS terms_name,
+SELECT sections.id AS section_id,
+sections.terms_id AS terms_id,
+sections.section_type_id AS section_type_id,
+sections.days_id AS days_id,
+sections.start_time_id AS start_time_id,
+sections.end_time_id AS end_time_id,
+sections.courses_id AS courses_id,
+terms.name AS terms_name,
 section_type.type AS section_type,
-sections.name AS sections_name,
 days.day AS days,
 courses.number AS courses_number,
 courses.title AS courses_title,
 start_time.time AS start_time,
-end_time.time AS end_time
+end_time.time AS end_time,
+sections.name AS sections_name
 FROM sections
 LEFT JOIN terms ON sections.terms_id = terms.id
 LEFT JOIN section_type ON section_type.id =  sections.section_type_id

@@ -21,7 +21,13 @@ public class CourseSections {
 			COURSES_NUMBER,
 			COURSES_TITLE,
 			START_TIME,
-			END_TIME
+			END_TIME,
+			SECTION_ID,
+			SECTION_TYPE_ID,
+			DAYS_ID,
+			START_TIME_ID,
+			END_TIME_ID,
+			COURSES_ID		
 		}
 		
 		// enum list
@@ -44,7 +50,12 @@ public class CourseSections {
 			COLUMN_TYPE_MAP.put(Columns.COURSES_TITLE, JDBCType.VARCHAR);
 			COLUMN_TYPE_MAP.put(Columns.START_TIME, JDBCType.TIME);
 			COLUMN_TYPE_MAP.put(Columns.END_TIME, JDBCType.TIME);
-
+			COLUMN_TYPE_MAP.put(Columns.SECTION_ID, JDBCType.INTEGER);
+			COLUMN_TYPE_MAP.put(Columns.SECTION_TYPE_ID, JDBCType.INTEGER);
+			COLUMN_TYPE_MAP.put(Columns.DAYS_ID, JDBCType.INTEGER);
+			COLUMN_TYPE_MAP.put(Columns.START_TIME_ID, JDBCType.INTEGER);
+			COLUMN_TYPE_MAP.put(Columns.END_TIME_ID, JDBCType.INTEGER);
+			COLUMN_TYPE_MAP.put(Columns.COURSES_ID, JDBCType.INTEGER);
 		};
 		
 		// attributes
@@ -56,9 +67,14 @@ public class CourseSections {
 		private String coursesTitle;
 		private Time startTime;
 		private Time endTime;
-
-		// methods
+		private Integer sectionId;
+		private Integer sectionTypeId;
+		private Integer daysId;
+		private Integer startTimeId;
+		private Integer endTimeId;
+		private Integer coursesId;
 		
+		// methods
 		public static JDBCType getColumnType(Columns column)
 		{
 			return COLUMN_TYPE_MAP.get(column);
@@ -82,7 +98,55 @@ public class CourseSections {
 		}
 
 		
-		//Setters and Getters
+		//getters and setters
+		public Integer getSectionId() {
+			return sectionId;
+		}
+
+		public void setSectionId(Integer sectionId) {
+			this.sectionId = sectionId;
+		}
+
+		public Integer getSectionTypeId() {
+			return sectionTypeId;
+		}
+
+		public void setSectionTypeId(Integer sectionTypeId) {
+			this.sectionTypeId = sectionTypeId;
+		}
+
+		public Integer getDaysId() {
+			return daysId;
+		}
+
+		public void setDaysId(Integer daysId) {
+			this.daysId = daysId;
+		}
+
+		public Integer getStartTimeId() {
+			return startTimeId;
+		}
+
+		public void setStartTimeId(Integer startTimeId) {
+			this.startTimeId = startTimeId;
+		}
+
+		public Integer getEndTimeId() {
+			return endTimeId;
+		}
+
+		public void setEndTimeId(Integer endTimeId) {
+			this.endTimeId = endTimeId;
+		}
+
+		public Integer getCoursesId() {
+			return coursesId;
+		}
+
+		public void setCoursesId(Integer coursesId) {
+			this.coursesId = coursesId;
+		}
+
 		public String getTermsName() {
 			return termsName;
 		}
@@ -90,7 +154,7 @@ public class CourseSections {
 		public void setTermsName(String termsName) {
 			this.termsName = termsName;
 		}
-
+		
 		public String getSectionType() {
 			return sectionType;
 		}
@@ -147,18 +211,23 @@ public class CourseSections {
 			this.endTime = endTime;
 		}
 
-		//Auto-generated hashCode and equals
 		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
+			result = prime * result + ((coursesId == null) ? 0 : coursesId.hashCode());
 			result = prime * result + ((coursesNumber == null) ? 0 : coursesNumber.hashCode());
 			result = prime * result + ((coursesTitle == null) ? 0 : coursesTitle.hashCode());
 			result = prime * result + ((days == null) ? 0 : days.hashCode());
+			result = prime * result + ((daysId == null) ? 0 : daysId.hashCode());
 			result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
+			result = prime * result + ((endTimeId == null) ? 0 : endTimeId.hashCode());
+			result = prime * result + ((sectionId == null) ? 0 : sectionId.hashCode());
 			result = prime * result + ((sectionType == null) ? 0 : sectionType.hashCode());
+			result = prime * result + ((sectionTypeId == null) ? 0 : sectionTypeId.hashCode());
 			result = prime * result + ((sectionsName == null) ? 0 : sectionsName.hashCode());
 			result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
+			result = prime * result + ((startTimeId == null) ? 0 : startTimeId.hashCode());
 			result = prime * result + ((termsName == null) ? 0 : termsName.hashCode());
 			return result;
 		}
@@ -175,6 +244,13 @@ public class CourseSections {
 				return false;
 			}
 			CourseSections other = (CourseSections) obj;
+			if (coursesId == null) {
+				if (other.coursesId != null) {
+					return false;
+				}
+			} else if (!coursesId.equals(other.coursesId)) {
+				return false;
+			}
 			if (coursesNumber == null) {
 				if (other.coursesNumber != null) {
 					return false;
@@ -196,6 +272,13 @@ public class CourseSections {
 			} else if (!days.equals(other.days)) {
 				return false;
 			}
+			if (daysId == null) {
+				if (other.daysId != null) {
+					return false;
+				}
+			} else if (!daysId.equals(other.daysId)) {
+				return false;
+			}
 			if (endTime == null) {
 				if (other.endTime != null) {
 					return false;
@@ -203,11 +286,32 @@ public class CourseSections {
 			} else if (!endTime.equals(other.endTime)) {
 				return false;
 			}
+			if (endTimeId == null) {
+				if (other.endTimeId != null) {
+					return false;
+				}
+			} else if (!endTimeId.equals(other.endTimeId)) {
+				return false;
+			}
+			if (sectionId == null) {
+				if (other.sectionId != null) {
+					return false;
+				}
+			} else if (!sectionId.equals(other.sectionId)) {
+				return false;
+			}
 			if (sectionType == null) {
 				if (other.sectionType != null) {
 					return false;
 				}
 			} else if (!sectionType.equals(other.sectionType)) {
+				return false;
+			}
+			if (sectionTypeId == null) {
+				if (other.sectionTypeId != null) {
+					return false;
+				}
+			} else if (!sectionTypeId.equals(other.sectionTypeId)) {
 				return false;
 			}
 			if (sectionsName == null) {
@@ -224,6 +328,13 @@ public class CourseSections {
 			} else if (!startTime.equals(other.startTime)) {
 				return false;
 			}
+			if (startTimeId == null) {
+				if (other.startTimeId != null) {
+					return false;
+				}
+			} else if (!startTimeId.equals(other.startTimeId)) {
+				return false;
+			}
 			if (termsName == null) {
 				if (other.termsName != null) {
 					return false;
@@ -234,12 +345,13 @@ public class CourseSections {
 			return true;
 		}
 
-		//toString
 		@Override
 		public String toString() {
 			return "CourseSections [termsName=" + termsName + ", sectionType=" + sectionType + ", sectionsName="
 					+ sectionsName + ", days=" + days + ", coursesNumber=" + coursesNumber + ", coursesTitle="
-					+ coursesTitle + ", startTime=" + startTime + ", endTime=" + endTime + "]";
+					+ coursesTitle + ", startTime=" + startTime + ", endTime=" + endTime + ", sectionId=" + sectionId
+					+ ", sectionTypeId=" + sectionTypeId + ", daysId=" + daysId + ", startTimeId=" + startTimeId
+					+ ", endTimeId=" + endTimeId + ", coursesId=" + coursesId + "]";
 		}
 		
 }

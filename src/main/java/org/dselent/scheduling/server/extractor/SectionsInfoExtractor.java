@@ -84,6 +84,54 @@ public class SectionsInfoExtractor extends Extractor<List<SectionsInfo>>{
 				result.setFacultyLastName(null);
 			}
 			
+			result.setSectionsId(rs.getInt(SectionsInfo.getColumnName(SectionsInfo.Columns.SECTION_ID)));
+			if(rs.wasNull())
+			{
+				result.setSectionsId(null);
+			}
+			
+			result.setTermsId(rs.getInt(SectionsInfo.getColumnName(SectionsInfo.Columns.TERMS_ID)));
+			if(rs.wasNull())
+			{
+				result.setTermsId(null);
+			}
+			
+			result.setSectionTypeId(rs.getInt(SectionsInfo.getColumnName(SectionsInfo.Columns.SECTION_TYPE_ID)));
+			if(rs.wasNull())
+			{
+				result.setSectionTypeId(null);
+			}
+			
+			result.setDaysId(rs.getInt(SectionsInfo.getColumnName(SectionsInfo.Columns.DAYS_ID)));
+			if(rs.wasNull())
+			{
+				result.setDaysId(null);
+			}
+
+			result.setStartTimeId(rs.getInt(SectionsInfo.getColumnName(SectionsInfo.Columns.START_TIME_ID)));
+			if(rs.wasNull())
+			{
+				result.setStartTimeId(null);
+			}
+			
+			result.setEndTimeId(rs.getInt(SectionsInfo.getColumnName(SectionsInfo.Columns.END_TIME_ID)));
+			if(rs.wasNull())
+			{
+				result.setEndTimeId(null);
+			}
+			
+			result.setCoursesId(rs.getInt(SectionsInfo.getColumnName(SectionsInfo.Columns.COURSES_ID)));
+			if(rs.wasNull())
+			{
+				result.setCoursesId(null);
+			}
+			
+			result.setFacultyId(rs.getInt(SectionsInfo.getColumnName(SectionsInfo.Columns.FACULTY_ID)));
+			if(rs.wasNull())
+			{
+				result.setFacultyId(null);
+			}
+			
 			resultList.add(result);
 		}	
 		
