@@ -15,7 +15,7 @@ public class ViewOne {
 	                                                                                  
 	public static enum HeaderKey                                                      
 	{                                                                                 
-		USERS_ID;
+		
 	}                                                                                 
 	                                                                                  
 	public static enum ParameterKey                                                   
