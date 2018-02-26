@@ -65,10 +65,10 @@ public class UsersControllerImpl implements UsersController
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String email = request.get(Login.getBodyName(Login.BodyKey.EMAIL));
+		String username = request.get(Login.getBodyName(Login.BodyKey.USER_NAME));
 		String password = request.get(Login.getBodyName(Login.BodyKey.PASSWORD));
 
-		User user = userService.login(email, password); 
+		User user = userService.login(username, password); 
 		success.add(user);
 		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);

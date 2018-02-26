@@ -33,7 +33,7 @@ public class Login
 	
 	public static enum BodyKey
 	{
-		EMAIL,
+		USER_NAME,
 		PASSWORD;
 	}
 	

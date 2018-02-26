@@ -203,8 +203,13 @@ public class UserServiceImpl implements UserService
 		List<Pair<String, ColumnOrder>> facultyOrderByList = new ArrayList<>();
 		Pair<String, ColumnOrder> p1 = new Pair<String, ColumnOrder>(Faculty.getColumnName(Faculty.Columns.ID), ColumnOrder.ASC);
 		facultyOrderByList.add(p1);
-
-		Faculty facultyMember = facultyDao.select(facultySelectColumnNameList, facultyQueryTermList, facultyOrderByList).get(0);
+		List<Faculty> facultyList = facultyDao.select(facultySelectColumnNameList, facultyQueryTermList, facultyOrderByList);
+		Faculty facultyMember;
+		if (facultyList.size()>0) {
+			facultyMember = facultyList.get(0);
+		} else {
+			return null;
+		}
 
 		List<String> userSelectColumnNameList = User.getColumnNameList();
 
