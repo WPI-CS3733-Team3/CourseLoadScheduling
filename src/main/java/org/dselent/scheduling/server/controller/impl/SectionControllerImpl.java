@@ -148,8 +148,10 @@ public class SectionControllerImpl implements SectionController
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 
+		System.out.println("request: "+request.toString());
+		
 		//Get the sections if a courseId was passed in
-		if( request.get(View.getBodyName(View.BodyKey.COURSE_ID)) != null) {		
+		if(request.get(View.getBodyName(View.BodyKey.COURSE_ID)) != null) {		
 			Integer courseId = Integer.parseInt(request.get(View.getBodyName(View.BodyKey.COURSE_ID)));
 			success.add(sectionService.viewSection(courseId));
 		}
