@@ -111,7 +111,6 @@ CREATE TABLE course_load_type (
 CREATE TABLE sections (
 	id SERIAL PRIMARY KEY,
 	name varchar(255) NOT NULL,
-	crn int4 NOT NULL UNIQUE,
 	terms_id SERIAL NOT NULL REFERENCES terms(id),
 	section_type_id SERIAL NOT NULL REFERENCES section_type(id),
 	days_id SERIAL NOT NULL REFERENCES days(id),

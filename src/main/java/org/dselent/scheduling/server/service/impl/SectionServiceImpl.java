@@ -134,10 +134,12 @@ public class SectionServiceImpl implements SectionService
 	}
 	
 	@Override
-	public List<SectionsInfo> viewOneFaculty(Integer facultyId) throws SQLException{
+	public List<SectionsInfo> viewOneFaculty(Integer facultyId, Integer termsId) throws SQLException{
 		if(facultyId == null) {
     		return null;
+    	} else if (termsId == null) {
+    		return null;
     	}
-    	return customDao.getOneFacultySectionsInfo(facultyId);
+    	return customDao.getOneFacultySectionsInfo(facultyId, termsId);
 	}
 }

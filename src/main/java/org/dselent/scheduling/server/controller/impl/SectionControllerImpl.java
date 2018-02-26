@@ -172,10 +172,15 @@ public class SectionControllerImpl implements SectionController
 		List<Object> success = new ArrayList<Object>();
 		
 		//Get the sections if a courseId was passed in
-		if( request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.FACULTY_ID)) != null) {	
-			Integer facId = Integer.parseInt(request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.FACULTY_ID)));
-			success.add(sectionService.viewOneFaculty(facId));
+		Integer facultyId = 0;
+		Integer termsId = 0;
+		if( request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.FACULTY_ID)) != null) {		
+			facultyId = Integer.parseInt(request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.FACULTY_ID)));
 		}
+		if( request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.TERMS_ID)) != null) {		
+			termsId = Integer.parseInt(request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.TERMS_ID)));
+		}
+		success.add(sectionService.viewOneFaculty(facultyId, termsId));
 
 		//send response
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
