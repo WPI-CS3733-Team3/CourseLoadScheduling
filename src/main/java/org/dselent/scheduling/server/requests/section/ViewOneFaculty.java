@@ -25,7 +25,8 @@ public class ViewOneFaculty {
 
 	public static enum BodyKey
 	{
-		FACULTY_ID;
+		FACULTY_ID,
+		TERMS_ID;
 	}
 
 
