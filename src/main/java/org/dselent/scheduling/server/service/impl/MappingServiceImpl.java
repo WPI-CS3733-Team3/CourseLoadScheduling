@@ -62,7 +62,7 @@ public class MappingServiceImpl implements MappingService {
 	@Override
 	public List<EndTime> getEndTimes() throws SQLException {
 		List<EndTime> endTimeList = new ArrayList<>();
-		List<String> selectColumnNameList = StartTime.getColumnNameList();
+		List<String> selectColumnNameList = EndTime.getColumnNameList();
 
 		List<QueryTerm> queryTermList = new ArrayList<>();
 
@@ -78,7 +78,7 @@ public class MappingServiceImpl implements MappingService {
 	@Override
 	public List<Terms> getTerms() throws SQLException {
 		List<Terms> termsList = new ArrayList<>();
-		List<String> selectColumnNameList = StartTime.getColumnNameList();
+		List<String> selectColumnNameList = Terms.getColumnNameList();
 
 		List<QueryTerm> queryTermList = new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class MappingServiceImpl implements MappingService {
 	@Override
 	public List<Frequency> getFrequencies() throws SQLException {
 		List<Frequency> frequencyList = new ArrayList<>();
-		List<String> selectColumnNameList = StartTime.getColumnNameList();
+		List<String> selectColumnNameList = Frequency.getColumnNameList();
 
 		List<QueryTerm> queryTermList = new ArrayList<>();
 
@@ -110,7 +110,7 @@ public class MappingServiceImpl implements MappingService {
 	@Override
 	public List<SectionType> getSectionTypes() throws SQLException {
 		List<SectionType> sectionTypeList = new ArrayList<>();
-		List<String> selectColumnNameList = StartTime.getColumnNameList();
+		List<String> selectColumnNameList = SectionType.getColumnNameList();
 
 		List<QueryTerm> queryTermList = new ArrayList<>();
 

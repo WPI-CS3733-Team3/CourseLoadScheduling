@@ -109,7 +109,7 @@ public class CourseControllerImpl implements CourseController{
 	@Override
 	public ResponseEntity<String> viewAllCourse(@RequestBody Map<String, String> request) throws Exception{
 		// Print is for testing purposes
-		System.out.println("controller reached");
+		System.out.println("controller (view all courses) reached");
     	
 		// add any objects that need to be returned to the success list
 		String response = "";
