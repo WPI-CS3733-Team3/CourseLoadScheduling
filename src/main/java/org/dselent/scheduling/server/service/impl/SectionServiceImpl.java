@@ -46,7 +46,7 @@ public class SectionServiceImpl implements SectionService
 
 		Sections sections = new Sections();
 		sections.setName(dto.getName());
-		sections.setCrn(dto.getCrn());
+		//sections.setCrn(dto.getCrn());
 		sections.setTermsID(dto.getTermID());
 		sections.setSectionTypeID(dto.getSectionTypeID());
 		sections.setDaysID(dto.getDaysID());
@@ -136,5 +136,16 @@ public class SectionServiceImpl implements SectionService
 	@Override
 	public List<SectionsInfo> viewAllInfo() throws SQLException{
     	return customDao.getSectionsInfo();
+	}
+	
+	@Override
+	public List<SectionsInfo> viewOneFaculty(Integer facultyId, Integer termsId) throws SQLException{
+		if(facultyId == null) {
+    		return null;
+    	} else if (termsId == null) {
+    		return null;
+    	}
+    	return customDao.getOneFacultySectionsInfo(facultyId, termsId);
+
 	}
 }

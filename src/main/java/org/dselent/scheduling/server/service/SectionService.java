@@ -33,4 +33,5 @@ public interface SectionService
     public Integer removeSection(Integer id) throws SQLException;
     public List<CourseSections> viewSection(Integer courseId) throws SQLException;
 	public List<SectionsInfo> viewAllInfo() throws SQLException;
+	public List<SectionsInfo> viewOneFaculty(Integer facultyId, Integer termsId) throws SQLException;
 }

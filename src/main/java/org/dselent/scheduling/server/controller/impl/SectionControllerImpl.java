@@ -12,6 +12,7 @@ import org.dselent.scheduling.server.requests.section.Add;
 import org.dselent.scheduling.server.requests.section.Edit;
 import org.dselent.scheduling.server.requests.section.Remove;
 import org.dselent.scheduling.server.requests.section.View;
+import org.dselent.scheduling.server.requests.section.ViewAllInfo;
 import org.dselent.scheduling.server.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,7 +52,7 @@ public class SectionControllerImpl implements SectionController
 
 		//Add functions
 		String name = request.get(Add.getBodyName(Add.BodyKey.NAME));
-		Integer crn = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.CRN)));
+		//Integer crn = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.CRN)));
 		Integer termsID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.TERMS_ID)));
 		Integer sectionTypeID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.SECTION_TYPE_ID)));
 		Integer daysID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.DAYS_ID)));
@@ -62,7 +63,7 @@ public class SectionControllerImpl implements SectionController
 		//Add DTO
 		AddSectionDto.Builder builder = AddSectionDto.builder();
 		AddSectionDto addSectionDto = builder.withName(name)
-				.withCrn(crn)
+				//.withCrn(crn)
 				.withTermID(termsID)
 				.withSectionTypeID(sectionTypeID)
 				.withDaysID(daysID)
@@ -147,8 +148,10 @@ public class SectionControllerImpl implements SectionController
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 
+		System.out.println("request: "+request.toString());
+		
 		//Get the sections if a courseId was passed in
-		if( request.get(View.getBodyName(View.BodyKey.COURSE_ID)) != null) {		
+		if(request.get(View.getBodyName(View.BodyKey.COURSE_ID)) != null) {		
 			Integer courseId = Integer.parseInt(request.get(View.getBodyName(View.BodyKey.COURSE_ID)));
 			success.add(sectionService.viewSection(courseId));
 		}
@@ -170,6 +173,17 @@ public class SectionControllerImpl implements SectionController
 		
 		
 		success.add(sectionService.viewAllInfo());
+		//Get the sections if a courseId was passed in
+		Integer facultyId = 0;
+		Integer termsId = 0;
+		if( request.get(ViewAllInfo.getBodyName(ViewAllInfo.BodyKey.FACULTY_ID)) != null) {		
+			facultyId = Integer.parseInt(request.get(ViewAllInfo.getBodyName(ViewAllInfo.BodyKey.FACULTY_ID)));
+		}
+		if( request.get(ViewAllInfo.getBodyName(ViewAllInfo.BodyKey.TERMS_ID)) != null) {		
+			termsId = Integer.parseInt(request.get(ViewAllInfo.getBodyName(ViewAllInfo.BodyKey.TERMS_ID)));
+		}
+		success.add(sectionService.viewOneFaculty(facultyId, termsId));
+
 		//send response
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 

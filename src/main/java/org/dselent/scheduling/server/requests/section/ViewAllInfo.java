@@ -25,7 +25,8 @@ public class ViewAllInfo {
 
 	public static enum BodyKey
 	{
-
+		FACULTY_ID,
+		TERMS_ID;
 	}
 
 
