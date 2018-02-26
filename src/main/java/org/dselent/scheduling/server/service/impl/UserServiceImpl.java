@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.dao.AccountTypeDao;
+import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.dao.FacultyDao;
 import org.dselent.scheduling.server.dao.UsersDao;
 import org.dselent.scheduling.server.miscellaneous.Pair;
+import org.dselent.scheduling.server.model.AccountInfo;
 import org.dselent.scheduling.server.model.AccountType;
 import org.dselent.scheduling.server.model.Faculty;
 import org.dselent.scheduling.server.model.User;
@@ -34,6 +36,9 @@ public class UserServiceImpl implements UserService
 	
 	@Autowired
 	private AccountTypeDao accountTypeDao;
+	
+	@Autowired
+	private CustomDao customDao;
 
 	public UserServiceImpl()
 	{
@@ -329,5 +334,11 @@ public class UserServiceImpl implements UserService
     	List<Faculty> facultyList = facultyDao.select(facultySelectColumnNameList, qtlist, plist);
     	
     	return facultyList;
+	}
+    
+    @Override
+	public List<AccountInfo> viewUsers() throws SQLException
+	{
+    	return customDao.getAccountInfo();
 	}
 }

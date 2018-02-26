@@ -29,6 +29,9 @@ public interface UsersController
     
     @RequestMapping(method=RequestMethod.POST, value=ViewRoster.REQUEST_NAME)
     public ResponseEntity<String> viewRoster(@RequestBody Map<String, String> request) throws Exception;
+    
+    @RequestMapping(method=RequestMethod.POST, value=ViewUser.REQUEST_NAME)
+    public ResponseEntity<String> viewUser(@RequestBody Map<String, String> request) throws Exception;
 }
 
 	

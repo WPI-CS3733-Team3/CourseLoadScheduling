@@ -144,6 +144,26 @@ public class UsersControllerImpl implements UsersController
 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
+	
+	@Override
+	public ResponseEntity<String> viewUser(@RequestBody Map<String, String> request) throws Exception {
+		// Print is for testing purposes
+		System.out.println("controller (user/view/users) reached");
+    	
+		// add any objects that need to be returned to the success list
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+
+		success.add(userService.viewUsers());
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+		
+	}
+	
+	
+	
+	
 }
 
 	
