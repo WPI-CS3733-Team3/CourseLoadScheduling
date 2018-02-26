@@ -6,9 +6,9 @@ import java.util.List;
 import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public class ViewOneFaculty {
+public class ViewAllInfo {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "view/one";
+	public static final String REQUEST_NAME = "view/allInfo";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
@@ -25,7 +25,7 @@ public class ViewOneFaculty {
 
 	public static enum BodyKey
 	{
-		FACULTY_ID;
+
 	}
 
 
@@ -53,7 +53,7 @@ public class ViewOneFaculty {
 
 	};
 
-	private ViewOneFaculty()
+	private ViewAllInfo()
 	{
 
 	};

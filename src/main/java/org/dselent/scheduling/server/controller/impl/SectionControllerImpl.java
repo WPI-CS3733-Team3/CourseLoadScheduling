@@ -12,7 +12,6 @@ import org.dselent.scheduling.server.requests.section.Add;
 import org.dselent.scheduling.server.requests.section.Edit;
 import org.dselent.scheduling.server.requests.section.Remove;
 import org.dselent.scheduling.server.requests.section.View;
-import org.dselent.scheduling.server.requests.section.ViewOneFaculty;
 import org.dselent.scheduling.server.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -161,7 +160,7 @@ public class SectionControllerImpl implements SectionController
 	}
 
 	@Override
-	public ResponseEntity<String> viewOneFaculty(@RequestBody Map<String, String> request) throws Exception {
+	public ResponseEntity<String> viewAllInfo(@RequestBody Map<String, String> request) throws Exception {
 		// Print is for testing purposes
 		System.out.println("controller (section/view/one) reached");
 
@@ -169,12 +168,8 @@ public class SectionControllerImpl implements SectionController
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		//Get the sections if a courseId was passed in
-		if( request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.FACULTY_ID)) != null) {	
-			Integer facId = Integer.parseInt(request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.FACULTY_ID)));
-			success.add(sectionService.viewOneFaculty(facId));
-		}
-
+		
+		success.add(sectionService.viewAllInfo());
 		//send response
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
