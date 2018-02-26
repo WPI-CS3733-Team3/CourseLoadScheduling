@@ -32,4 +32,5 @@ public interface SectionService
 	public Sections editSection(EditSectionDto editSectionDto) throws SQLException;
     public Integer removeSection(Integer id) throws SQLException;
     public List<CourseSections> viewSection(Integer courseId) throws SQLException;
+	public List<SectionsInfo> viewOneFaculty(Integer facultyId) throws SQLException;
 }

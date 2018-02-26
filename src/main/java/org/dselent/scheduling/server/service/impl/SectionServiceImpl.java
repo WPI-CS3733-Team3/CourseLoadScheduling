@@ -44,14 +44,6 @@ public class SectionServiceImpl implements SectionService
 	{
 		List<Integer> rowsAffectedList = new ArrayList<>();
 
-		// TODO validate business constraints
-		// ^^students should do this^^
-		// password strength requirements
-		// email requirements
-		// null values
-		// etc...
-		//No constraints for section requests (I think?)
-
 		Sections sections = new Sections();
 		sections.setName(dto.getName());
 		sections.setCrn(dto.getCrn());
@@ -141,5 +133,11 @@ public class SectionServiceImpl implements SectionService
     	return customDao.getSectionsForCourse(courseId);
 	}
 	
-
+	@Override
+	public List<SectionsInfo> viewOneFaculty(Integer facultyId) throws SQLException{
+		if(facultyId == null) {
+    		return null;
+    	}
+    	return customDao.getOneFacultySectionsInfo(facultyId);
+	}
 }

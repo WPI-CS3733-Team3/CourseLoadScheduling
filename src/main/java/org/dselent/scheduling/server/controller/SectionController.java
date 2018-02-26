@@ -21,5 +21,8 @@ public interface SectionController
    	public ResponseEntity<String> removeSection(@RequestBody Map<String, String> request) throws Exception;  
     
     @RequestMapping(method=RequestMethod.POST, value=View.REQUEST_NAME)
-   	public ResponseEntity<String> viewSection(@RequestBody Map<String, String> request) throws Exception;  
+   	public ResponseEntity<String> viewSection(@RequestBody Map<String, String> request) throws Exception;
+    
+    @RequestMapping(method=RequestMethod.POST, value=ViewOneFaculty.REQUEST_NAME)
+   	public ResponseEntity<String> viewOneFaculty(@RequestBody Map<String, String> request) throws Exception;  
 }
