@@ -161,18 +161,18 @@ public class SectionControllerImpl implements SectionController
 	}
 
 	@Override
-	public ResponseEntity<String> viewOneFaculty(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> viewOneFaculty(@RequestBody Map<String, String> request) throws Exception {
 		// Print is for testing purposes
 		System.out.println("controller (section/view/one) reached");
 
 		// add any objects that need to be returned to the success list
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
-
+		
 		//Get the sections if a courseId was passed in
-		if( request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.FACULTY_ID)) != null) {		
-			Integer courseId = Integer.parseInt(request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.FACULTY_ID)));
-			success.add(sectionService.viewSection(courseId));
+		if( request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.FACULTY_ID)) != null) {	
+			Integer facId = Integer.parseInt(request.get(ViewOneFaculty.getBodyName(ViewOneFaculty.BodyKey.FACULTY_ID)));
+			success.add(sectionService.viewOneFaculty(facId));
 		}
 
 		//send response
