@@ -39,7 +39,7 @@ public class UsersControllerImpl implements UsersController
 	public ResponseEntity<String> createAccount(@RequestBody Map<String, String> request) throws Exception 
     {
     	// Print is for testing purposes
-		System.out.println("controller reached");
+		System.out.println("Create Account controller reached");
     	
 		// add any objects that need to be returned to the success list
 		String response = "";
@@ -59,7 +59,7 @@ public class UsersControllerImpl implements UsersController
 	public ResponseEntity<String> login(@RequestBody Map<String, String> request) throws Exception 
     {
     	// Print is for testing purposes
-		System.out.println("controller reached");
+		System.out.println("Login controller reached");
     	
 		// add any objects that need to be returned to the success list
 		String response = "";
@@ -80,7 +80,7 @@ public class UsersControllerImpl implements UsersController
 	public ResponseEntity<String> promote(@RequestBody Map<String, String> request) throws Exception
 	{
 		// Print is for testing purposes
-		System.out.println("controller reached");
+		System.out.println("Promote controller reached");
     	
 		// add any objects that need to be returned to the success list
 		String response = "";
@@ -97,7 +97,7 @@ public class UsersControllerImpl implements UsersController
 	@Override
 	public ResponseEntity<String> editAccount(@RequestBody Map<String, String> request) throws Exception 
 	{
-		System.out.println("controller reached");
+		System.out.println("Edit Account controller reached");
 		// add any objects that need to be returned to the success list
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
@@ -116,7 +116,7 @@ public class UsersControllerImpl implements UsersController
 	public ResponseEntity<String> deleteAccount(@RequestBody Map<String, String> request) throws Exception 
 	{
 		// Print is for testing purposes
-		System.out.println("controller reached");
+		System.out.println("Delete Account controller reached");
 		// add any objects that need to be returned to the success list
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
@@ -133,7 +133,7 @@ public class UsersControllerImpl implements UsersController
 	public ResponseEntity<String> viewRoster(@RequestBody Map<String, String> request) throws Exception
 	{
 		// Print is for testing purposes
-		System.out.println("controller reached");
+		System.out.println("View Roster controller reached");
     	
 		// add any objects that need to be returned to the success list
 		String response = "";
