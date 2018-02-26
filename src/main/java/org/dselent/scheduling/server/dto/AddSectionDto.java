@@ -13,7 +13,7 @@ import javax.annotation.Generated;
 public class AddSectionDto
 {
 	private final String name;
-	private final Integer crn;
+	//private final Integer crn;
 	private final Integer termID;
 	private final Integer sectionTypeID;
 	private final Integer daysID;
@@ -28,7 +28,7 @@ public class AddSectionDto
 		// can add defaults if null for other places where the builder pattern is used
 		
 		this.name = builder.name;
-		this.crn = builder.crn;
+		//this.crn = builder.crn;
 		this.termID = builder.termID;
 		this.sectionTypeID = builder.sectionTypeID;
 		this.daysID = builder.daysID;
@@ -43,10 +43,7 @@ public class AddSectionDto
 		{
 			throw new IllegalStateException("name cannot be null");
 		}
-		else if(this.crn == null)
-		{
-			throw new IllegalStateException("crn cannot be null");
-		}
+		
 		else if(this.termID == null)
 		{
 			throw new IllegalStateException("termID cannot be null");
@@ -78,10 +75,6 @@ public class AddSectionDto
 		return name;
 	}
 
-	public Integer getCrn()
-	{
-		return crn;
-	}
 
 	public Integer getTermID()
 	{
@@ -113,7 +106,6 @@ public class AddSectionDto
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((coursesID == null) ? 0 : coursesID.hashCode());
-		result = prime * result + ((crn == null) ? 0 : crn.hashCode());
 		result = prime * result + ((daysID == null) ? 0 : daysID.hashCode());
 		result = prime * result + ((endID == null) ? 0 : endID.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -136,11 +128,6 @@ public class AddSectionDto
 			if (other.coursesID != null)
 				return false;
 		} else if (!coursesID.equals(other.coursesID))
-			return false;
-		if (crn == null) {
-			if (other.crn != null)
-				return false;
-		} else if (!crn.equals(other.crn))
 			return false;
 		if (daysID == null) {
 			if (other.daysID != null)
@@ -181,8 +168,6 @@ public class AddSectionDto
 		StringBuilder builder = new StringBuilder();
 		builder.append("AddSectionDto [name=");
 		builder.append(name);
-		builder.append(", crn=");
-		builder.append(crn);
 		builder.append(", termID=");
 		builder.append(termID);
 		builder.append(", sectionTypeID=");
@@ -216,7 +201,6 @@ public class AddSectionDto
 	public static final class Builder
 	{
 		private String name;
-		private Integer crn;
 		private Integer termID;
 		private Integer sectionTypeID;
 		private Integer daysID;
@@ -234,11 +218,6 @@ public class AddSectionDto
 			return this;
 		}
 
-		public Builder withCrn(Integer crn)
-		{
-			this.crn = crn;
-			return this;
-		}
 
 		public Builder withTermID(Integer termID)
 		{

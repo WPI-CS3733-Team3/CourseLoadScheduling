@@ -46,7 +46,7 @@ public class SectionServiceImpl implements SectionService
 
 		Sections sections = new Sections();
 		sections.setName(dto.getName());
-		sections.setCrn(dto.getCrn());
+		//sections.setCrn(dto.getCrn());
 		sections.setTermsID(dto.getTermID());
 		sections.setSectionTypeID(dto.getSectionTypeID());
 		sections.setDaysID(dto.getDaysID());

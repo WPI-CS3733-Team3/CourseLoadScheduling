@@ -52,7 +52,7 @@ public class SectionControllerImpl implements SectionController
 
 		//Add functions
 		String name = request.get(Add.getBodyName(Add.BodyKey.NAME));
-		Integer crn = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.CRN)));
+		//Integer crn = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.CRN)));
 		Integer termsID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.TERMS_ID)));
 		Integer sectionTypeID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.SECTION_TYPE_ID)));
 		Integer daysID = Integer.parseInt(request.get(Add.getBodyName(Add.BodyKey.DAYS_ID)));
@@ -63,7 +63,7 @@ public class SectionControllerImpl implements SectionController
 		//Add DTO
 		AddSectionDto.Builder builder = AddSectionDto.builder();
 		AddSectionDto addSectionDto = builder.withName(name)
-				.withCrn(crn)
+				//.withCrn(crn)
 				.withTermID(termsID)
 				.withSectionTypeID(sectionTypeID)
 				.withDaysID(daysID)
