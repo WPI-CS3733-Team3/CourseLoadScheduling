@@ -10,7 +10,7 @@ sections.section_type_id AS section_type_id,
 sections.days_id AS days_id,
 sections.start_id AS start_time_id,
 sections.end_id AS end_time_id,
-sections.course_id AS course_id,
+sections.courses_id AS courses_id,
 terms.name AS terms_name,
 section_type.type AS section_type,
 days.day AS days,
@@ -21,7 +21,7 @@ end_time.time AS end_time,
 sections.name AS sections_name,
 faculty.first_name AS faculty_first_name,
 faculty.last_name AS faculty_last_name,
-sections.faculty_id AS faculty_id
+schedule.faculty_id AS faculty_id
 FROM schedule
 LEFT JOIN sections ON schedule.sections_id = sections.id
 LEFT JOIN terms ON terms.id =  sections.terms_id
