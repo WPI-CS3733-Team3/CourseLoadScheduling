@@ -163,7 +163,7 @@ public class SectionControllerImpl implements SectionController
 	@Override
 	public ResponseEntity<String> viewOneFaculty(Map<String, String> request) throws Exception {
 		// Print is for testing purposes
-		System.out.println("controller (section/view) reached");
+		System.out.println("controller (section/view/one) reached");
 
 		// add any objects that need to be returned to the success list
 		String response = "";
