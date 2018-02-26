@@ -8,3 +8,4 @@
 /.classpath
 .tomcatplugin
 */.DS_Store
+*.class
